@@ -5,16 +5,26 @@
  * @author	Syahril Hermana
  */
 
-class auth extends CI_Controller {
+class dashboard extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
 
-		$this->securityGuard->is_access();
+		// init twiggy
+		$this->twiggy->title('CodeIgniter Plus');
+
+		$this->twiggy->meta('keywords', 'codeigniter-plus');
+		$this->twiggy->meta('description', 'CodeIgniter Plus');
+		$this->twiggy->meta('viewport', 'width=device-width, initial-scale=1, maximum-scale=1');
 	}
 	
 	public function index(){
-		$this->load->view('index');
+		// setup csrf token
+		$this->twiggy->set('_csrf', $this->security->get_csrf_token_name());
+		$this->twiggy->set('_token', $this->security->get_csrf_hash());
+
+		// Render your page
+		$this->twiggy->template('dashboard/index')->display();
 	}
 
 }
