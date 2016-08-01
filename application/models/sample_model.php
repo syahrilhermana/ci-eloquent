@@ -3,7 +3,7 @@
  * Created by syaharil.hermana@gmail.com
  */
 
-use Elegant\Model as Model;
+use Eloquent\Model as Model;
 
 class Sample_model extends Model {
     protected $table = "sample";

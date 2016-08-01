@@ -1,7 +1,7 @@
-<?php namespace Elegant\Relations;
+<?php namespace Eloquent\Relations;
 
-use Elegant\Model;
-use Elegant\QueryBuilder;
+use Eloquent\Model;
+use Eloquent\QueryBuilder;
 
 class BelongsToMany extends Relation {
 

@@ -1,6 +1,6 @@
-<?php namespace Elegant;
+<?php namespace Eloquent;
 
-use Elegant\Helper as Helper;
+use Eloquent\Helper as Helper;
 
 class Row {
 

@@ -1,9 +1,9 @@
-<?php namespace Elegant;
+<?php namespace Eloquent;
 
 use Countable;
 use ArrayIterator;
 use IteratorAggregate;
-use Elegant\Row;
+use Eloquent\Row;
 
 class Result implements Countable, IteratorAggregate {
 

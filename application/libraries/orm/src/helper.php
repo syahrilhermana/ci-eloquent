@@ -1,4 +1,4 @@
-<?php namespace Elegant;
+<?php namespace Eloquent;
 class Helper {
 
 	/**

@@ -1,0 +1,15 @@
+{
+  "name": "evaluasi-monitoring",
+  "description": "Evaluasi monitoring KKP",
+  "authors": [
+    {
+      "name": "Syahril Hermana",
+      "email": "syahril.hermana@gmail.com"
+    }
+  ],
+  "require": {
+    "zendframework/zend-config": "~2.3",
+    "zendframework/zend-http": "~2.3",
+    "firebase/php-jwt": "dev-master"
+  }
+}

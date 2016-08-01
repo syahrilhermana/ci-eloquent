@@ -1,12 +1,12 @@
-<?php namespace Elegant\Relations;
+<?php namespace Eloquent\Relations;
 
 use Countable;
 use ArrayIterator;
 use IteratorAggregate;
 use EmptyIterator;
-use Elegant\Model;
-use Elegant\Result;
-use Elegant\Row;
+use Eloquent\Model;
+use Eloquent\Result;
+use Eloquent\Row;
 
 abstract class Relation implements Countable, IteratorAggregate {
 

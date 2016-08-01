@@ -1,8 +1,8 @@
-<?php namespace Elegant;
+<?php namespace Eloquent;
 
-use Elegant\QueryBuilder;
-use Elegant\Result;
-use Elegant\Helper;
+use Eloquent\QueryBuilder;
+use Eloquent\Result;
+use Eloquent\Helper;
 
 class Model {
 	protected $ci = null;

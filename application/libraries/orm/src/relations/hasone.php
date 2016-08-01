@@ -1,6 +1,6 @@
-<?php namespace Elegant\Relations;
+<?php namespace Eloquent\Relations;
 
-use Elegant\Model;
+use Eloquent\Model;
 
 class HasOne extends Relation {
 

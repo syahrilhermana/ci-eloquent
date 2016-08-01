@@ -18,6 +18,7 @@
 	<?= css('materialadmin.css', 'all', 'css_path'); ?>
 	<?= css('font-awesome.css', 'all', 'css_path'); ?>
 	<?= css('material-design-iconic-font.css', 'all', 'css_path'); ?>
+	<?= css('picto-iconic-font.css', 'all', 'css_path'); ?>
 	<?= css('libs/rickshaw/rickshaw.css', 'all', 'css_path'); ?>
 	<?= css('libs/morris/morris.core.css', 'all', 'css_path'); ?>
 	<!-- END STYLESHEETS -->
