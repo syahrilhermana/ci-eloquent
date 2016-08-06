@@ -49,8 +49,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'hello';
-$route['404_override'] = '';
+$route['default_controller'] = 'auth';
+$route['404_override'] = 'error/page_missing';
 $route['translate_uri_dashes'] = FALSE;
 
 /*
@@ -58,5 +58,5 @@ $route['translate_uri_dashes'] = FALSE;
 | REST API ROUTES
 | -------------------------------------------------------------------------
 */
-$route['api/example/data/(:num)'] = 'api/data/id/$1'; // Example 4
-$route['api/example/data/(:num)(\.)([a-zA-Z0-9_-]+)(.*)'] = 'api/data/id/$1/format/$3$4'; // Example 8
+$route['api/example/data/(:num)'] = 'api/data/id/$1';
+$route['api/example/data/(:num)(\.)([a-zA-Z0-9_-]+)(.*)'] = 'api/data/id/$1/format/$3$4';

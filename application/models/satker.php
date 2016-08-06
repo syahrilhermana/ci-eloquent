@@ -17,7 +17,7 @@ class Satker extends Model {
         $this->CI =& get_instance();
     }
 
-    public function get_biofisik($offset, $limit, $search, $sortCol, $sortDir)
+    public function get_satker($offset, $limit, $search, $sortCol, $sortDir)
     {
         if($search != ""){
             $this->CI->db->like("mst_satker_name", $search);
@@ -27,7 +27,7 @@ class Satker extends Model {
         return $this->CI->db->get($this->table, $limit, $offset);
     }
 
-    public function get_biofisik_count($search = "")
+    public function get_satker_count($search = "")
     {
         $this->CI->db->select($this->id);
         if($search != "") {

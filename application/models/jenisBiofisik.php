@@ -5,7 +5,7 @@
 
 use Eloquent\Model as Model;
 
-class jenisBiofisik extends Model {
+class JenisBiofisik extends Model {
     protected $table = "mst_jenis_biofisik";
     protected $primary = "mst_jenis_biofisik_id";
     var $CI = NULL;
@@ -17,7 +17,7 @@ class jenisBiofisik extends Model {
         $this->CI =& get_instance();
     }
 
-    public function get_biofisik($offset, $limit, $search, $sortCol, $sortDir)
+    public function get_jenis_biofisik($offset, $limit, $search, $sortCol, $sortDir)
     {
         if($search != ""){
             $this->CI->db->like("mst_biofisik_name", $search);
@@ -27,7 +27,7 @@ class jenisBiofisik extends Model {
         return $this->CI->db->get($this->table, $limit, $offset);
     }
 
-    public function get_biofisik_count($search = "")
+    public function get_jenis_biofisik_count($search = "")
     {
         $this->CI->db->select($this->id);
         if($search != "") {

@@ -17,7 +17,7 @@ class SumberVerifikasi extends Model {
         $this->CI =& get_instance();
     }
 
-    public function get_biofisik($offset, $limit, $search, $sortCol, $sortDir)
+    public function get_sumber_verifikasi($offset, $limit, $search, $sortCol, $sortDir)
     {
         if($search != ""){
             $this->CI->db->like("mst_sumber_verifikasi_name", $search);
@@ -27,7 +27,7 @@ class SumberVerifikasi extends Model {
         return $this->CI->db->get($this->table, $limit, $offset);
     }
 
-    public function get_biofisik_count($search = "")
+    public function get_sumber_verifikasi_count($search = "")
     {
         $this->CI->db->select($this->id);
         if($search != "") {
