@@ -12,7 +12,7 @@ class biofisiks extends CI_Controller {
 		parent::__construct();
 
 		// init twiggy
-		$this->twiggy->title('CodeIgniter Plus');
+		$this->twiggy->title($this->config->item('application'));
 
 		$this->twiggy->meta('keywords', 'codeigniter-plus');
 		$this->twiggy->meta('description', 'CodeIgniter Plus');
@@ -26,6 +26,70 @@ class biofisiks extends CI_Controller {
 	
 	public function index(){
 		$this->twiggy->template('master/biofisik/index')->display();
+	}
+
+	public function datatable()
+	{
+		if($this->input->is_ajax_request())
+		{
+			// variable initialization
+			$search = "";
+			$start = 0;
+			$rows = 10;
+			$this->model = new Biofisik();
+
+			// get search value (if any)
+			if (isset($_GET['search']['value']) && $_GET['search']['value'] != "" ) {
+				$search = $_GET['search']['value'];
+			}
+
+			// limit
+			$start = $this->datatables->getOffset();
+			$rows = $this->datatables->getLimit();
+
+			// sort
+//			$sortDir = $this->datatables->getSortDir();
+//			$sortCol = $this->datatables->getSortCol(array(""));
+
+			// run query to get user listing
+			$list   = $this->model->get_biofisik($start, $rows, $search, null, null);
+			$iTotal = $this->model->get_biofisik_count($search);
+
+			if($search != "")$iFilteredTotal = $this->model->get_biofisik_count($search);
+			else $iFilteredTotal = $iTotal;
+
+			/*
+             * Output
+             */
+			$output = array(
+				"sEcho" => intval($_GET['draw']),
+				"iTotalRecords" => $iTotal,
+				"iTotalDisplayRecords" => $iFilteredTotal,
+				"aaData" => array()
+			);
+
+			print_r($_GET); echo "<br/>";
+			print_r($list);exit;
+			// get result after running query and put it in array
+			$no = $start+1;
+			foreach ($list->result_array() as $row) {
+				$record = array();
+
+				$record[] = $no++;
+				$record[] = $row['mst_biofisik_name'];
+
+				$record[] = '<div class="btn-group">
+                               <a href="'.base_url('admin/category/form/'.$row['mst_biofisik_id']).'" title="Ubah" id="edit" class="btn btn-xs btn-default"><i class="fa fa-edit"></i></a>
+                               <a href="javascript:void(0)" onclick="confirmDirectPopUp(\''.base_url('admin/category/delete/'.$row['mst_biofisik_id']).'\', \'Confirmation\', \'<strong>Are you sure you want to permanently erase the items?</strong> <br/> You can’t undo this action. \', \'Delete it\', \'Cancel\');" title="delete" class="btn btn-xs btn-default"><i class="fa fa-trash"></i></a>
+                             </div>';
+
+				$output['aaData'][] = $record;
+			}
+			// format it to JSON, this output will be displayed in datatable
+			echo json_encode($output);
+		}else {
+			show_404();
+		}
 	}
 
 	public function edit($id){

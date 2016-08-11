@@ -6,12 +6,133 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>CodeIgniter Plus</title>
+    <title>{{ title }}</title>
+
+    {{ meta }}
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900' rel='stylesheet' type='text/css'/>
+    {{ css('bootstrap.css', 'all', 'css') }}
+    {{ css('materialadmin.css', 'all', 'css') }}
+    {{ css('font-awesome.css', 'all', 'css') }}
+    {{ css('material-design-iconic-font.css', 'all', 'css') }}
+    {{ css('picto-iconic-font.css', 'all', 'css') }}
+    {{ css('libs/rickshaw/rickshaw.css', 'all', 'css') }}
+    {{ css('libs/morris/morris.core.css', 'all', 'css') }}
+    {{ css('libs/dropzone/dropzone-theme.css', 'all', 'css') }}
+
+    {{ css('libs/DataTables/jquery.dataTables.css', 'all', 'css') }}
+    {{ css('libs/DataTables/extensions/dataTables.colVis.css', 'all', 'css') }}
+    {{ css('libs/DataTables/extensions/dataTables.tableTools.css', 'all', 'css') }}
+
+    <!--[if lt IE 9]>
+    {{ js('libs/utils/html5shiv.js', 'js') }}
+    {{ js('libs/utils/respond.min.js', 'js') }}
+    <![endif]-->
 </head>
-<body>
+<body class="menubar-hoverable header-fixed">
     {% include '_layouts/header.html.twig' %}
 
-    {% block content %}
+    <div id="base">
+
+        <div class="offcanvas">
+        </div>
+
+        <div id="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        <div id="menubar" class="menubar-inverse ">
+            <div class="menubar-fixed-panel">
+                <div>
+                    <a class="btn btn-icon-toggle btn-default menubar-toggle" data-toggle="menubar" href="javascript:void(0);">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                </div>
+                <div class="expanded">
+                    <a href="#">
+                        <span class="text-lg text-bold text-primary ">BL</span>
+                    </a>
+                </div>
+            </div>
+            <div class="menubar-scroll-panel">
+
+                <ul id="main-menu" class="gui-controls">
+
+                    <li>
+                        <a href="#" class="active">
+                            <div class="gui-icon"><i class="md md-home"></i></div>
+                            <span class="title">Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li class="gui-folder">
+                        <a>
+                            <div class="gui-icon"><i class="md md-computer"></i></div>
+                            <span class="title">Core</span>
+                        </a>
+                        <ul>
+                            <li><a href="#" ><span class="title">File Processing</span></a></li>
+                            <li><a href="#" ><span class="title">Users</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="gui-folder">
+                        <a>
+                            <div class="gui-icon"><i class="md md-email"></i></div>
+                            <span class="title">Campaign</span>
+                        </a>
+                        <ul>
+                            <li><a href="#" ><span class="title">Filter</span></a></li>
+                            <li><a href="#" ><span class="title">Campaign</span></a></li>
+                            <li><a href="#" ><span class="title">Distribution</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="gui-folder">
+                        <a>
+                            <div class="gui-icon"><i class="md md-assessment"></i></div>
+                            <span class="title">Report</span>
+                        </a>
+                        <ul>
+                            <li><a href="#" ><span class="title">Analytic Report</span></a></li>
+                            <li><a href="#" ><span class="title">Detail Report</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="menubar-foot-panel">
+                    <small class="no-linebreak hidden-folded">
+                        <span class="opacity-75">Copyright &copy; 2016</span> <strong>&nbsp;</strong>
+                    </small>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    {{ js('libs/jquery/jquery-1.11.2.min.js', 'js') }}
+    {{ js('libs/jquery/jquery-migrate-1.2.1.min.js', 'js') }}
+    {{ js('libs/bootstrap/bootstrap.min.js', 'js') }}
+    {{ js('libs/spin.js/spin.min.js', 'js') }}
+    {{ js('libs/autosize/jquery.autosize.min.js', 'js') }}
+    {{ js('libs/moment/moment.min.js', 'js') }}
+    {{ js('libs/dropzone/dropzone.min.js', 'js') }}
+    {{ js('libs/nanoscroller/jquery.nanoscroller.min.js', 'js') }}
+    {% block js %}
+    {% endblock %}
+
+    {{ js('libs/jquery-validation/dist/jquery.validate.min.js', 'js') }}
+    {{ js('libs/jquery-validation/dist/additional-methods.min.js', 'js') }}
+
+    {{ js('core/source/App.js', 'js') }}
+    {{ js('core/source/AppNavigation.js', 'js') }}
+    {{ js('core/source/AppOffcanvas.js', 'js') }}
+    {{ js('core/source/AppCard.js', 'js') }}
+    {{ js('core/source/AppForm.js', 'js') }}
+    {{ js('core/source/AppNavSearch.js', 'js') }}
+    {{ js('core/source/AppVendor.js', 'js') }}
+
+    {% block js_core %}
     {% endblock %}
 </body>
 </html>

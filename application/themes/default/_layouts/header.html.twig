@@ -1,1 +1,42 @@
-<h1>Sample Header</h1>
+<header id="header" >
+    <div class="headerbar">
+
+        <div class="headerbar-left">
+            <ul class="header-nav header-nav-options">
+                <li class="header-nav-brand" >
+                    <div class="brand-holder">
+                        <a href="../../html/dashboards/dashboard.html">
+                            <span class="text-lg text-bold text-primary">{{ config['code'] }}</span>
+                        </a>
+                    </div>
+                </li>
+                <li>
+                    <a class="btn btn-icon-toggle menubar-toggle" data-toggle="menubar" href="javascript:void(0);">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="headerbar-right">
+            <ul class="header-nav header-nav-profile">
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle ink-reaction" data-toggle="dropdown">
+                        {{ img('avatar.jpg', 'img', []) }}
+								<span class="profile-info">
+									Syahril Hermana
+									<small>Administrator</small>
+								</span>
+                    </a>
+                    <ul class="dropdown-menu animation-dock">
+                        <li class="dropdown-header">Config</li>
+                        <li><a href="../../html/pages/profile.html">My Profile</a></li>
+                        <li><a href="../../html/pages/calendar.html">Change Password</a></li>
+                        <li class="divider"></li>
+                        <li><a href="../../html/pages/login.html"><i class="fa fa-fw fa-power-off text-danger"></i> Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>

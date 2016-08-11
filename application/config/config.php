@@ -1,6 +1,18 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+
+/*
+|--------------------------------------------------------------------------
+| Application Information
+|--------------------------------------------------------------------------
+|
+*/
+$config['application']  = "Coremap CTI KKP";
+$config['code']         = "CTI KKP";
+$config['version']      = "v.1.0";
+$config['description']  = "application ...";
+
 /*
 |--------------------------------------------------------------------------
 | Base Site URL

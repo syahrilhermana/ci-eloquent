@@ -11,7 +11,7 @@ class dashboard extends CI_Controller {
 		parent::__construct();
 
 		// init twiggy
-		$this->twiggy->title('CodeIgniter Plus');
+		$this->twiggy->title($this->config->item('application'));
 
 		$this->twiggy->meta('keywords', 'codeigniter-plus');
 		$this->twiggy->meta('description', 'CodeIgniter Plus');

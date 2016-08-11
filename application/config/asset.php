@@ -18,14 +18,14 @@
 */
 
 // general
-$config['asset_path'] 		= 'public/';
+$config['asset'] 	= 'public/';
 
-$config['css_path'] 		= 'public/css/';
-$config['js_path'] 			= 'public/js/';
-$config['img_path'] 		= 'public/images/';
+$config['css'] 		= 'public/css/';
+$config['js'] 		= 'public/js/';
+$config['img'] 		= 'public/images/';
 
 // media
-$config['media']            = 'media/';
+$config['media']    = 'media/';
 
 
 /* End of file asset.php */
