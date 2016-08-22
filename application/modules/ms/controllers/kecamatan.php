@@ -5,8 +5,9 @@
  * @author	Syahril Hermana
  */
 
-class kecamatans extends CI_Controller {
+class kecamatan extends CI_Controller {
 	protected $model;
+	protected $direct;
 
 	public function __construct() {
 		parent::__construct();
@@ -21,39 +22,49 @@ class kecamatans extends CI_Controller {
 		// generate csrf
 		$this->twiggy->set('_csrf', $this->security->get_csrf_token_name());
 		$this->twiggy->set('_token', $this->security->get_csrf_hash());
+
+		$this->direct = base_url('ms/kecamatan');
 	}
 	
 	public function index(){
-		$this->twiggy->template('master/biofisik/index')->display();
+		/**
+		 * FIXME
+		 * this only temporary set list object data
+		 * please switch to ajax request to datatable() method if this page has rendered
+		 */
+
+		$this->twiggy->set('list', KecamatanEntity::all());
+
+		$this->twiggy->template('master/kecamatan/index')->display();
 	}
 
-	public function edit($id){
-		if ($id == null) {
-			redirect($this->index());
+	public function form($id=null){
+		$this->twiggy->set('list', KotaEntity::all());
+
+		if ($id != null) {
+			$this->model = KecamatanEntity::find($id);
+			$this->twiggy->set('object', $this->model);
 		}
 
-		$this->model = Kecamatan::find($id);
-		if ($this->model) {
-			$this->twiggy->template('master/biofisik/form')->display();
-		} else {
-			redirect($this->index());
-		}
+		$this->twiggy->template('master/kecamatan/form')->display();
 	}
 
 	public function delete($id){
 		if ($id == null) {
-			redirect($this->index());
+			redirect($this->direct, 'location', 303);
 		}
 
-		Kecamatan::delete($id);
+		KecamatanEntity::delete($id);
+
+		redirect($this->direct, 'location', 303);
 	}
 
 	public function submit(){
 		try {
 			if ($this->input->post('id') == null) {
-				$this->model = new JenisProduk();
+				$this->model = new KecamatanEntity();
 			} else {
-				$this->model = Kecamatan::find($this->input->post('id'));
+				$this->model = KecamatanEntity::find($this->input->post('id'));
 			}
 
 			$this->model->mst_kota_id			= $this->input->post('kota');
@@ -63,6 +74,8 @@ class kecamatans extends CI_Controller {
 		} catch(Exception $e) {
 			$e->getMessage();
 		}
+
+		redirect($this->direct, 'location', 303);
 	}
 }
 

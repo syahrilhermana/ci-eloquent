@@ -1,0 +1,61 @@
+{% extends _layout %}
+
+
+{% block content %}
+    <section>
+        <div class="section-header">
+            <ol class="breadcrumb">
+                <li><a href="{{ site_url('dashboard') }}">dashboard</a></li>
+                <li><a href="{{ site_url('ms/desa') }}">desa</a></li>
+                <li class="active">List Data</li>
+            </ol>
+        </div>
+        <div class="section-body contain-lg">
+
+            <div class="card card-underline">
+                <div class="card-head">
+                    <header>Desa</header>
+                    <div class="tools">
+                        <div class="btn-group">
+                            <a class="btn btn-icon-toggle btn-collapse"><i class="fa fa-angle-down"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="datatable1" class="table table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th>Desa</th>
+                                <th style="width: 20%">#</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for data in list %}
+                                <tr>
+                                    <td>{{ data.mst_desa_name }}</td>
+                                    <td>
+                                        <div class="btn-group btn-group-justified" role="group" aria-label="Justified button group">
+                                            <a href="{{ site_url('ms/desa/form') }}/{{ data.mst_desa_id }}" class="btn ink-reaction btn-primary" role="button"><i class="fa fa-fw fa-edit text-default-bright"></i> Edit</a>
+                                            <a href="{{ site_url('ms/desa/delete') }}/{{ data.mst_desa_id }}" class="btn ink-reaction btn-danger" role="button"><i class="fa fa-fw fa-times text-default-bright"></i> Delete</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+
+{% block js_core %}
+    {{ js('core/demo/Demo.js', 'js') }}
+{% endblock %}

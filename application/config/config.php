@@ -9,7 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $config['application']  = "Coremap CTI KKP";
-$config['code']         = "CTI KKP";
+$config['code']         = "iReport";
 $config['version']      = "v.1.0";
 $config['description']  = "application ...";
 

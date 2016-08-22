@@ -23,6 +23,8 @@
     {{ css('libs/DataTables/jquery.dataTables.css', 'all', 'css') }}
     {{ css('libs/DataTables/extensions/dataTables.colVis.css', 'all', 'css') }}
     {{ css('libs/DataTables/extensions/dataTables.tableTools.css', 'all', 'css') }}
+    {% block style %}
+    {% endblock %}
 
     <!--[if lt IE 9]>
     {{ js('libs/utils/html5shiv.js', 'js') }}
@@ -69,17 +71,17 @@
                     <li class="gui-folder">
                         <a>
                             <div class="gui-icon"><i class="md md-computer"></i></div>
-                            <span class="title">Core</span>
+                            <span class="title">Master</span>
                         </a>
                         <ul>
-                            <li><a href="#" ><span class="title">File Processing</span></a></li>
-                            <li><a href="#" ><span class="title">Users</span></a></li>
+                            <li><a href="{{ site_url('ms/biofisiks') }}" ><span class="title">Biofisik</span></a></li>
+                            <li><a href="{{ site_url('ms/desa') }}" ><span class="title">Desa</span></a></li>
                         </ul>
                     </li>
                     <li class="gui-folder">
                         <a>
                             <div class="gui-icon"><i class="md md-email"></i></div>
-                            <span class="title">Campaign</span>
+                            <span class="title">Transaksi</span>
                         </a>
                         <ul>
                             <li><a href="#" ><span class="title">Filter</span></a></li>

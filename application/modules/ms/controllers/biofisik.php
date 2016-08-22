@@ -5,8 +5,9 @@
  * @author	Syahril Hermana
  */
 
-class biofisiks extends CI_Controller {
+class biofisik extends CI_Controller {
 	protected $model;
+	protected $direct;
 
 	public function __construct() {
 		parent::__construct();
@@ -22,9 +23,18 @@ class biofisiks extends CI_Controller {
 		$this->twiggy->set('_csrf', $this->security->get_csrf_token_name());
 		$this->twiggy->set('_token', $this->security->get_csrf_hash());
 
+		$this->direct = base_url('ms/biofisik');
 	}
 	
 	public function index(){
+		/**
+		 * FIXME
+		 * this only temporary set list object data
+		 * please switch to ajax request to datatable() method if this page has rendered
+		 */
+
+		$this->twiggy->set('list', BiofisikEntity::all());
+
 		$this->twiggy->template('master/biofisik/index')->display();
 	}
 
@@ -36,7 +46,7 @@ class biofisiks extends CI_Controller {
 			$search = "";
 			$start = 0;
 			$rows = 10;
-			$this->model = new Biofisik();
+			$this->model = new BiofisikEntity();
 
 			// get search value (if any)
 			if (isset($_GET['search']['value']) && $_GET['search']['value'] != "" ) {
@@ -68,8 +78,6 @@ class biofisiks extends CI_Controller {
 				"aaData" => array()
 			);
 
-			print_r($_GET); echo "<br/>";
-			print_r($list);exit;
 			// get result after running query and put it in array
 			$no = $start+1;
 			foreach ($list->result_array() as $row) {
@@ -92,40 +100,41 @@ class biofisiks extends CI_Controller {
 		}
 	}
 
-	public function edit($id){
-		if ($id == null) {
-			redirect($this->index());
+	public function form($id=null){
+		if ($id != null) {
+			$this->model = BiofisikEntity::find($id);
+			$this->twiggy->set('object', $this->model);
 		}
 
-		$this->model = Biofisik::find($id);
-		if ($this->model) {
-			$this->twiggy->template('master/biofisik/form')->display();
-		} else {
-			redirect($this->index());
-		}
+		$this->twiggy->template('master/biofisik/form')->display();
 	}
 
 	public function delete($id){
 		if ($id == null) {
-			redirect($this->index());
+			redirect($this->direct, 'location', 303);
 		}
 
-		Biofisik::delete($id);
+		BiofisikEntity::delete($id);
+
+		redirect($this->direct, 'location', 303);
 	}
 
 	public function submit(){
 		try {
 			if ($this->input->post('id') == null) {
-				$this->model = new Biofisik();
+				$this->model = new BiofisikEntity();
 			} else {
-				$this->model = Biofisik::find($this->input->post('id'));
+				$this->model = BiofisikEntity::find($this->input->post('id'));
 			}
 
 			$this->model->mst_biofisik_name = $this->input->post('name');
 
 			$this->model->save();
+
+			redirect($this->direct, 'location', 303);
 		} catch(Exception $e) {
 			$e->getMessage();
+			redirect($this->direct, 'location', 303);
 		}
 	}
 }
