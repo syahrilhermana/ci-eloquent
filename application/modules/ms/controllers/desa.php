@@ -7,6 +7,7 @@
 
 class desa extends CI_Controller {
 	protected $model;
+	protected $direct;
 
 	public function __construct() {
 		parent::__construct();
@@ -22,47 +23,59 @@ class desa extends CI_Controller {
 		$this->twiggy->set('_csrf', $this->security->get_csrf_token_name());
 		$this->twiggy->set('_token', $this->security->get_csrf_hash());
 
+		$this->direct = base_url('ms/desa');
 	}
 	
 	public function index(){
+		/**
+		 * FIXME
+		 * this only temporary set list object data
+		 * please switch to ajax request to datatable() method if this page has rendered
+		 */
+
+		$this->twiggy->set('list', DesaEntity::all());
+
 		$this->twiggy->template('master/desa/index')->display();
 	}
 
-	public function edit($id){
-		if ($id == null) {
-			redirect($this->index());
+	public function form($id=null){
+		$this->twiggy->set('list', KecamatanEntity::all());
+
+		if ($id != null) {
+			$this->model = DesaEntity::find($id);
+			$this->twiggy->set('object', $this->model);
 		}
 
-        $this->model = Desa::find($id);
-		if ($this->model) {
-			$this->twiggy->template('master/desa/form')->display();
-		} else {
-			redirect($this->index());
-		}
+		$this->twiggy->template('master/desa/form')->display();
 	}
 
 	public function delete($id){
 		if ($id == null) {
-			redirect($this->index());
+			redirect($this->direct, 'location', 303);
 		}
 
-		Desa::delete($id);
+		DesaEntity::delete($id);
+
+		redirect($this->direct, 'location', 303);
 	}
 
 	public function submit(){
 		try {
 			if ($this->input->post('id') == null) {
-                $this->model = new Desa();
+                $this->model = new DesaEntity();
 			} else {
-                $this->model = Desa::find($this->input->post('id'));
+                $this->model = DesaEntity::find($this->input->post('id'));
 			}
 
             $this->model->mst_desa_name	= $this->input->post('name');
             $this->model->mst_kecamatan_id	= $this->input->post('kecamatan');
 
             $this->model->save();
+
+			redirect($this->direct, 'location', 303);
 		} catch(Exception $e) {
 			$e->getMessage();
+			redirect($this->direct, 'location', 303);
 		}
 	}
 }

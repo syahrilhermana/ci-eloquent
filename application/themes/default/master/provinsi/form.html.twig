@@ -1,0 +1,78 @@
+{% extends _layout %}
+
+{% block style %}
+    {{ css('libs/select2/select2.css', 'all', 'css') }}
+{% endblock %}
+
+{% block content %}
+    <section>
+        <div class="section-header">
+            <ol class="breadcrumb">
+                <li><a href="{{ site_url('dashboard') }}">dashboard</a></li>
+                <li><a href="{{ site_url('ms/provinsi') }}">provinsi</a></li>
+                <li class="active">Form Data</li>
+            </ol>
+        </div>
+        <div class="section-body contain-lg">
+
+            <div class="card card-underline">
+                <div class="card-head">
+                    <header>Provinsi</header>
+                    <div class="tools">
+                        <div class="btn-group">
+                            <a class="btn btn-icon-toggle btn-collapse"><i class="fa fa-angle-down"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <form id="AjaxForm" action="{{ site_url('ms/provinsi/submit') }}" class="form form-validate floating-label" novalidate="novalidate" method="post">
+                        <input type="hidden" name="{{ _csrf }}" value="{{ _token }}" />
+                        <input type="hidden" name="id" value="{{ object.mst_provinsi_id }}" />
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="name" name="name" value="{{ object.mst_provinsi_name }}" />
+                                    <label for="name">Nama Provinsi</label>
+                                </div>
+                            </div>
+                            <div class="card-actionbar">
+                                <div class="card-actionbar-row">
+                                    <button type="button" class="btn ink-reaction btn-raised btn-default">Batal</button>&nbsp;
+                                    <button type="submit" class="btn ink-reaction btn-raised btn-primary" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Menyimpan...">Simpan</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- BEGIN SIMPLE MODAL MARKUP -->
+    <div class="modal fade in" id="loading" role="dialog" aria-labelledby="simpleModalLabel">
+        <div class="modal-dialog" style="width: 150px; text-align: center;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="simpleModalLabel">
+                        <i class='fa fa-spinner fa-spin'></i> Loading...
+                    </h4>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- END SIMPLE MODAL MARKUP -->
+{% endblock %}
+
+{% block js %}
+    {{ js('libs/jquery-validation/dist/jquery.validate.min.js', 'js') }}
+    {{ js('libs/jquery-validation/dist/additional-methods.min.js', 'js') }}
+    {{ js('libs/select2/select2.min.js', 'js') }}
+{% endblock %}
+
+{% block js_core %}
+    {{ js('core/live/Codeigniter.js', 'js') }}
+    {{ js('core/live/FormComponents.js', 'js') }}
+{% endblock %}

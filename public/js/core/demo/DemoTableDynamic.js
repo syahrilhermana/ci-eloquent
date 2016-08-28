@@ -34,14 +34,9 @@
 	};
 
 	p._createDataTable = function() {
-		$('#datatable').DataTable({
-			"dom": 'lCfrtip',
-			"ajax": 'tes/data',
-			"order": [],
-			"colVis": {
-				"buttonText": "Columns",
-				"overlayFade": 0,
-				"align": "right"
+		$('#datatable1').DataTable({
+			"ajax": {
+				url: 'tes/data'
 			},
 			"language": {
 				"lengthMenu": '_MENU_ entries per page',
@@ -53,7 +48,7 @@
 			}
 		});
 
-		$('#datatable tbody').on('click', 'tr', function() {
+		$('#datatable1 tbody').on('click', 'tr', function() {
 			$(this).toggleClass('selected');
 		});
 	};

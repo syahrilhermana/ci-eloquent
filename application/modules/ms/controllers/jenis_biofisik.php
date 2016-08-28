@@ -5,8 +5,9 @@
  * @author	Syahril Hermana
  */
 
-class jenis_biofisiks extends CI_Controller {
+class jenis_biofisik extends CI_Controller {
 	protected $model;
+	protected $direct;
 
 	public function __construct() {
 		parent::__construct();
@@ -22,40 +23,48 @@ class jenis_biofisiks extends CI_Controller {
 		$this->twiggy->set('_csrf', $this->security->get_csrf_token_name());
 		$this->twiggy->set('_token', $this->security->get_csrf_hash());
 
-		$this->model = new JenisBiofisik();
+		$this->direct = base_url('ms/kecamatan');
 	}
 	
 	public function index(){
-		$this->twiggy->template('master/biofisik/index')->display();
+		/**
+		 * FIXME
+		 * this only temporary set list object data
+		 * please switch to ajax request to datatable() method if this page has rendered
+		 */
+
+		$this->twiggy->set('list', JenisBiofisikEntity::all());
+
+		$this->twiggy->template('master/jenis-biofisik/index')->display();
 	}
 
-	public function edit($id){
-		if ($id == null) {
-			redirect($this->index());
+	public function form($id=null){
+		$this->twiggy->set('list', BiofisikEntity::all());
+
+		if ($id != null) {
+			$this->model = JenisBiofisikEntity::find($id);
+			$this->twiggy->set('object', $this->model);
 		}
 
-		$this->model = JenisBiofisik::find($id);
-		if ($this->model) {
-			$this->twiggy->template('master/biofisik/form')->display();
-		} else {
-			redirect($this->index());
-		}
+		$this->twiggy->template('master/jenis-biofisik/form')->display();
 	}
 
 	public function delete($id){
 		if ($id == null) {
-			redirect($this->index());
+			redirect($this->direct, 'location', 303);
 		}
 
-		JenisBiofisik::delete($id);
+		JenisBiofisikEntity::delete($id);
+
+		redirect($this->direct, 'location', 303);
 	}
 
 	public function submit(){
 		try {
 			if ($this->input->post('id') == null) {
-				$this->model = new JenisBiofisik();
+				$this->model = new JenisBiofisikEntity();
 			} else {
-				$this->model = JenisBiofisik::find($this->input->post('id'));
+				$this->model = JenisBiofisikEntity::find($this->input->post('id'));
 			}
 
 			$this->model->mst_biofisik_id		= $this->input->post('biofisik');
@@ -65,6 +74,8 @@ class jenis_biofisiks extends CI_Controller {
 		} catch(Exception $e) {
 			$e->getMessage();
 		}
+
+		redirect($this->direct, 'location', 303);
 	}
 }
 
