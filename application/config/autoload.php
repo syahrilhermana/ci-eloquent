@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database', 'orm/eloquent', 'twiggy', 'guard', 'session', 'datatables');
+$autoload['libraries'] = array('database', 'orm/eloquent', 'twiggy', 'guard', 'session', 'datatables', 'jwt');
 
 /*
 | -------------------------------------------------------------------

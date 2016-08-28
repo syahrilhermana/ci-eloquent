@@ -29,12 +29,19 @@ class api extends REST_Controller {
 	{
 		$headers = apache_request_headers();
 
+		$data = array();
+
 		// If JWT authorization
 		if(!isset($headers["Authorization"]) || empty($headers["Authorization"]))
 		{
-			//mejorar la validación, pero si está aquí es que no tenemos el token
-			$this->response(NULL, REST_Controller::HTTP_UNAUTHORIZED);
+			$data['status'] = 'unauthorized to access';
+			$data['code'] = '401';
+			$this->response($data, REST_Controller::HTTP_UNAUTHORIZED);
 		}
+
+		$this->guard->token_valid($headers["Authorization"]);
+
+//		$this->guard->geterate_token("user_id");
 
 		// Users from a data store e.g. database
 		$users = [

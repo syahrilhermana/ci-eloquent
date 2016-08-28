@@ -518,3 +518,14 @@ $config['rewrite_short_tags'] = TRUE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+
+/*
+|--------------------------------------------------------------------------
+| JWT Config
+|--------------------------------------------------------------------------
+|
+| ...
+*/
+$config['jwt_key'] = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+$config['jwt_secret'] = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+$config['jwt_ttl'] = 86400;
