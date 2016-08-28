@@ -129,5 +129,5 @@
 	// DEFINE NAMESPACE
 	// =========================================================================
 
-	window.materialadmin.AppForm = new AppForm;
-}(this.materialadmin, jQuery)); // pass in (namespace, jQuery):
+	window.iengine.AppForm = new AppForm;
+}(this.iengine, jQuery)); // pass in (namespace, jQuery):

@@ -35,19 +35,19 @@
 
 		$.each($('.scroll'), function (e) {
 			var holder = $(this);
-			materialadmin.AppVendor.addScroller(holder);
+			iengine.AppVendor.addScroller(holder);
 		});
 
-		materialadmin.App.callOnResize(function () {
+		iengine.App.callOnResize(function () {
 			$.each($('.scroll-xs'), function (e) {
 				var holder = $(this);
 				if(!holder.is(":visible")) return;
 				
-				if (materialadmin.App.minBreakpoint('xs')) {
-					materialadmin.AppVendor.removeScroller(holder);
+				if (iengine.App.minBreakpoint('xs')) {
+					iengine.AppVendor.removeScroller(holder);
 				}
 				else {
-					materialadmin.AppVendor.addScroller(holder);
+					iengine.AppVendor.addScroller(holder);
 				}
 			});
 
@@ -55,11 +55,11 @@
 				var holder = $(this);
 				if(!holder.is(":visible")) return;
 				
-				if (materialadmin.App.minBreakpoint('sm')) {
-					materialadmin.AppVendor.removeScroller(holder);
+				if (iengine.App.minBreakpoint('sm')) {
+					iengine.AppVendor.removeScroller(holder);
 				}
 				else {
-					materialadmin.AppVendor.addScroller(holder);
+					iengine.AppVendor.addScroller(holder);
 				}
 			});
 
@@ -67,11 +67,11 @@
 				var holder = $(this);
 				if(!holder.is(":visible")) return;
 				
-				if (materialadmin.App.minBreakpoint('md')) {
-					materialadmin.AppVendor.removeScroller(holder);
+				if (iengine.App.minBreakpoint('md')) {
+					iengine.AppVendor.removeScroller(holder);
 				}
 				else {
-					materialadmin.AppVendor.addScroller(holder);
+					iengine.AppVendor.addScroller(holder);
 				}
 			});
 
@@ -79,11 +79,11 @@
 				var holder = $(this);
 				if(!holder.is(":visible")) return;
 				
-				if (materialadmin.App.minBreakpoint('lg')) {
-					materialadmin.AppVendor.removeScroller(holder);
+				if (iengine.App.minBreakpoint('lg')) {
+					iengine.AppVendor.removeScroller(holder);
 				}
 				else {
-					materialadmin.AppVendor.addScroller(holder);
+					iengine.AppVendor.addScroller(holder);
 				}
 			});
 		});
@@ -170,5 +170,5 @@
 	// DEFINE NAMESPACE
 	// =========================================================================
 
-	window.materialadmin.AppVendor = new AppVendor;
-}(this.materialadmin, jQuery)); // pass in (namespace, jQuery):
+	window.iengine.AppVendor = new AppVendor;
+}(this.iengine, jQuery)); // pass in (namespace, jQuery):

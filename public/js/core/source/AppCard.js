@@ -85,5 +85,5 @@
 	// DEFINE NAMESPACE
 	// =========================================================================
 
-	window.materialadmin.AppCard = new AppCard;
-}(this.materialadmin, jQuery)); // pass in (namespace, jQuery):
+	window.iengine.AppCard = new AppCard;
+}(this.iengine, jQuery)); // pass in (namespace, jQuery):

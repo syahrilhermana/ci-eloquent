@@ -269,5 +269,5 @@
 	// DEFINE NAMESPACE
 	// =========================================================================
 
-	window.materialadmin.AppOffcanvas = new AppOffcanvas;
-}(this.materialadmin, jQuery)); // pass in (namespace, jQuery):
+	window.iengine.AppOffcanvas = new AppOffcanvas;
+}(this.iengine, jQuery)); // pass in (namespace, jQuery):

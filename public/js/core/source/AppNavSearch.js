@@ -94,5 +94,5 @@
 	// DEFINE NAMESPACE
 	// =========================================================================
 
-	window.materialadmin.AppNavSearch = new AppNavSearch;
-}(this.materialadmin, jQuery)); // pass in (namespace, jQuery):
+	window.iengine.AppNavSearch = new AppNavSearch;
+}(this.iengine, jQuery)); // pass in (namespace, jQuery):

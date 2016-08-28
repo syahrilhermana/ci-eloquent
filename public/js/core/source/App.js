@@ -215,6 +215,6 @@
 	// DEFINE NAMESPACE
 	// =========================================================================
 
-	window.materialadmin = window.materialadmin || {};
-	window.materialadmin.App = new App;
+	window.iengine = window.iengine || {};
+	window.iengine.App = new App;
 }(jQuery)); // pass in (jQuery):

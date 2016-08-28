@@ -79,7 +79,7 @@
 	// =========================================================================
 
 	p._handleMenuToggleClick = function (e) {
-		if (!materialadmin.App.isBreakpoint('xs')) {
+		if (!iengine.App.isBreakpoint('xs')) {
 			$('body').toggleClass('menubar-pin');
 		}
 
@@ -162,7 +162,7 @@
 		$('body').removeClass('menubar-visible');
 		
 		// Don't close the menus when it is pinned on large viewports
-		if (materialadmin.App.minBreakpoint('md')) {
+		if (iengine.App.minBreakpoint('md')) {
 			if ($('body').hasClass('menubar-pin')) {
 				return;
 			}
@@ -171,7 +171,7 @@
 
 
 		// Never close the menu on extra small viewports
-		if (materialadmin.App.isBreakpoint('xs') === false) {
+		if (iengine.App.isBreakpoint('xs') === false) {
 			this._closeSubMenu($('#main-menu'));
 		}
 	};
@@ -320,5 +320,5 @@
 	// DEFINE NAMESPACE
 	// =========================================================================
 
-	window.materialadmin.AppNavigation = new AppNavigation;
-}(this.materialadmin, jQuery)); // pass in (namespace, jQuery):
+	window.iengine.AppNavigation = new AppNavigation;
+}(this.iengine, jQuery)); // pass in (namespace, jQuery):
