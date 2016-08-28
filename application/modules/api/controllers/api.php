@@ -9,43 +9,28 @@ require APPPATH . '/libraries/REST_Controller.php';
 
 class api extends REST_Controller {
 
-	protected $header;
-	protected $methods = [
-		'index_put' => ['level' => 10, 'limit' => 10],
-		'index_delete' => ['level' => 10],
-		'level_post' => ['level' => 10],
-		'regenerate_post' => ['level' => 10],
-	];
-
 	public function __construct()
 	{
 		parent::__construct();
-
-		$this->header = apache_request_headers();
 	
 	}
 
 	/** Sample JWT encode & decode */
-	public function index()
+	public function index_get()
 	{
-		$this->load->library("JWT");
-		$CONSUMER_KEY = 'some-key';
-		$CONSUMER_SECRET = 'some-secret';
-		$CONSUMER_TTL = 86400;
-		$jwt =  $this->jwt->encode(array(
-			'consumerKey'=>$CONSUMER_KEY,
-			'accountId'=>45,
-			'issuedAt'=>date(DATE_ISO8601, strtotime("now")),
-			'ttl'=>$CONSUMER_TTL
-		), $CONSUMER_SECRET);
-		
-		echo json_encode($this->jwt->decode($jwt, $CONSUMER_SECRET));
+		$headers = apache_request_headers();
+
+		foreach ($headers as $header => $value) {
+			echo "$header: $value <br />\n";
+		}
 	}
 
 	public function data_get()
 	{
+		$headers = apache_request_headers();
+
 		// If JWT authorization
-		if(!isset($this->headers["Authorization"]) || empty($this->headers["Authorization"]))
+		if(!isset($headers["Authorization"]) || empty($headers["Authorization"]))
 		{
 			//mejorar la validación, pero si está aquí es que no tenemos el token
 			$this->response(NULL, REST_Controller::HTTP_UNAUTHORIZED);
