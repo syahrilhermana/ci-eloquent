@@ -29,7 +29,7 @@ class ProvinsiEntity extends Model {
 
     public function get_provinsi_count($search = "")
     {
-        $this->CI->db->select($this->id);
+        $this->CI->db->select($this->primary);
         if($search != "") {
             $this->CI->db->like("mst_propinsi_name", $search);
         }

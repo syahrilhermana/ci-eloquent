@@ -29,7 +29,7 @@ class KotaEntity extends Model {
 
     public function get_kota_count($search = "")
     {
-        $this->CI->db->select($this->id);
+        $this->CI->db->select($this->primary);
         if($search != "") {
             $this->CI->db->like("mst_kota_name", $search);
         }

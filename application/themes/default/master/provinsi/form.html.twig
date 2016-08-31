@@ -28,11 +28,11 @@
                 <div class="card-body">
                     <form id="AjaxForm" action="{{ site_url('ms/provinsi/submit') }}" class="form form-validate floating-label" novalidate="novalidate" method="post">
                         <input type="hidden" name="{{ _csrf }}" value="{{ _token }}" />
-                        <input type="hidden" name="id" value="{{ object.mst_provinsi_id }}" />
+                        <input type="hidden" name="id" value="{{ object.mst_propinsi_id }}" />
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="name" name="name" value="{{ object.mst_provinsi_name }}" />
+                                    <input type="text" class="form-control" id="name" name="name" value="{{ object.mst_propinsi_name }}" />
                                     <label for="name">Nama Provinsi</label>
                                 </div>
                             </div>

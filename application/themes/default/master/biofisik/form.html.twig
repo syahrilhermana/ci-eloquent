@@ -29,13 +29,13 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="name" name="name" value="{{ object.mst_biofisik_name }}" />
+                                    <input type="text" class="form-control" id="name" name="name" value="{{ object.mst_biofisik_name }}" required />
                                     <label for="name">Nama Biofisik</label>
                                 </div>
                             </div>
                             <div class="card-actionbar">
                                 <div class="card-actionbar-row">
-                                    <button type="button" class="btn ink-reaction btn-raised btn-default">Batal</button>&nbsp;
+                                    <a href="{{ site_url('ms/biofisik') }}"><button type="button" class="btn ink-reaction btn-raised btn-default">Batal</button>&nbsp;</a>
                                     <button type="submit" class="btn ink-reaction btn-raised btn-primary" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Menyimpan...">Simpan</button>
                                 </div>
                             </div>
@@ -46,28 +46,13 @@
 
         </div>
     </section>
-
-
-    <!-- BEGIN SIMPLE MODAL MARKUP -->
-    <div class="modal fade in" id="loading" role="dialog" aria-labelledby="simpleModalLabel">
-        <div class="modal-dialog" style="width: 150px; text-align: center;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="simpleModalLabel">
-                        <i class='fa fa-spinner fa-spin'></i> Loading...
-                    </h4>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-    <!-- END SIMPLE MODAL MARKUP -->
 {% endblock %}
 
 {% block js %}
-    {{ js('libs/jquery-validation/dist/jquery.validate.min.js', 'js') }}
-    {{ js('libs/jquery-validation/dist/additional-methods.min.js', 'js') }}
+    {# -- additional script -- #}
 {% endblock %}
 
 {% block js_core %}
-    {{ js('core/demo/Demo.js', 'js') }}
+    {# -- core script -- #}
+    {{ js('core/iengine/iengine.js', 'js') }}
 {% endblock %}

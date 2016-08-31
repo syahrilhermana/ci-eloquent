@@ -27,77 +27,30 @@ class biofisik extends CI_Controller {
 	}
 	
 	public function index(){
-		/**
-		 * FIXME
-		 * this only temporary set list object data
-		 * please switch to ajax request to datatable() method if this page has rendered
-		 */
+		$page   = (!$this->input->get('page')) ? 1 : $this->input->get('page');
 
-		$this->twiggy->set('list', BiofisikEntity::all());
-
+		$this->twiggy->set('this_page', $page);
 		$this->twiggy->template('master/biofisik/index')->display();
 	}
 
-	public function datatable()
+	public function list_data()
 	{
-		if($this->input->is_ajax_request())
-		{
-			// variable initialization
-			$search = "";
-			$start = 0;
-			$rows = 10;
-			$this->model = new BiofisikEntity();
+		// get pagable data
+		$page   = (!$this->input->get('page')) ? 1 : $this->input->get('page');
+		$limit  = 3;
+		$offset = (($page-1)*$limit);
+		$search = "";
 
-			// get search value (if any)
-			if (isset($_GET['search']['value']) && $_GET['search']['value'] != "" ) {
-				$search = $_GET['search']['value'];
-			}
+		$this->model = new BiofisikEntity();
+		$list = $this->model->get_biofisik($offset, $limit, $search, null, null);
+		$total = $this->model->get_biofisik_count($search);
 
-			// limit
-			$start = $this->datatables->getOffset();
-			$rows = $this->datatables->getLimit();
-
-			// sort
-//			$sortDir = $this->datatables->getSortDir();
-//			$sortCol = $this->datatables->getSortCol(array(""));
-
-			// run query to get user listing
-			$list   = $this->model->get_biofisik($start, $rows, $search, null, null);
-			$iTotal = $this->model->get_biofisik_count($search);
-
-			if($search != "")$iFilteredTotal = $this->model->get_biofisik_count($search);
-			else $iFilteredTotal = $iTotal;
-
-			/*
-             * Output
-             */
-			$output = array(
-				"sEcho" => intval($_GET['draw']),
-				"iTotalRecords" => $iTotal,
-				"iTotalDisplayRecords" => $iFilteredTotal,
-				"aaData" => array()
-			);
-
-			// get result after running query and put it in array
-			$no = $start+1;
-			foreach ($list->result_array() as $row) {
-				$record = array();
-
-				$record[] = $no++;
-				$record[] = $row['mst_biofisik_name'];
-
-				$record[] = '<div class="btn-group">
-                               <a href="'.base_url('admin/category/form/'.$row['mst_biofisik_id']).'" title="Ubah" id="edit" class="btn btn-xs btn-default"><i class="fa fa-edit"></i></a>
-                               <a href="javascript:void(0)" onclick="confirmDirectPopUp(\''.base_url('admin/category/delete/'.$row['mst_biofisik_id']).'\', \'Confirmation\', \'<strong>Are you sure you want to permanently erase the items?</strong> <br/> You can’t undo this action. \', \'Delete it\', \'Cancel\');" title="delete" class="btn btn-xs btn-default"><i class="fa fa-trash"></i></a>
-                             </div>';
-
-				$output['aaData'][] = $record;
-			}
-			// format it to JSON, this output will be displayed in datatable
-			echo json_encode($output);
-		}else {
-			show_404();
-		}
+		$this->twiggy->set('list', $list->result());
+		$this->twiggy->set('total', $total);
+		$this->twiggy->set('totalPage', ceil($total/$limit));
+		$this->twiggy->set('size', $list->num_rows());
+		$this->twiggy->set('page', $page);
+		$this->twiggy->template('master/biofisik/list')->display();
 	}
 
 	public function form($id=null){
@@ -110,13 +63,16 @@ class biofisik extends CI_Controller {
 	}
 
 	public function delete($id){
-		if ($id == null) {
+		if($this->input->is_ajax_request())
+		{
+			if ($id == null) {
+				redirect($this->direct, 'location', 303);
+			}
+
+			BiofisikEntity::delete($id);
+
 			redirect($this->direct, 'location', 303);
 		}
-
-		BiofisikEntity::delete($id);
-
-		redirect($this->direct, 'location', 303);
 	}
 
 	public function submit(){

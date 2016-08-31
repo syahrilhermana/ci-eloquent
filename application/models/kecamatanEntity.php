@@ -29,7 +29,7 @@ class KecamatanEntity extends Model {
 
     public function get_kecamatan_count($search = "")
     {
-        $this->CI->db->select($this->id);
+        $this->CI->db->select($this->primary);
         if($search != "") {
             $this->CI->db->like("mst_kecamatan_name", $search);
         }

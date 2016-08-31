@@ -1,5 +1,15 @@
 {% extends _layout %}
 
+{% block script %}
+    {{ js('libs/select2/select2.min.js', 'js') }}
+    <script>
+        $(document).ready( function() {
+            $('.card-form').hide();
+            var thisPage = {{ this_page }};
+            load('{{ site_url('ms/desa/list_data') }}?page='+thisPage, '#result');
+        });
+    </script>
+{% endblock %}
 
 {% block content %}
     <section>
@@ -17,35 +27,43 @@
                     <header>Desa</header>
                     <div class="tools">
                         <div class="btn-group">
+                            <a class="btn btn-icon-toggle btn-form"><i class="fa fa-plus"></i></a>
                             <a class="btn btn-icon-toggle btn-collapse"><i class="fa fa-angle-down"></i></a>
                         </div>
                     </div>
                 </div>
 
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="datatable1" class="table table-striped table-hover">
-                            <thead>
-                            <tr>
-                                <th>Desa</th>
-                                <th style="width: 20%">#</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for data in list %}
-                                <tr>
-                                    <td>{{ data.mst_desa_name }}</td>
-                                    <td>
-                                        <div class="btn-group btn-group-justified" role="group" aria-label="Justified button group">
-                                            <a href="{{ site_url('ms/desa/form') }}/{{ data.mst_desa_id }}" class="btn ink-reaction btn-primary" role="button"><i class="fa fa-fw fa-edit text-default-bright"></i> Edit</a>
-                                            <a href="{{ site_url('ms/desa/delete') }}/{{ data.mst_desa_id }}" class="btn ink-reaction btn-danger" role="button"><i class="fa fa-fw fa-times text-default-bright"></i> Delete</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
+
+                    <!--form mode-->
+                    <div class="card card-form">
+                        <form id="form-engine" action="{{ site_url('ms/desa/submit') }}" class="form form-validate floating-label" method="post" enctype="multipart/form-data">
+                            <div class="card-body text-default-light">
+                                <input type="hidden" class="form-control" name="{{ _csrf }}" value="{{ _token }}" />
+                                <div class="form-group">
+                                    <select name="kecamatan" class="form-control select2-list" data-placeholder="Select an item" required >
+                                        {% for kecamatan in list %}
+                                            <option value="{{ kecamatan.mst_kecamatan_id }}" {% if (kecamatan.mst_kecamatan_id == object.mst_kecamatan_id) %} selected="selected" {% endif %}>{{ kecamatan.mst_kecamatan_name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <label>Kecamatan</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="name" name="name" value="{{ object.mst_biofisik_name }}" required />
+                                    <label for="name">Nama Desa</label>
+                                </div>
+                            </div>
+                            <div class="card-actionbar">
+                                <div class="card-actionbar-row">
+                                    <a href="javascript:void(0);" onclick="$('.card-form').hide(500);" class="btn btn-flat btn-default ink-reaction cancel">Batal</a>
+                                    <button type="submit" class="btn btn-flat btn-accent ink-reaction">Simpan</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
+                    <!--end form-->
+
+                    <div id="result"></div>
                 </div>
             </div>
 
@@ -53,9 +71,6 @@
     </section>
 {% endblock %}
 
-{% block js %}
-{% endblock %}
-
 {% block js_core %}
-    {{ js('core/demo/Demo.js', 'js') }}
+    {{ js('core/iengine/iengine.js', 'js') }}
 {% endblock %}

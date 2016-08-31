@@ -13,16 +13,13 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900' rel='stylesheet' type='text/css'/>
     {{ css('bootstrap.css', 'all', 'css') }}
     {{ css('materialadmin.css', 'all', 'css') }}
+    {{ css('material-custom.css', 'all', 'css') }}
     {{ css('font-awesome.css', 'all', 'css') }}
     {{ css('material-design-iconic-font.css', 'all', 'css') }}
     {{ css('picto-iconic-font.css', 'all', 'css') }}
-    {{ css('libs/rickshaw/rickshaw.css', 'all', 'css') }}
     {{ css('libs/morris/morris.core.css', 'all', 'css') }}
-    {{ css('libs/dropzone/dropzone-theme.css', 'all', 'css') }}
+    {{ css('libs/facebox/facebox.css', 'all', 'css') }}
 
-    {{ css('libs/DataTables/jquery.dataTables.css', 'all', 'css') }}
-    {{ css('libs/DataTables/extensions/dataTables.colVis.css', 'all', 'css') }}
-    {{ css('libs/DataTables/extensions/dataTables.tableTools.css', 'all', 'css') }}
     {% block style %}
     {% endblock %}
 
@@ -30,6 +27,21 @@
     {{ js('libs/utils/html5shiv.js', 'js') }}
     {{ js('libs/utils/respond.min.js', 'js') }}
     <![endif]-->
+
+    {{ js('libs/jquery/jquery-1.11.2.min.js', 'js') }}
+    {{ js('libs/jquery/jquery-migrate-1.2.1.min.js', 'js') }}
+    {{ js('libs/bootstrap/bootstrap.min.js', 'js') }}
+    {{ js('libs/spin.js/spin.min.js', 'js') }}
+    {{ js('libs/autosize/jquery.autosize.min.js', 'js') }}
+    {{ js('libs/moment/moment.min.js', 'js') }}
+    {{ js('libs/facebox/facebox.js', 'js') }}
+    {{ js('libs/twbs.paging/twbs.paging.js', 'js') }}
+    {{ js('libs/modernizr/modernizr.js', 'js') }}
+    {{ js('libs/nanoscroller/jquery.nanoscroller.min.js', 'js') }}
+    {{ js('core/iengine/iengine.apps.js', 'js') }}
+
+    {% block script %}
+    {% endblock %}
 </head>
 <body class="menubar-hoverable header-fixed">
     {% include '_layouts/header.html.twig' %}
@@ -74,8 +86,17 @@
                             <span class="title">Master</span>
                         </a>
                         <ul>
-                            <li><a href="{{ site_url('ms/biofisiks') }}" ><span class="title">Biofisik</span></a></li>
+                            <li><a href="{{ site_url('ms/biofisik') }}" ><span class="title">Biofisik</span></a></li>
                             <li><a href="{{ site_url('ms/desa') }}" ><span class="title">Desa</span></a></li>
+                            <li><a href="{{ site_url('ms/jenis_bantuan') }}" ><span class="title">Jenis Bantuan</span></a></li>
+                            <li><a href="{{ site_url('ms/jenis_biofisik') }}" ><span class="title">Jenis Biofisik</span></a></li>
+                            <li><a href="{{ site_url('ms/jenis_kapal') }}" ><span class="title">Jenis Kapal</span></a></li>
+                            <li><a href="{{ site_url('ms/jenis_pelanggaran') }}" ><span class="title">Jenis Pelanggaran</span></a></li>
+                            <li><a href="{{ site_url('ms/jenis_produk') }}" ><span class="title">Jenis Produk</span></a></li>
+                            <li><a href="{{ site_url('ms/kecamatan') }}" ><span class="title">Kecamatan</span></a></li>
+                            <li><a href="{{ site_url('ms/ket_kondisi') }}" ><span class="title">Keterangan Kondisi</span></a></li>
+                            <li><a href="{{ site_url('ms/kota') }}" ><span class="title">Kota</span></a></li>
+                            <li><a href="{{ site_url('ms/provinsi') }}" ><span class="title">Provinsi</span></a></li>
                         </ul>
                     </li>
                     <li class="gui-folder">
@@ -111,20 +132,6 @@
 
     </div>
 
-
-    {{ js('libs/jquery/jquery-1.11.2.min.js', 'js') }}
-    {{ js('libs/jquery/jquery-migrate-1.2.1.min.js', 'js') }}
-    {{ js('libs/bootstrap/bootstrap.min.js', 'js') }}
-    {{ js('libs/spin.js/spin.min.js', 'js') }}
-    {{ js('libs/autosize/jquery.autosize.min.js', 'js') }}
-    {{ js('libs/moment/moment.min.js', 'js') }}
-    {{ js('libs/dropzone/dropzone.min.js', 'js') }}
-    {{ js('libs/nanoscroller/jquery.nanoscroller.min.js', 'js') }}
-    {% block js %}
-    {% endblock %}
-
-    {{ js('libs/jquery-validation/dist/jquery.validate.min.js', 'js') }}
-    {{ js('libs/jquery-validation/dist/additional-methods.min.js', 'js') }}
 
     {{ js('core/source/App.js', 'js') }}
     {{ js('core/source/AppNavigation.js', 'js') }}

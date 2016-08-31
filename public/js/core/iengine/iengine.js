@@ -71,7 +71,7 @@
 	};
 
 	p._handleCardForm = function (e) {
-		$('card-form').show(500);
+		$('.card-form').show(500);
 	};
 
 	// =========================================================================
@@ -207,6 +207,7 @@
 
 	// We can watch for our custom `fileselect` event like this
 	$(document).ready( function() {
+		// materialize upload
 		$(':file').on('fileselect', function(event, numFiles, label) {
 
 			var input = $(this).parents('.input-group').find(':text'),
@@ -221,9 +222,15 @@
 		});
 
 		$('.cancel').on('click', function(){
-			var form = document.getElementById("form-validate");
-			form.clean();
-			$('card-form').hide(500);
+			$("#form-engine").trigger('reset');
+			$('.card-form').hide(500);
+		});
+
+		$('#form-engine').on('submit', function(e){
+			e.preventDefault();
+
+			loader();
+			this.submit();
 		});
 	});
 

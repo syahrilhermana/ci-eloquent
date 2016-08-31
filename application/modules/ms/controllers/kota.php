@@ -27,15 +27,31 @@ class kota extends CI_Controller {
 	}
 	
 	public function index(){
-		/**
-		 * FIXME
-		 * this only temporary set list object data
-		 * please switch to ajax request to datatable() method if this page has rendered
-		 */
+		$page   = (!$this->input->get('page')) ? 1 : $this->input->get('page');
 
-		$this->twiggy->set('list', KotaEntity::all());
-
+		$this->twiggy->set('this_page', $page);
+		$this->twiggy->set('list', ProvinsiEntity::all());
 		$this->twiggy->template('master/kota/index')->display();
+	}
+
+	public function list_data()
+	{
+		// get pagable data
+		$page   = (!$this->input->get('page')) ? 1 : $this->input->get('page');
+		$limit  = 3;
+		$offset = (($page-1)*$limit);
+		$search = "";
+
+		$this->model = new KotaEntity();
+		$list = $this->model->get_kota($offset, $limit, $search, null, null);
+		$total = $this->model->get_kota_count($search);
+
+		$this->twiggy->set('list', $list->result());
+		$this->twiggy->set('total', $total);
+		$this->twiggy->set('totalPage', ceil($total/$limit));
+		$this->twiggy->set('size', $list->num_rows());
+		$this->twiggy->set('page', $page);
+		$this->twiggy->template('master/kota/list')->display();
 	}
 
 	public function form($id=null){
@@ -50,13 +66,16 @@ class kota extends CI_Controller {
 	}
 
 	public function delete($id){
-		if ($id == null) {
+		if($this->input->is_ajax_request())
+		{
+			if ($id == null) {
+				redirect($this->direct, 'location', 303);
+			}
+
+			KotaEntity::delete($id);
+
 			redirect($this->direct, 'location', 303);
 		}
-
-		KotaEntity::delete($id);
-
-		redirect($this->direct, 'location', 303);
 	}
 
 	public function submit(){
