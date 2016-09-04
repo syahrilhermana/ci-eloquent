@@ -5,7 +5,7 @@
 
 use Eloquent\Model as Model;
 
-class JenisKapal extends Model {
+class JenisKapalEntity extends Model {
     protected $table = "mst_jenis_kapal";
     protected $primary = "mst_jenis_kapal_id";
     var $CI = NULL;
@@ -29,7 +29,7 @@ class JenisKapal extends Model {
 
     public function get_jenis_kapal_count($search = "")
     {
-        $this->CI->db->select($this->id);
+        $this->CI->db->select($this->primary);
         if($search != "") {
             $this->CI->db->like("mst_jenis_kapal_name", $search);
         }

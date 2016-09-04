@@ -7,12 +7,13 @@
 
 class ket_kondisi extends CI_Controller {
 	protected $model;
+	protected $direct;
 
 	public function __construct() {
 		parent::__construct();
 
 		// init twiggy
-		$this->twiggy->title('CodeIgniter Plus');
+		$this->twiggy->title($this->config->item('application'));
 
 		$this->twiggy->meta('keywords', 'codeigniter-plus');
 		$this->twiggy->meta('description', 'CodeIgniter Plus');
@@ -21,46 +22,75 @@ class ket_kondisi extends CI_Controller {
 		// generate csrf
 		$this->twiggy->set('_csrf', $this->security->get_csrf_token_name());
 		$this->twiggy->set('_token', $this->security->get_csrf_hash());
+
+		$this->direct = base_url('ms/ket_kondisi');
 	}
-	
+
 	public function index(){
-		$this->twiggy->template('master/biofisik/index')->display();
+		$page   = (!$this->input->get('page')) ? 1 : $this->input->get('page');
+
+		$this->twiggy->set('this_page', $page);
+		$this->twiggy->template('master/ket-kondisi/index')->display();
 	}
 
-	public function edit($id){
-		if ($id == null) {
-			redirect($this->index());
+	public function list_data()
+	{
+		// get pagable data
+		$page   = (!$this->input->get('page')) ? 1 : $this->input->get('page');
+		$limit  = 25;
+		$offset = (($page-1)*$limit);
+		$search = "";
+
+		$this->model = new KetKondisiEntity();
+		$list = $this->model->get_ket_kondisi($offset, $limit, $search, null, null);
+		$total = $this->model->get_ket_kondisi_count($search);
+
+		$this->twiggy->set('list', $list->result());
+		$this->twiggy->set('total', $total);
+		$this->twiggy->set('totalPage', ceil($total/$limit));
+		$this->twiggy->set('size', $list->num_rows());
+		$this->twiggy->set('page', $page);
+		$this->twiggy->template('master/ket-kondisi/list')->display();
+	}
+
+	public function form($id=null){
+		if ($id != null) {
+			$this->model = KetKondisiEntity::find($id);
+			$this->twiggy->set('object', $this->model);
 		}
 
-		$this->model = KetKondisi::find($id);
-		if ($this->model) {
-			$this->twiggy->template('master/biofisik/form')->display();
-		} else {
-			redirect($this->index());
-		}
+		$this->twiggy->template('master/ket-kondisi/form')->display();
 	}
 
 	public function delete($id){
-		if ($id == null) {
-			redirect($this->index());
-		}
+		if($this->input->is_ajax_request())
+		{
+			if ($id == null) {
+				redirect($this->direct, 'location', 303);
+			}
 
-		KetKondisi::delete($id);
+			KetKondisiEntity::delete($id);
+
+			redirect($this->direct, 'location', 303);
+		}
 	}
 
 	public function submit(){
 		try {
 			if ($this->input->post('id') == null) {
-				$this->model = new JenisProduk();
+				$this->model = new KetKondisiEntity();
 			} else {
-				$this->model = KetKondisi::find($this->input->post('id'));
+				$this->model = KetKondisiEntity::find($this->input->post('id'));
 			}
 
-			$this->model->mst_ket_kondisi_name	= $this->input->post('name');
+			$this->model->mst_ket_kondisi_name = $this->input->post('name');
 
 			$this->model->save();
+
+			redirect($this->direct, 'location', 303);
 		} catch(Exception $e) {
 			$e->getMessage();
+			redirect($this->direct, 'location', 303);
 		}
 	}
 }
