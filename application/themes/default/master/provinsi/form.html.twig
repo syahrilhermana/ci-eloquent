@@ -4,6 +4,12 @@
     {{ css('libs/select2/select2.css', 'all', 'css') }}
 {% endblock %}
 
+{% block script %}
+    {{ js('libs/jquery-validation/dist/jquery.validate.min.js', 'js') }}
+    {{ js('libs/jquery-validation/dist/additional-methods.min.js', 'js') }}
+    {{ js('libs/select2/select2.min.js', 'js') }}
+{% endblock %}
+
 {% block content %}
     <section>
         <div class="section-header">
@@ -50,29 +56,9 @@
         </div>
     </section>
 
-
-    <!-- BEGIN SIMPLE MODAL MARKUP -->
-    <div class="modal fade in" id="loading" role="dialog" aria-labelledby="simpleModalLabel">
-        <div class="modal-dialog" style="width: 150px; text-align: center;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="simpleModalLabel">
-                        <i class='fa fa-spinner fa-spin'></i> Loading...
-                    </h4>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-    <!-- END SIMPLE MODAL MARKUP -->
-{% endblock %}
-
-{% block js %}
-    {{ js('libs/jquery-validation/dist/jquery.validate.min.js', 'js') }}
-    {{ js('libs/jquery-validation/dist/additional-methods.min.js', 'js') }}
-    {{ js('libs/select2/select2.min.js', 'js') }}
 {% endblock %}
 
 {% block js_core %}
-    {{ js('core/live/Codeigniter.js', 'js') }}
-    {{ js('core/live/FormComponents.js', 'js') }}
+    {{ js('core/iengine/iengine.js', 'js') }}
+    {{ js('core/iengine/iengine.form.js', 'js') }}
 {% endblock %}

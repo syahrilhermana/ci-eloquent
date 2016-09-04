@@ -39,7 +39,7 @@ class desa extends CI_Controller {
 	{
 		// get pagable data
 		$page   = (!$this->input->get('page')) ? 1 : $this->input->get('page');
-		$limit  = 3;
+		$limit  = 25;
 		$offset = (($page-1)*$limit);
 		$search = "";
 

@@ -29,7 +29,7 @@ class JenisBiofisikEntity extends Model {
 
     public function get_jenis_biofisik_count($search = "")
     {
-        $this->CI->db->select($this->id);
+        $this->CI->db->select($this->primary);
         if($search != "") {
             $this->CI->db->like("mst_biofisik_name", $search);
         }

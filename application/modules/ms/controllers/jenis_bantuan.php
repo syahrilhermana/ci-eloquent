@@ -22,46 +22,74 @@ class jenis_bantuan extends CI_Controller {
 		$this->twiggy->set('_csrf', $this->security->get_csrf_token_name());
 		$this->twiggy->set('_token', $this->security->get_csrf_hash());
 
+		$this->direct = base_url('ms/jenis_bantuan');
 	}
 	
 	public function index(){
-		$this->twiggy->template('master/biofisik/index')->display();
+		$page   = (!$this->input->get('page')) ? 1 : $this->input->get('page');
+
+		$this->twiggy->set('this_page', $page);
+		$this->twiggy->template('master/jenis-bantuan/index')->display();
 	}
 
-	public function edit($id){
-		if ($id == null) {
-			redirect($this->index());
+	public function list_data()
+	{
+		// get pagable data
+		$page   = (!$this->input->get('page')) ? 1 : $this->input->get('page');
+		$limit  = 25;
+		$offset = (($page-1)*$limit);
+		$search = "";
+
+		$this->model = new JenisBantuanEntity();
+		$list = $this->model->get_jenis_bantuan($offset, $limit, $search, null, null);
+		$total = $this->model->get_jenis_bantuan_count($search);
+
+		$this->twiggy->set('list', $list->result());
+		$this->twiggy->set('total', $total);
+		$this->twiggy->set('totalPage', ceil($total/$limit));
+		$this->twiggy->set('size', $list->num_rows());
+		$this->twiggy->set('page', $page);
+		$this->twiggy->template('master/jenis-bantuan/list')->display();
+	}
+
+	public function form($id=null){
+		if ($id != null) {
+			$this->model = JenisBantuanEntity::find($id);
+			$this->twiggy->set('object', $this->model);
 		}
 
-		$this->model = JenisBantuan::find($id);
-		if ($this->model) {
-			$this->twiggy->template('master/biofisik/form')->display();
-		} else {
-			redirect($this->index());
-		}
+		$this->twiggy->template('master/jenis-bantuan/form')->display();
 	}
 
 	public function delete($id){
-		if ($id == null) {
-			redirect($this->index());
-		}
+		if($this->input->is_ajax_request())
+		{
+			if ($id == null) {
+				redirect($this->direct, 'location', 303);
+			}
 
-		JenisBantuan::delete($id);
+			JenisBantuanEntity::delete($id);
+
+			redirect($this->direct, 'location', 303);
+		}
 	}
 
 	public function submit(){
 		try {
 			if ($this->input->post('id') == null) {
-				$this->model = new JenisBantuan();
+				$this->model = new JenisBantuanEntity();
 			} else {
-				$this->model = JenisBantuan::find($this->input->post('id'));
+				$this->model = JenisBantuanEntity::find($this->input->post('id'));
 			}
 
 			$this->model->mst_jenis_bantuan_name	= $this->input->post('name');
 
 			$this->model->save();
+
+			redirect($this->direct, 'location', 303);
 		} catch(Exception $e) {
 			$e->getMessage();
+			redirect($this->direct, 'location', 303);
 		}
 	}
 }

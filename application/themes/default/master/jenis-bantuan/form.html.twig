@@ -15,7 +15,7 @@
         <div class="section-header">
             <ol class="breadcrumb">
                 <li><a href="{{ site_url('dashboard') }}">dashboard</a></li>
-                <li><a href="{{ site_url('ms/jenis-biofisik') }}">jenis biofisik</a></li>
+                <li><a href="{{ site_url('ms/jenis_bantuan') }}">jenis bantuan</a></li>
                 <li class="active">Form Data</li>
             </ol>
         </div>
@@ -23,7 +23,7 @@
 
             <div class="card card-underline">
                 <div class="card-head">
-                    <header>Jenis Biofisik</header>
+                    <header>Jenis Bantuan</header>
                     <div class="tools">
                         <div class="btn-group">
                             <a class="btn btn-icon-toggle btn-collapse"><i class="fa fa-angle-down"></i></a>
@@ -32,27 +32,19 @@
                 </div>
 
                 <div class="card-body">
-                    <form id="AjaxForm" action="{{ site_url('ms/jenis_biofisik/submit') }}" class="form form-validate floating-label" novalidate="novalidate" method="post">
+                    <form id="AjaxForm" action="{{ site_url('ms/jenis_bantuan/submit') }}" class="form form-validate floating-label" novalidate="novalidate" method="post">
                         <input type="hidden" class="form-control" name="{{ _csrf }}" value="{{ _token }}" />
-                        <input type="hidden" class="form-control" name="id" value="{{ object.mst_jenis_biofisik_id }}" />
+                        <input type="hidden" class="form-control" name="id" value="{{ object.mst_jenis_bantuan_id }}" />
                         <div class="card">
-                            <div class="form-group">
-                                <select name="kota" class="form-control select2-list" data-placeholder="Select an item">
-                                    {% for jenis in list %}
-                                        <option value="{{ jenis.mst_biofisik_id }}" {% if (jenis.mst_biofisik_id == object.mst_biofisik_id) %} selected="selected" {% endif %}>{{ jenis.mst_biofisik_name }}</option>
-                                    {% endfor %}
-                                </select>
-                                <label>Biofisik</label>
-                            </div>
                             <div class="card-body">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="name" name="name" value="{{ object.mst_biofisik_name }}" />
-                                    <label for="name">Nama Biofisik</label>
+                                    <input type="text" class="form-control" id="name" name="name" value="{{ object.mst_jenis_bantuan_name }}" />
+                                    <label for="name">Jenis Bantuan</label>
                                 </div>
                             </div>
                             <div class="card-actionbar">
                                 <div class="card-actionbar-row">
-                                    <a href="{{ site_url('ms/jenis_biofisik') }}"><button type="button" class="btn ink-reaction btn-raised btn-default">Batal</button>&nbsp;</a>
+                                    <a href="{{ site_url('ms/jenis_bantuan') }}"><button type="button" class="btn ink-reaction btn-raised btn-default">Batal</button>&nbsp;</a>
                                     <button type="submit" class="btn ink-reaction btn-raised btn-primary" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Menyimpan...">Simpan</button>
                                 </div>
                             </div>

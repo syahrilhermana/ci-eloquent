@@ -5,7 +5,7 @@
         $(document).ready( function() {
             $('.card-form').hide();
             var thisPage = {{ this_page }};
-            load('{{ site_url('ms/jenis_biofisik/list_data') }}?page='+thisPage, '#result');
+            load('{{ site_url('ms/jenis_bantuan/list_data') }}?page='+thisPage, '#result');
         });
     </script>
 {% endblock %}
@@ -15,7 +15,7 @@
         <div class="section-header">
             <ol class="breadcrumb">
                 <li><a href="{{ site_url('dashboard') }}">dashboard</a></li>
-                <li><a href="{{ site_url('ms/jenis_biofisik') }}">jenis biofisik</a></li>
+                <li><a href="{{ site_url('ms/jenis_bantuan') }}">jenis bantuan</a></li>
                 <li class="active">List Data</li>
             </ol>
         </div>
@@ -23,7 +23,7 @@
 
             <div class="card card-underline">
                 <div class="card-head">
-                    <header>Jenis Biofisik</header>
+                    <header>Jenis Bantuan</header>
                     <div class="tools">
                         <div class="btn-group">
                             <a class="btn btn-icon-toggle btn-form"><i class="fa fa-plus"></i></a>
@@ -36,20 +36,12 @@
 
                     <!--form mode-->
                     <div class="card card-form">
-                        <form id="form-engine" action="{{ site_url('ms/jenis_biofisik/submit') }}" class="form form-validate floating-label" method="post" enctype="multipart/form-data">
+                        <form id="form-engine" action="{{ site_url('ms/jenis_bantuan/submit') }}" class="form form-validate floating-label" method="post" enctype="multipart/form-data">
                             <div class="card-body text-default-light">
                                 <input type="hidden" class="form-control" name="{{ _csrf }}" value="{{ _token }}" />
                                 <div class="form-group">
-                                    <select name="biofisik" class="form-control select2-list" data-placeholder="Select an item" required >
-                                        {% for biofisik in list %}
-                                            <option value="{{ biofisik.mst_biofisik_id }}" {% if (biofisik.mst_biofisik_id == object.mst_biofisik_id) %} selected="selected" {% endif %}>{{ biofisik.mst_biofisik_name }}</option>
-                                        {% endfor %}
-                                    </select>
-                                    <label>Biofisik</label>
-                                </div>
-                                <div class="form-group">
                                     <input type="text" class="form-control" id="name" name="name" value="{{ object.mst_biofisik_name }}" required />
-                                    <label for="name">Jenis Biofisik</label>
+                                    <label for="name">Jenis Bantuan</label>
                                 </div>
                             </div>
                             <div class="card-actionbar">
@@ -74,7 +66,7 @@
         <div class="cd-popup-container">
             <p>Are you sure you want to delete this element?</p>
             <div class="btn-group btn-group-justified" role="group" aria-label="engine group">
-                <a class="btn btn-danger" onclick="delete_item('{{ site_url('ms/jenis_biofisik') }}');" role="button">Hapus</a>
+                <a class="btn btn-danger" onclick="delete_item('{{ site_url('ms/jenis_bantuan') }}');" role="button">Hapus</a>
                 <a class="btn btn-default cd-popup-cancel" role="button">Batal</a>
             </div>
             <a href="javascript:void(0);" class="cd-popup-close img-replace">Close</a>

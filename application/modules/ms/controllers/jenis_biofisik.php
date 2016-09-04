@@ -23,19 +23,35 @@ class jenis_biofisik extends CI_Controller {
 		$this->twiggy->set('_csrf', $this->security->get_csrf_token_name());
 		$this->twiggy->set('_token', $this->security->get_csrf_hash());
 
-		$this->direct = base_url('ms/kecamatan');
+		$this->direct = base_url('ms/jenis_biofisik');
 	}
 	
 	public function index(){
-		/**
-		 * FIXME
-		 * this only temporary set list object data
-		 * please switch to ajax request to datatable() method if this page has rendered
-		 */
+		$page   = (!$this->input->get('page')) ? 1 : $this->input->get('page');
 
-		$this->twiggy->set('list', JenisBiofisikEntity::all());
-
+		$this->twiggy->set('list', BiofisikEntity::all());
+		$this->twiggy->set('this_page', $page);
 		$this->twiggy->template('master/jenis-biofisik/index')->display();
+	}
+
+	public function list_data()
+	{
+		// set pagable data
+		$page   = (!$this->input->get('page')) ? 1 : $this->input->get('page');
+		$limit  = 25;
+		$offset = (($page-1)*$limit);
+		$search = "";
+
+		$this->model = new JenisBiofisikEntity();
+		$list = $this->model->get_jenis_biofisik($offset, $limit, $search, null, null);
+		$total = $this->model->get_jenis_biofisik_count($search);
+
+		$this->twiggy->set('list', $list->result());
+		$this->twiggy->set('total', $total);
+		$this->twiggy->set('totalPage', ceil($total/$limit));
+		$this->twiggy->set('size', $list->num_rows());
+		$this->twiggy->set('page', $page);
+		$this->twiggy->template('master/jenis-biofisik/list')->display();
 	}
 
 	public function form($id=null){
