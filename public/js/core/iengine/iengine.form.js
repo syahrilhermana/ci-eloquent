@@ -1,7 +1,7 @@
 (function (namespace, $) {
 	"use strict";
 
-	var FormComponents = function () {
+	var iengineForm = function () {
 		// Create reference to this instance
 		var o = this;
 		// Initialize app when document is ready
@@ -10,7 +10,7 @@
 		});
 
 	};
-	var p = FormComponents.prototype;
+	var p = iengineForm.prototype;
 
 	// =========================================================================
 	// INIT
@@ -147,13 +147,14 @@
 			return;
 		}
 
-		$('#demo-date').datepicker({autoclose: true, todayHighlight: true});
-		$('#demo-date-month').datepicker({autoclose: true, todayHighlight: true, minViewMode: 1});
-		$('#demo-date-format').datepicker({autoclose: true, todayHighlight: true, format: "yyyy/mm/dd"});
-		$('#demo-date-range').datepicker({todayHighlight: true});
-		$('#demo-date-inline').datepicker({todayHighlight: true});
+		$('#iengine-date').datepicker({autoclose: true, todayHighlight: true});
+		$('#iengine-date-second').datepicker({autoclose: true, todayHighlight: true});
+		$('#iengine-date-month').datepicker({autoclose: true, todayHighlight: true, minViewMode: 1});
+		$('#iengine-date-format').datepicker({autoclose: true, todayHighlight: true, format: "yyyy/mm/dd"});
+		$('#iengine-date-range').datepicker({todayHighlight: true});
+		$('#iengine-date-inline').datepicker({todayHighlight: true});
 	};
 
 	// =========================================================================
-	namespace.FormComponents = new FormComponents;
+	namespace.iengineForm = new iengineForm;
 }(this.iengine, jQuery)); // pass in (namespace, jQuery):

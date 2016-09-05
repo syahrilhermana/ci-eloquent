@@ -29,7 +29,7 @@ class TrsPencetakan extends Model {
 
     public function get_trs_percetakan_count($search = "")
     {
-        $this->CI->db->select($this->id);
+        $this->CI->db->select($this->primary);
         if($search != "") {
             $this->CI->db->like("trs_pencetakan_tujuan", $search);
         }

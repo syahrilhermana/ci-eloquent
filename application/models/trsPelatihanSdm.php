@@ -29,7 +29,7 @@ class TrsPelatihanSdm extends Model {
 
     public function get_trs_pelatihan_sdm_count($search = "")
     {
-        $this->CI->db->select($this->id);
+        $this->CI->db->select($this->primary);
         if($search != "") {
             $this->CI->db->like("trs_pelatihan_sdm_nama_pelatihan", $search);
         }

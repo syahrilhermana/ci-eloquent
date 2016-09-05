@@ -18,6 +18,7 @@ jQuery(document).ready(function($){
             $(this).removeClass('is-visible');
         }
     });
+
     //close popup when clicking the esc keyboard button
     $(document).keyup(function(event){
         if(event.which=='27'){
@@ -72,4 +73,13 @@ function delete_item(link){
             dataType:"html"
         });
     }
+}
+
+function isNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
 }
