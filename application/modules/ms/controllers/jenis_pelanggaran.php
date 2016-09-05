@@ -77,9 +77,9 @@ class jenis_pelanggaran extends CI_Controller {
 	public function submit(){
 		try {
 			if ($this->input->post('id') == null) {
-				$this->model = new JenisPelanggaran();
+				$this->model = new JenisPelanggaranEntity();
 			} else {
-				$this->model = JenisPelanggaran::find($this->input->post('id'));
+				$this->model = JenisPelanggaranEntity::find($this->input->post('id'));
 			}
 
 			$this->model->mst_jenis_pelanggaran_name	= $this->input->post('name');
