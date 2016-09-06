@@ -29,7 +29,7 @@ class TrsRpsp extends Model {
 
     public function get_trs_rpsp_count($search = "")
     {
-        $this->CI->db->select($this->id);
+        $this->CI->db->select($this->primary);
         if($search != "") {
             $this->CI->db->like("trs_rpsp_name", $search);
         }

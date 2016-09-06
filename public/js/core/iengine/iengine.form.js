@@ -23,6 +23,7 @@
 		this._initMultiSelect();
 		this._initInputMask();
 		this._initDatePicker();
+        this._initTimePicker();
 	};
 
 	// =========================================================================
@@ -154,6 +155,16 @@
 		$('#iengine-date-range').datepicker({todayHighlight: true});
 		$('#iengine-date-inline').datepicker({todayHighlight: true});
 	};
+
+    p._initTimePicker = function () {
+        if (!$.isFunction($.fn.timepicker)) {
+            return;
+        }
+        $('#iengine-time').timepicker({ 'timeFormat': 'H:i' });
+        $('#iengine-time-second').timepicker({ 'timeFormat': 'H:i' });
+    };
+
+
 
 	// =========================================================================
 	namespace.iengineForm = new iengineForm;

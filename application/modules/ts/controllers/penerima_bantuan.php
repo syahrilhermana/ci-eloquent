@@ -30,9 +30,11 @@ class penerima_bantuan extends CI_Controller {
 		$page   = (!$this->input->get('page')) ? 1 : $this->input->get('page');
 
 		$this->twiggy->set('this_page', $page);
-		$this->twiggy->set('produk', JenisProdukEntity::all());
-		$this->twiggy->set('verifikasi', SumberVerifikasiEntity::all());
-		$this->twiggy->template('transaction/penerima_bantuan/index')->display();
+		$this->twiggy->set('satker', SatkerEntity::all());
+		$this->twiggy->set('bantuan', JenisBantuanEntity::all());
+        $this->twiggy->set('kota', KotaEntity::all());
+        $this->twiggy->set('desa', DesaEntity::all());
+		$this->twiggy->template('transaction/penerima-bantuan/index')->display();
 	}
 
 	public function list_data()
@@ -52,7 +54,7 @@ class penerima_bantuan extends CI_Controller {
 		$this->twiggy->set('totalPage', ceil($total/$limit));
 		$this->twiggy->set('size', $list->num_rows());
 		$this->twiggy->set('page', $page);
-		$this->twiggy->template('transaction/penerima_bantuan/list')->display();
+		$this->twiggy->template('transaction/penerima-bantuan/list')->display();
 	}
 
 	public function form($id=null){

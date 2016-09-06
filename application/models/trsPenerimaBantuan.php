@@ -29,7 +29,7 @@ class TrsPenerimaBantuan extends Model {
 
     public function get_trs_penerima_bantuan_count($search = "")
     {
-        $this->CI->db->select($this->id);
+        $this->CI->db->select($this->primary);
         if($search != "") {
             $this->CI->db->like("trs_penerima_bantuan_desa", $search);
         }

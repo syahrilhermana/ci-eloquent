@@ -29,7 +29,7 @@ class TrsSosekKawasan extends Model {
 
     public function get_trs_sosek_kawasan_count($search = "")
     {
-        $this->CI->db->select($this->id);
+        $this->CI->db->select($this->primary);
         if($search != "") {
             $this->CI->db->like("trs_sosek_kawasan_desa", $search);
         }

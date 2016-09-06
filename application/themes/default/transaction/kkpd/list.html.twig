@@ -63,26 +63,22 @@
         <thead>
         <tr>
             <th>Satker</th>
-            <th>Nama</th>
+            <th>Kota</th>
             <th>Desa</th>
-            <th>No SK</th>
-            <th>Musrenbang</th>
-            <th>Usulan</th>
-            <th>Zonasi</th>
-            <th>Sumber</th>
+            <th>Jenis Bantuan</th>
+            <th>Manfaat</th>
+            <th>Tahun</th>
         </tr>
         </thead>
         <tbody>
         {% for data in list %}
             <tr>
-                <td>{{ data.trs_rpsp_satker_id }}</td>
-                <td>{{ data.trs_rpsp_name }}</td>
-                <td>{{ data.trs_rpsp_desa }}</td>
-                <td>{{ data.trs_rpsp_no_sk }}</td>
-                <td>{{ data.trs_rpsp_musrenbang }}</td>
-                <td>{{ data.trs_rpsp_usulan }}</td>
-                <td>{{ data.trs_rpsp_zonasi }}</td>
-                <td>{{ data.trs_rpsp_sumber_id }}</td>
+                <td>{{ data.trs_penerima_bantuan_satker_id }}</td>
+                <td>{{ data.trs_penerima_bantuan_kota }}</td>
+                <td>{{ data.trs_penerima_bantuan_desa }}</td>
+                <td>{{ data.trs_penerima_bantuan_jenis_bantuan_id }}</td>
+                <td>{{ data.trs_penerima_bantuan_manfaat }}</td>
+                <td>{{ data.trs_penerima_bantuan_tahun }}</td>
             </tr>
         {% endfor %}
         </tbody>
