@@ -8,6 +8,7 @@
 {% block script %}
     {{ js('libs/select2/select2.min.js', 'js') }}
     {{ js('libs/bootstrap-datepicker/bootstrap-datepicker.js', 'js') }}
+    {{ js('libs/inputmask/jquery.inputmask.bundle.js', 'js') }}
     <script>
         $(document).ready( function() {
             $('.card-form').hide();
@@ -106,7 +107,7 @@
                                         <div class="form-group">
                                             <div class="input-group date" id="iengine-time">
                                                 <div class="input-group-content">
-                                                    <input type="text" name="start_time" class="form-control">
+                                                    <input type="text" name="start_time" class="form-control time-mask">
                                                     <label>Waktu Mulai</label>
                                                 </div>
                                                 <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
@@ -117,7 +118,7 @@
                                         <div class="form-group">
                                             <div class="input-group time" id="iengine-date-second">
                                                 <div class="input-group-content">
-                                                    <input type="text" name="end_time" class="form-control">
+                                                    <input type="text" name="end_time" class="form-control time-mask">
                                                     <label>Waktu Selesai</label>
                                                 </div>
                                                 <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
@@ -129,22 +130,18 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <select name="kota" class="form-control select2-list" data-placeholder="Select an item" required >
-                                                {% for data in kota %}
-                                                    <option value="{{ data.mst_kota_id }}" {% if (data.mst_kota_id == object.trs_sosek_kawasan_kota) %} selected="selected" {% endif %}>{{ data.mst_kota_name }}</option>
+                                            <select name="jenis_kapal" class="form-control select2-list" data-placeholder="Select an item" required >
+                                                {% for data in kapal %}
+                                                    <option value="{{ data.mst_jenis_kapal_id }}" {% if (data.mst_jenis_kapal_id == object.trs_patroli_jenis_kapal_id) %} selected="selected" {% endif %}>{{ data.mst_jenis_kapal_name }}</option>
                                                 {% endfor %}
                                             </select>
-                                            <label for="kota">Kota</label>
+                                            <label for="kota">Jenis Kapal</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <select name="desa" class="form-control select2-list" data-placeholder="Select an item" required >
-                                                {% for data in desa %}
-                                                    <option value="{{ data.mst_desa_id }}" {% if (data.mst_desa_id == object.trs_patroli_desa) %} selected="selected" {% endif %}>{{ data.mst_desa_name }}</option>
-                                                {% endfor %}
-                                            </select>
-                                            <label for="desa">Desa</label>
+                                            <input type="text" class="form-control" id="pemilik-kapal" name="pemilik_kapal" required />
+                                            <label for="pemilik-kapal">Pemilik Kapal</label>
                                         </div>
                                     </div>
                                 </div>
@@ -152,14 +149,18 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <input type="text" onkeypress="return isNumber(event)" class="form-control" id="laki" name="laki" required />
-                                            <label for="laki">Laki-Laki</label>
+                                            <input type="text" onkeypress="return isNumber(event)" class="form-control" id="jumlah-pelanggaran" name="jml_pelanggaran" required />
+                                            <label for="jumlah-pelanggaran">Jumlah Pelanggaran</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="wanita" name="wanita" required />
-                                            <label for="wanita">Wanita</label>
+                                            <select name="jenis_pelanggaran" class="form-control select2-list" data-placeholder="Select an item" required >
+                                                {% for data in pelanggaran %}
+                                                    <option value="{{ data.mst_jenis_pelanggaran_id }}" {% if (data.mst_jenis_pelanggaran_id == object.trs_patroli_jenis_pelanggaran_id) %} selected="selected" {% endif %}>{{ data.mst_jenis_pelanggaran_name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label for="kota">Jenis Pelanggaran</label>
                                         </div>
                                     </div>
                                 </div>
@@ -168,41 +169,13 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="manfaat" name="manfaat" required />
-                                                <label for="manfaat">Manfaat</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="col-sm-4">
-                                            <div class="form-group control-width-normal">
-                                                <div class="input-group date">
-                                                    <div class="input-group-content">
-                                                        <input type="text" name="tahun" class="form-control">
-                                                        <label>Tahun</label>
-                                                    </div>
-                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <div class="form-group">
-                                                <select name="jenis_bantuan" class="form-control select2-list" data-placeholder="Select an item" required >
-                                                    {% for data in bantuan %}
-                                                        <option value="{{ data.mst_jenis_bantuan_id }}" {% if (data.mst_jenis_bantuan_id == object.trs_sosek_kawasan_jenis_bantuan_id) %} selected="selected" {% endif %}>{{ data.mst_jenis_bantuan_name }}</option>
+                                                <select name="sumber" class="form-control select2-list" data-placeholder="Select an item" required >
+                                                    {% for data in verifikasi %}
+                                                        <option value="{{ data.mst_sumber_verifikasi_id }}" {% if (data.mst_sumber_verifikasi_id == object.trs_patroli_sumber_id) %} selected="selected" {% endif %}>{{ data.mst_sumber_verifikasi_name }}</option>
                                                     {% endfor %}
                                                 </select>
-                                                <label for="jenis_bantuan">Jenis Bantuan</label>
+                                                <label for="sumber-verifikasi">Sumber Verifikasi</label>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"  id="metode" name="metode" required />
-                                            <label for="metode">Metode</label>
                                         </div>
                                     </div>
                                 </div>
