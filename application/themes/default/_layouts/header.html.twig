@@ -5,7 +5,7 @@
             <ul class="header-nav header-nav-options">
                 <li class="header-nav-brand" >
                     <div class="brand-holder">
-                        <a href="../../html/dashboards/dashboard.html">
+                        <a href="{{ site_url('') }}">
                             <span class="text-lg text-bold text-primary">{{ config['code'] }}</span>
                         </a>
                     </div>
@@ -24,16 +24,14 @@
                     <a href="javascript:void(0);" class="dropdown-toggle ink-reaction" data-toggle="dropdown">
                         {{ img('avatar.jpg', 'img', []) }}
 								<span class="profile-info">
-									Syahril Hermana
-									<small>Administrator</small>
+									{{ ci.session.userdata('guard')['name'] }}
+									<small>{{ ci.session.userdata('guard')['akses'] }}</small>
 								</span>
                     </a>
                     <ul class="dropdown-menu animation-dock">
-                        <li class="dropdown-header">Config</li>
-                        <li><a href="../../html/pages/profile.html">My Profile</a></li>
                         <li><a href="../../html/pages/calendar.html">Change Password</a></li>
                         <li class="divider"></li>
-                        <li><a href="../../html/pages/login.html"><i class="fa fa-fw fa-power-off text-danger"></i> Logout</a></li>
+                        <li><a href="{{ site_url('auth/logout') }}"><i class="fa fa-fw fa-power-off text-danger"></i> Logout</a></li>
                     </ul>
                 </li>
             </ul>

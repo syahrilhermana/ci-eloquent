@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database', 'orm/eloquent', 'twiggy', 'guard', 'session', 'datatables', 'jwt');
+$autoload['libraries'] = array('database', 'orm/eloquent', 'twiggy', 'guard', 'session', 'datatables', 'jwt', 'bcrypt');
 
 /*
 | -------------------------------------------------------------------
@@ -97,7 +97,7 @@ $autoload['helper'] = array('url', 'asset');
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = array('asset', 'twiggy');
+$autoload['config'] = array('asset', 'twiggy', 'bcrypt');
 
 /*
 | -------------------------------------------------------------------

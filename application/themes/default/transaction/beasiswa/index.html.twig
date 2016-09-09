@@ -56,8 +56,8 @@
                                     <div class="col-sm-5">
                                         <div class="form-group">
                                             <select name="pt" class="form-control select2-list" data-placeholder="Select an item" required >
-                                                {% for data in produk %}
-                                                    <option value="{{ data.mst_jenis_produk_id }}" {% if (data.mst_jenis_produk_id == object.trs_pencetakan_jenis_produk_id) %} selected="selected" {% endif %}>{{ data.mst_jenis_produk_name }}</option>
+                                                {% for data in list %}
+                                                    <option value="{{ data.mst_pt_id }}" {% if (data.mst_pt_id == object.trs_beasiswa_pt_id) %} selected="selected" {% endif %}>{{ data.mst_pt_name }}</option>
                                                 {% endfor %}
                                             </select>
                                             <label for="pt">Perguruan Tinggi</label>

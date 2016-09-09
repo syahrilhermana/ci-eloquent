@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>{{ title }}</title>
+
+    {{ meta }}
+
+    {#<link rel="icon" type="image/png" href="@{/static/assets/images/favicon.ico}" />#}
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900' rel='stylesheet' type='text/css'/>
+    {{ css('bootstrap.css', 'all', 'css') }}
+    {{ css('materialadmin.css', 'all', 'css') }}
+    {{ css('material-custom.css', 'all', 'css') }}
+    {{ css('font-awesome.css', 'all', 'css') }}
+    {{ css('material-design-iconic-font.css', 'all', 'css') }}
+    {{ css('picto-iconic-font.css', 'all', 'css') }}
+    {{ css('libs/morris/morris.core.css', 'all', 'css') }}
+    {{ css('libs/facebox/facebox.css', 'all', 'css') }}
+
+    {% block style %}
+    {% endblock %}
+
+    <!--[if lt IE 9]>
+    {{ js('libs/utils/html5shiv.js', 'js') }}
+    {{ js('libs/utils/respond.min.js', 'js') }}
+    <![endif]-->
+</head>
+<body class="menubar-hoverable header-fixed ">
+
+<!-- BEGIN LOGIN SECTION -->
+<section class="section-account">
+    <div class="img-backdrop" style="background-image: url('../../assets/img/img16.jpg')"></div>
+    <div class="spacer"></div>
+    <div class="card contain-sm style-transparent">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-3">&nbsp;</div>
+                <div class="col-sm-6">
+                    <br/>
+                    <span class="text-lg text-bold text-primary">
+                        <img src="/static/assets/images/logo.jpg" alt="logo" style="width: 100%" />
+                    </span>
+                    <br/><br/>
+                    <form id="authenticate" class="form floating-label" action="{{ base_url('auth/authenticate') }}" accept-charset="utf-8" method="post">
+                        <input type="hidden" class="form-control" name="{{ _csrf }}" value="{{ _token }}" />
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="username" name="username" />
+                            <label for="username">Username</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="password" name="password" />
+                            <label for="password">Password</label>
+                            <p class="help-block"><a href="#">Forgotten?</a></p>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-xs-6 text-left">
+                                <div class="checkbox checkbox-inline checkbox-styled">
+                                    <label>
+                                        <!--<input type="checkbox"> <span>Remember me</span>-->
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <button class="btn btn-primary btn-raised" type="submit">Login</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-3">&nbsp;</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{{ js('libs/jquery/jquery-1.11.2.min.js', 'js') }}
+{{ js('libs/jquery/jquery-migrate-1.2.1.min.js', 'js') }}
+{{ js('libs/bootstrap/bootstrap.min.js', 'js') }}
+{{ js('libs/spin.js/spin.min.js', 'js') }}
+{{ js('libs/autosize/jquery.autosize.min.js', 'js') }}
+{{ js('libs/moment/moment.min.js', 'js') }}
+{{ js('libs/facebox/facebox.js', 'js') }}
+{{ js('libs/nanoscroller/jquery.nanoscroller.min.js', 'js') }}
+{{ js('core/iengine/iengine.apps.js', 'js') }}
+
+
+{{ js('core/source/App.js', 'js') }}
+{{ js('core/source/AppNavigation.js', 'js') }}
+{{ js('core/source/AppOffcanvas.js', 'js') }}
+{{ js('core/source/AppCard.js', 'js') }}
+{{ js('core/source/AppForm.js', 'js') }}
+{{ js('core/source/AppNavSearch.js', 'js') }}
+{{ js('core/source/AppVendor.js', 'js') }}
+
+{{ js('core/iengine/iengine.js', 'js') }}
+
+<script type="text/javascript">
+    $( document ).ready(function() {
+        $("#authenticate").submit(function(ev) {
+            ev.preventDefault();
+            jQuery.facebox('<div style="padding: 17px; font-size: 14px;">Processing....</div>');
+            this.submit();
+        });
+    });
+</script>
+</body>
+</html>

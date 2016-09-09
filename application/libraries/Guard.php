@@ -19,6 +19,7 @@ class Guard
 
     public function is_access()
     {
+        $this->_guard = $this->CI->session->userdata('guard')['logged_in'];
         return (!$this->_guard) ? redirect(site_url('auth')) : true;
     }
 

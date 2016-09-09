@@ -30,6 +30,7 @@ class beasiswa extends CI_Controller {
 		$page   = (!$this->input->get('page')) ? 1 : $this->input->get('page');
 
 		$this->twiggy->set('this_page', $page);
+		$this->twiggy->set('list', PerguruanTinggiEntity::all());
 		$this->twiggy->template('transaction/beasiswa/index')->display();
 	}
 

@@ -16,6 +16,8 @@ class dashboard extends CI_Controller {
 		$this->twiggy->meta('keywords', 'codeigniter-plus');
 		$this->twiggy->meta('description', 'CodeIgniter Plus');
 		$this->twiggy->meta('viewport', 'width=device-width, initial-scale=1, maximum-scale=1');
+
+		$this->guard->is_access();
 	}
 	
 	public function index(){

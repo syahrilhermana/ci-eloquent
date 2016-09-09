@@ -1,0 +1,220 @@
+{% extends _layout %}
+
+{% block style %}
+    {{ css('libs/select2/select2.css', 'all', 'css') }}
+    {{ css('libs/bootstrap-datepicker/datepicker3.css', 'all', 'css') }}
+{% endblock %}
+
+{% block script %}
+    {{ js('libs/select2/select2.min.js', 'js') }}
+    {{ js('libs/bootstrap-datepicker/bootstrap-datepicker.js', 'js') }}
+    <script>
+        $(document).ready( function() {
+            $('.card-form').hide();
+            var thisPage = {{ this_page }};
+            load('{{ site_url('ts/biofisik_kawasan/list_data') }}?page='+thisPage, '#result');
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <section>
+        <div class="section-header">
+            <ol class="breadcrumb">
+                <li><a href="{{ site_url('dashboard') }}">dashboard</a></li>
+                <li><a href="{{ site_url('ts/biofisik_kawasan') }}">biofisik kawasan</a></li>
+                <li class="active">List Data</li>
+            </ol>
+        </div>
+        <div class="section-body contain-lg">
+
+            <div class="card card-underline">
+                <div class="card-head">
+                    <header>Biofisik Kawasan</header>
+                    <div class="tools">
+                        <div class="btn-group">
+                            <a class="btn btn-icon-toggle btn-form"><i class="fa fa-plus"></i></a>
+                            <a class="btn btn-icon-toggle btn-collapse"><i class="fa fa-angle-down"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+
+                    <!--form mode-->
+                    <div class="card card-form">
+                        <form id="form-engine" action="{{ site_url('ts/biofisik_kawasan/submit') }}" class="form form-validate floating-label" method="post" enctype="multipart/form-data">
+                            <div class="card-body text-default-light">
+                                <input type="hidden" class="form-control" name="{{ _csrf }}" value="{{ _token }}" />
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <select name="satker" class="form-control select2-list" data-placeholder="Select an item" required >
+                                                {% for data in satker %}
+                                                    <option value="{{ data.mst_satker_id }}" {% if (data.mst_satker_id == object.trs_biofisik_kawasan_satker_id) %} selected="selected" {% endif %}>{{ data.mst_satket_name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label for="satker">Satker</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <select name="desa" class="form-control select2-list" data-placeholder="Select an item" required >
+                                                {% for data in desa %}
+                                                    <option value="{{ data.mst_desa_id }}" {% if (data.mst_desa_id == object.trs_biofisik_kawasan_desa) %} selected="selected" {% endif %}>{{ data.mst_desa_name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label for="desa">Desa</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <select name="biofisik" class="form-control select2-list" data-placeholder="Select an item" required >
+                                                {% for data in biofisik %}
+                                                    <option value="{{ data.mst_biofisik_id }}" {% if (data.mst_biofisik_id == object.trs_biofisik_kawasan_biofisik_id) %} selected="selected" {% endif %}>{{ data.mst_biofisik_name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label for="biofisik">Biofisik</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="nama_kawasan" name="nama_kawasan" required />
+                                            <label for="nama_kawasan">Nama Kawasan</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="latitude" name="latitude" required />
+                                            <label for="latitude">Latitude</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="logitude" name="logitude" required />
+                                            <label for="logitude">Logitude</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="luas" name="luas" required />
+                                            <label for="luas">Luas</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <select name="kondisi" class="form-control select2-list" data-placeholder="Select an item" required >
+                                                {% for data in kondisi %}
+                                                    <option value="{{ data.mst_kondisi_id }}" {% if (data.mst_kondisi_id == object.trs_biofisik_kawasan_kondisi_id) %} selected="selected" {% endif %}>{{ data.mst_kondisi_name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label for="kondisi">Kondisi</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="tutupan" name="tutupan" required />
+                                            <label for="tutupan">Tutupan</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <select name="jenis_biofisik" class="form-control select2-list" data-placeholder="Select an item" required >
+                                                {% for data in jenis_biofisik %}
+                                                    <option value="{{ data.mst_jenis_biofisik_id }}" {% if (data.mst_jenis_biofisik_id == object.trs_biofisik_kawasan_jenis_biofisik_id) %} selected="selected" {% endif %}>{{ data.mst_biofisik_name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label for="jenis_biofisik">Jenis Biofisik</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="jumlah_jenis_biofisik" name="jumlah_jenis_biofisik" required />
+                                            <label for="jumlah_jenis_biofisik">Jumlah Jenis Biofisik</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="pelaksana" name="pelaksana" required />
+                                            <label for="pelaksana">Pelaksana</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group control-width-normal">
+                                            <div class="input-group date" id="iengine-date">
+                                                <div class="input-group-content">
+                                                    <input type="text" name="start_date" class="form-control">
+                                                    <label>Tanggal Mulai</label>
+                                                </div>
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group control-width-normal">
+                                            <div class="input-group date" id="iengine-date-second">
+                                                <div class="input-group-content">
+                                                    <input type="text" name="end_date" class="form-control">
+                                                    <label>Tanggal Selesai</label>
+                                                </div>
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <select name="sumber_verifikasi" class="form-control select2-list" data-placeholder="Select an item" required >
+                                                {% for data in verifikasi %}
+                                                    <option value="{{ data.mst_sumber_verifikasi_id }}" {% if (data.mst_sumber_verifikasi_id == object.trs_pencetakan_sumber_verifikasi_id) %} selected="selected" {% endif %}>{{ data.mst_sumber_verifikasi_name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label for="sumber_verifikasi">Sumber Verifikasi</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="card-actionbar">
+                                <div class="card-actionbar-row">
+                                    <a href="javascript:void(0);" onclick="$('.card-form').hide(500);" class="btn btn-flat btn-default ink-reaction cancel">Batal</a>
+                                    <button type="submit" class="btn btn-flat btn-accent ink-reaction">Simpan</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!--end form-->
+
+                    <div id="result"></div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="cd-popup" role="alert">
+        <div class="cd-popup-container">
+            <p>Are you sure you want to delete this element?</p>
+            <div class="btn-group btn-group-justified" role="group" aria-label="engine group">
+                <a class="btn btn-danger" onclick="delete_item('{{ site_url('ts/biofisik_kawasan') }}');" role="button">Hapus</a>
+                <a class="btn btn-default cd-popup-cancel" role="button">Batal</a>
+            </div>
+            <a href="javascript:void(0);" class="cd-popup-close img-replace">Close</a>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js_core %}
+    {{ js('core/iengine/iengine.js', 'js') }}
+    {{ js('core/iengine/iengine.form.js', 'js') }}
+{% endblock %}
