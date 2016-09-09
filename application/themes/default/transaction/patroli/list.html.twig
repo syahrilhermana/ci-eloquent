@@ -63,22 +63,22 @@
         <thead>
         <tr>
             <th>Satker</th>
-            <th>Kota</th>
-            <th>Desa</th>
-            <th>Jenis Bantuan</th>
-            <th>Manfaat</th>
-            <th>Tahun</th>
+            <th>Tanggal Mulai</th>
+            <th>Tanggal Selesai</th>
+            <th>Lokasi</th>
+            <th>Jumlah Anggota</th>
+            <th>Sumber Verifikasi</th>
         </tr>
         </thead>
         <tbody>
         {% for data in list %}
             <tr>
-                <td>{{ data.trs_penerima_bantuan_satker_id }}</td>
-                <td>{{ data.trs_penerima_bantuan_kota }}</td>
-                <td>{{ data.trs_penerima_bantuan_desa }}</td>
-                <td>{{ data.trs_penerima_bantuan_jenis_bantuan_id }}</td>
-                <td>{{ data.trs_penerima_bantuan_manfaat }}</td>
-                <td>{{ data.trs_penerima_bantuan_tahun }}</td>
+                <td>{{ data.trs_potroli_satker }}</td>
+                <td>{{ data.trs_potroli_start_date }}</td>
+                <td>{{ data.trs_potroli_end_date }}</td>
+                <td>{{ data.trs_potroli_lokasi }}</td>
+                <td>{{ data.trs_potroli_jml_anggota }}</td>
+                <td>{{ data.trs_potroli_sumber_id }}</td>
             </tr>
         {% endfor %}
         </tbody>

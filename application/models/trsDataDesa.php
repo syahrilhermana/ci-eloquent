@@ -29,7 +29,7 @@ class TrsDataDesa extends Model {
 
     public function get_trs_data_desa_count($search = "")
     {
-        $this->CI->db->select($this->id);
+        $this->CI->db->select($this->primary);
         if($search != "") {
             $this->CI->db->like("trs_data_desa_desa", $search);
         }
