@@ -72,12 +72,8 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <select name="desa" class="form-control select2-list" data-placeholder="Select an item" required >
-                                                {% for data in desa %}
-                                                    <option value="{{ data.mst_desa_id }}" {% if (data.mst_desa_id == object.trs_penerima_bantuan_desa) %} selected="selected" {% endif %}>{{ data.mst_desa_name }}</option>
-                                                {% endfor %}
-                                            </select>
-                                            <label for="desa">Desa</label>
+                                            <input type="text" class="form-control" id="sk_walkot" name="sk_walkot" required />
+                                            <label for="sk_walkot">SK Walkot</label>
                                         </div>
                                     </div>
                                 </div>
@@ -85,14 +81,94 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <input type="text" onkeypress="return isNumber(event)" class="form-control" id="laki" name="laki" required />
-                                            <label for="laki">Laki-Laki</label>
+                                            <input type="text" class="form-control" id="sk_mkp" name="sk_mkp" required />
+                                            <label for="sk_mkp">SK MKP</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="wanita" name="wanita" required />
-                                            <label for="wanita">Wanita</label>
+                                            <select name="rencana_pengelolaan" class="form-control select2-list" required >
+                                                {% for data in rpsp %}
+                                                    <option value="{{ data.mst_desa_id }}" {% if (data.mst_desa_id == object.trs_lpstk_desa) %} selected="selected" {% endif %}>{{ data.mst_desa_name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label for="rencana_pengelolaan">RPSP</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <select name="penataan_batas" class="form-control select2-list" data-placeholder="Select an item" required >
+                                                {% for data in penataan_batas %}
+                                                    <option value="{{ data.mst_desa_id }}" {% if (data.mst_desa_id == object.trs_lpstk_desa) %} selected="selected" {% endif %}>{{ data.mst_desa_name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label for="penataan_batas">Penataan Batas</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="luas" name="luas" required />
+                                            <label for="luas">Luas</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <select name="lamun" class="form-control select2-list" data-placeholder="Select an item" required >
+                                                {% for data in lamun %}
+                                                    <option value="{{ data.mst_biofisik_id }}" {% if (data.mst_biofisik_id == object.trs_lpstk_mangrove) %} selected="selected" {% endif %}>{{ data.mst_biofisik_name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label for="lamun">Lamun</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" onkeypress="return isNumber(event)" name="lamun_luas" class="form-control">
+                                            <label for="mangrove_luas">Luas Lamun</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <select name="mangrove" class="form-control select2-list" data-placeholder="Select an item" required >
+                                                {% for data in mangrove %}
+                                                    <option value="{{ data.mst_biofisik_id }}" {% if (data.mst_biofisik_id == object.trs_lpstk_mangrove) %} selected="selected" {% endif %}>{{ data.mst_biofisik_name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label for="mangrove">Mangrove</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" onkeypress="return isNumber(event)" name="mangrove_luas" class="form-control">
+                                            <label for="mangrove_luas">Luas Mangrove</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <select name="tk" class="form-control select2-list" data-placeholder="Select an item" required >
+                                                {% for data in tk %}
+                                                    <option value="{{ data.mst_biofisik_id }}" {% if (data.mst_biofisik_id == object.trs_lpstk_mangrove) %} selected="selected" {% endif %}>{{ data.mst_biofisik_name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label for="tk">TK</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" onkeypress="return isNumber(event)" name="tk_luas" class="form-control">
+                                            <label for="tk_luas">Luas Lamun</label>
                                         </div>
                                     </div>
                                 </div>
@@ -101,41 +177,9 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="manfaat" name="manfaat" required />
-                                                <label for="manfaat">Manfaat</label>
+                                                <input type="text" class="form-control" id="keterangan" name="keterangan" required />
+                                                <label for="keterangan">Keterangan</label>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="col-sm-4">
-                                            <div class="form-group control-width-normal">
-                                                <div class="input-group date">
-                                                    <div class="input-group-content">
-                                                        <input type="text" name="tahun" class="form-control">
-                                                        <label>Tahun</label>
-                                                    </div>
-                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <div class="form-group">
-                                                <select name="jenis_bantuan" class="form-control select2-list" data-placeholder="Select an item" required >
-                                                    {% for data in bantuan %}
-                                                        <option value="{{ data.mst_jenis_bantuan_id }}" {% if (data.mst_jenis_bantuan_id == object.trs_sosek_kawasan_jenis_bantuan_id) %} selected="selected" {% endif %}>{{ data.mst_jenis_bantuan_name }}</option>
-                                                    {% endfor %}
-                                                </select>
-                                                <label for="jenis_bantuan">Jenis Bantuan</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"  id="metode" name="metode" required />
-                                            <label for="metode">Metode</label>
                                         </div>
                                     </div>
                                 </div>

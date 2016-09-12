@@ -29,7 +29,7 @@ class TrsKkpn extends Model {
 
     public function get_trs_kkpn_count($search = "")
     {
-        $this->CI->db->select($this->id);
+        $this->CI->db->select($this->primary);
         if($search != "") {
             $this->CI->db->like("trs_kkpn_name", $search);
         }

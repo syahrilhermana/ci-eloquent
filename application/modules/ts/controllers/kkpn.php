@@ -30,8 +30,11 @@ class kkpn extends CI_Controller {
 		$page   = (!$this->input->get('page')) ? 1 : $this->input->get('page');
 
 		$this->twiggy->set('this_page', $page);
-		$this->twiggy->set('produk', JenisProdukEntity::all());
-		$this->twiggy->set('verifikasi', SumberVerifikasiEntity::all());
+		$this->twiggy->set('rpsp', TrsRpsp::all());
+		$this->twiggy->set('penataan_batas', TrsKkpd::all());
+        $this->twiggy->set('lamun', BiofisikEntity::all());
+        $this->twiggy->set('mangrove', BiofisikEntity::all());
+        $this->twiggy->set('tk', BiofisikEntity::all());
 		$this->twiggy->template('transaction/kkpn/index')->display();
 	}
 
