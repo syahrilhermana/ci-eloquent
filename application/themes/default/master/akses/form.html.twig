@@ -1,0 +1,54 @@
+{% extends _layout %}
+
+
+{% block content %}
+    <section>
+        <div class="section-header">
+            <ol class="breadcrumb">
+                <li><a href="{{ site_url('dashboard') }}">dashboard</a></li>
+                <li><a href="{{ site_url('ms/akses') }}">akses</a></li>
+                <li class="active">Form Data</li>
+            </ol>
+        </div>
+        <div class="section-body contain-lg">
+
+            <div class="card card-underline">
+                <div class="card-head">
+                    <header>Akses</header>
+                    <div class="tools">
+                        <div class="btn-group">
+                            <a class="btn btn-icon-toggle btn-collapse"><i class="fa fa-angle-down"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <form id="AjaxForm" action="{{ site_url('ms/akses/submit') }}" class="form form-validate floating-label" novalidate="novalidate" method="post">
+                        <input type="hidden" class="form-control" name="{{ _csrf }}" value="{{ _token }}" />
+                        <input type="hidden" class="form-control" name="id" value="{{ object.mst_akses_id }}" />
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="name" name="name" value="{{ object.mst_akses_name }}" required />
+                                    <label for="name">Nama Akses</label>
+                                </div>
+                            </div>
+                            <div class="card-actionbar">
+                                <div class="card-actionbar-row">
+                                    <a href="{{ site_url('ms/akses') }}"><button type="button" class="btn ink-reaction btn-raised btn-default">Batal</button>&nbsp;</a>
+                                    <button type="submit" class="btn ink-reaction btn-raised btn-primary" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Menyimpan...">Simpan</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </section>
+{% endblock %}
+
+{% block js_core %}
+    {# -- core script -- #}
+    {{ js('core/iengine/iengine.js', 'js') }}
+{% endblock %}

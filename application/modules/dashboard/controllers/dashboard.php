@@ -29,5 +29,8 @@ class dashboard extends CI_Controller {
 		$this->twiggy->template('dashboard/index')->display();
 	}
 
+	public function tes(){
+		return "tes";
+	}
 }
 

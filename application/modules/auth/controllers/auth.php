@@ -45,17 +45,22 @@ class auth extends CI_Controller {
 		{
 			if ($this->bcrypt->check_password($password, $user->mst_user_password))
 			{
-				// generate session
+				// generate guard session
 				$data = array
 				(
 					'name' => $user->mst_user_name,
 					'username' => $user->mst_user_username,
 					'akses' => $user->mst_akses_id,
 					'satker' => $user->mst_satker_id,
+//					'navigation' => $menu,
 					'logged_in' => TRUE
 				);
 
+				$navigation = $this->_navigation($user->mst_akses_id);
+
+				// set session
 				$this->session->set_userdata('guard', $data);
+				$this->session->set_userdata('navigation', $navigation);
 
 				redirect(site_url('dashboard'), 'location', 303);
 			}
@@ -79,5 +84,32 @@ class auth extends CI_Controller {
 		redirect($this->direct, 'location', 303);
 	}
 
+	private function _navigation($access){
+		$model= new AksesMenuEntity();
+		$menu = $model->generate_menu($access, null);
+
+		$navigation = array();
+
+		$i = 0;
+		foreach($menu as $item) {
+			$navigation[$i]['name'] = $item['name'];
+			$navigation[$i]['icon'] = $item['icon'];
+			$navigation[$i]['link'] = $item['link'];
+
+			if (!isset($item['parent'])) {
+				$n = 0;
+				foreach($item['children'] as $children) {
+					$navigation[$i]['children'][$n]['name'] = $children['name'];
+					$navigation[$i]['children'][$n]['icon'] = $children['icon'];
+					$navigation[$i]['children'][$n]['link'] = $children['link'];
+
+					$n++;
+				}
+			}
+			$i++;
+		}
+
+		return $navigation;
+	}
 }
 

@@ -53,7 +53,7 @@ class data_desa extends CI_Controller {
 		$this->twiggy->set('totalPage', ceil($total/$limit));
 		$this->twiggy->set('size', $list->num_rows());
 		$this->twiggy->set('page', $page);
-		$this->twiggy->template('transaction/data_desa/list')->display();
+		$this->twiggy->template('transaction/data-desa/list')->display();
 	}
 
 	public function form($id=null){
@@ -62,7 +62,7 @@ class data_desa extends CI_Controller {
 			$this->twiggy->set('object', $this->model);
 		}
 
-		$this->twiggy->template('transaction/data_desa/form')->display();
+		$this->twiggy->template('transaction/data-desa/form')->display();
 	}
 
 	public function delete($id){

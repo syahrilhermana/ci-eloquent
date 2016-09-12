@@ -76,62 +76,24 @@
 
                 <ul id="main-menu" class="gui-controls">
 
-                    <li>
-                        <a href="#" class="active">
-                            <div class="gui-icon"><i class="md md-home"></i></div>
-                            <span class="title">Dashboard</span>
-                        </a>
-                    </li>
+                    {# generate navigation by system #}
+                    {% for navigation in ci.session.userdata('navigation') %}
+                        <li {% if navigation['children']|length > 0 %} class="gui-folder" {% endif %}>
+                            <a {% if navigation['children']|length == 0 %} href="{{ site_url(navigation['link']) }}"{% endif %}>
+                                <div class="gui-icon"><i class="md md-home"></i></div>
+                                <span class="title">{{ navigation['name'] }}</span>
+                            </a>
 
-                    <li class="gui-folder">
-                        <a>
-                            <div class="gui-icon"><i class="md md-computer"></i></div>
-                            <span class="title">Master</span>
-                        </a>
-                        <ul>
-                            <li><a href="{{ site_url('ms/biofisik') }}" ><span class="title">Biofisik</span></a></li>
-                            <li><a href="{{ site_url('ms/desa') }}" ><span class="title">Desa</span></a></li>
-                            <li><a href="{{ site_url('ms/jenis_bantuan') }}" ><span class="title">Jenis Bantuan</span></a></li>
-                            <li><a href="{{ site_url('ms/jenis_biofisik') }}" ><span class="title">Jenis Biofisik</span></a></li>
-                            <li><a href="{{ site_url('ms/jenis_kapal') }}" ><span class="title">Jenis Kapal</span></a></li>
-                            <li><a href="{{ site_url('ms/jenis_pelanggaran') }}" ><span class="title">Jenis Pelanggaran</span></a></li>
-                            <li><a href="{{ site_url('ms/jenis_produk') }}" ><span class="title">Jenis Produk</span></a></li>
-                            <li><a href="{{ site_url('ms/kecamatan') }}" ><span class="title">Kecamatan</span></a></li>
-                            <li><a href="{{ site_url('ms/ket_kondisi') }}" ><span class="title">Keterangan Kondisi</span></a></li>
-                            <li><a href="{{ site_url('ms/kota') }}" ><span class="title">Kota</span></a></li>
-                            <li><a href="{{ site_url('ms/provinsi') }}" ><span class="title">Provinsi</span></a></li>
-                            <li><a href="{{ site_url('ms/satker') }}" ><span class="title">Satuan Kerja</span></a></li>
-                            <li><a href="{{ site_url('ms/status_lahan') }}" ><span class="title">Status Lahan</span></a></li>
-                            <li><a href="{{ site_url('ms/sumber_verifikasi') }}" ><span class="title">Sumber Verifikasi</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="gui-folder">
-                        <a>
-                            <div class="gui-icon"><i class="md md-email"></i></div>
-                            <span class="title">Transaksi</span>
-                        </a>
-                        <ul>
-                            <li><a href="{{ site_url('ts/pencetakan') }}" ><span class="title">Pencetakan</span></a></li>
-                            <li><a href="{{ site_url('ts/pelatihan_sdm') }}" ><span class="title">Pelatihan SDM</span></a></li>
-                            <li><a href="{{ site_url('ts/sosek_kawasan') }}" ><span class="title">Sosek Kawasan</span></a></li>
-                            <li><a href="{{ site_url('ts/rpsp') }}" ><span class="title">RPSP</span></a></li>
-                            <li><a href="{{ site_url('ts/penerima_bantuan') }}" ><span class="title">Penerima Bantuan</span></a></li>
-                            <li><a href="{{ site_url('ts/patroli') }}" ><span class="title">Patroli</span></a></li>
-                            <li><a href="{{ site_url('ts/lpstk') }}" ><span class="title">LPSTK</span></a></li>
-                            <li><a href="{{ site_url('ts/kkpn') }}" ><span class="title">KKPN</span></a></li>
-                            <li><a href="{{ site_url('ts/kkpd') }}" ><span class="title">KKPD</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="gui-folder">
-                        <a>
-                            <div class="gui-icon"><i class="md md-assessment"></i></div>
-                            <span class="title">Report</span>
-                        </a>
-                        <ul>
-                            <li><a href="#" ><span class="title">Analytic Report</span></a></li>
-                            <li><a href="#" ><span class="title">Detail Report</span></a></li>
-                        </ul>
-                    </li>
+                            {% if navigation['children']|length > 0 %}
+                                <ul>
+                                    {% for children in navigation['children'] %}
+                                        <li><a href="{{ site_url(children['link']) }}" ><span class="title">{{ children['name'] }}</span></a></li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                    {# end generate #}
                 </ul>
 
                 <div class="menubar-foot-panel">

@@ -15,7 +15,7 @@
         <div class="section-header">
             <ol class="breadcrumb">
                 <li><a href="{{ site_url('dashboard') }}">dashboard</a></li>
-                <li><a href="{{ site_url('ms/satker') }}">satker</a></li>
+                <li><a href="{{ site_url('ms/satker') }}">pelaksana</a></li>
                 <li class="active">List Data</li>
             </ol>
         </div>
@@ -23,7 +23,7 @@
 
             <div class="card card-underline">
                 <div class="card-head">
-                    <header>Satuan Kerja</header>
+                    <header>Pelaksana</header>
                     <div class="tools">
                         <div class="btn-group">
                             <a class="btn btn-icon-toggle btn-form"><i class="fa fa-plus"></i></a>
@@ -41,7 +41,7 @@
                                 <input type="hidden" class="form-control" name="{{ _csrf }}" value="{{ _token }}" />
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="name" name="name" value="{{ object.mst_satket_name }}" required />
-                                    <label for="name">Satuan Kerja</label>
+                                    <label for="name">Pelaksana</label>
                                 </div>
                             </div>
                             <div class="card-actionbar">

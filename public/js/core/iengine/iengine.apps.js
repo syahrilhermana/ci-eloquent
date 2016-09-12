@@ -83,3 +83,13 @@ function isNumber(evt) {
     }
     return true;
 }
+
+function iconSelected(value, text) {
+    var name = document.getElementById('icon-name');
+
+    $('#icon').val(value);
+    document.getElementById("icon-code").className = value;
+    name.innerHTML = text;
+
+    $('#icons').hide();
+}

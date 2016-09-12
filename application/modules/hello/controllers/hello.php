@@ -39,5 +39,39 @@ class hello extends CI_Controller {
 			'ttl'=>$this->config->item('jwt_ttl')
 		), $this->config->item('jwt_secret'));
 	}
+
+	public function menu(){
+		$model = new AksesMenuEntity();
+		$menu = $model->generate_menu(1, null);
+
+		echo "<pre>";
+		foreach($menu as $item) {
+			echo "MENU ID : <code>".$item['id']."</code><br />";
+			echo "MENU NAME : <code>".$item['name']."</code><br />";
+			echo "MENU ICON : <code>".$item['icon']."</code><br />";
+			echo "MENU LINK : <code>".$item['link']."</code><br />";
+			echo "MENU ORDER : <code>".$item['order']."</code><br />";
+			echo "MENU PARENT : <code>".$item['parent']."</code><br />";
+
+			if (!isset($item['parent'])) {
+				foreach($item['children'] as $children) {
+					echo "&nbsp;&nbsp;&nbsp;&nbsp;MENU ID : <code>".$children['id']."</code><br />";
+					echo "&nbsp;&nbsp;&nbsp;&nbsp;MENU NAME : <code>".$children['name']."</code><br />";
+					echo "&nbsp;&nbsp;&nbsp;&nbsp;MENU ICON : <code>".$children['icon']."</code><br />";
+					echo "&nbsp;&nbsp;&nbsp;&nbsp;MENU LINK : <code>".$children['link']."</code><br />";
+					echo "&nbsp;&nbsp;&nbsp;&nbsp;MENU ORDER : <code>".$children['order']."</code><br />";
+				}
+			}
+		}
+		echo "</pre>";
+
+		exit;
+	}
+
+	public function icon(){
+		$this->load->library('icons');
+
+		print_r($this->icons->glyphicons());
+	}
 }
 
