@@ -30,7 +30,7 @@ class lpstk extends CI_Controller {
 		$page   = (!$this->input->get('page')) ? 1 : $this->input->get('page');
 
 		$this->twiggy->set('this_page', $page);
-		$this->twiggy->set('produk', JenisProdukEntity::all());
+		$this->twiggy->set('desa', DesaEntity::all());
 		$this->twiggy->set('verifikasi', SumberVerifikasiEntity::all());
 		$this->twiggy->template('transaction/lpstk/index')->display();
 	}
@@ -91,8 +91,8 @@ class lpstk extends CI_Controller {
 				$this->model->trs_lpstk_update_date = date('Y-m-d H:i:s');
 			}
 
-			$this->model->trs_lpstk_akses = $this->input->post('akses');
-			$this->model->trs_lpstk_satker_id = $this->input->post('satker');
+			$this->model->trs_lpstk_akses = 1;
+			$this->model->trs_lpstk_satker_id = 1;
 			$this->model->trs_lpstk_name = $this->input->post('name');
 			$this->model->trs_lpstk_desa = $this->input->post('desa');
             $this->model->trs_lpstk_tgl = date('Y-m-d H:i:s', strtotime($this->input->post('tgl')));

@@ -63,22 +63,22 @@
         <thead>
         <tr>
             <th>Satker</th>
-            <th>Kota</th>
-            <th>Desa</th>
-            <th>Jenis Bantuan</th>
-            <th>Manfaat</th>
-            <th>Tahun</th>
+            <th>Nama</th>
+            <th>RPSP</th>
+            <th>Lamun</th>
+            <th>Mangrove</th>
+            <th>TK</th>
         </tr>
         </thead>
         <tbody>
         {% for data in list %}
             <tr>
-                <td>{{ data.trs_penerima_bantuan_satker_id }}</td>
-                <td>{{ data.trs_penerima_bantuan_kota }}</td>
-                <td>{{ data.trs_penerima_bantuan_desa }}</td>
-                <td>{{ data.trs_penerima_bantuan_jenis_bantuan_id }}</td>
-                <td>{{ data.trs_penerima_bantuan_manfaat }}</td>
-                <td>{{ data.trs_penerima_bantuan_tahun }}</td>
+                <td>{{ data.trs_kkpd_satker_id }}</td>
+                <td>{{ data.trs_kkpd_name }}</td>
+                <td>{{ data.trs_kkpd_rencana_pengelolaan }}</td>
+                <td>{{ data.trs_kkpd_lamun }}</td>
+                <td>{{ data.trs_kkpd_mangrove }}</td>
+                <td>{{ data.trs_kkpd_tk }}</td>
             </tr>
         {% endfor %}
         </tbody>
