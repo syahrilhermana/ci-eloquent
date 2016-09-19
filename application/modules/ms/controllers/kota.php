@@ -24,6 +24,8 @@ class kota extends CI_Controller {
 		$this->twiggy->set('_token', $this->security->get_csrf_hash());
 
 		$this->direct = base_url('ms/kota');
+
+		$this->guard->is_access();
 	}
 	
 	public function index(){

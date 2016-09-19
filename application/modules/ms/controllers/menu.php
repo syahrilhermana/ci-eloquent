@@ -25,6 +25,8 @@ class menu extends CI_Controller {
 
 		$this->direct = base_url('ms/menu');
 		$this->load->library('icons');
+
+		$this->guard->is_access();
 	}
 	
 	public function index(){

@@ -24,6 +24,8 @@ class sosek_kawasan extends CI_Controller {
 		$this->twiggy->set('_token', $this->security->get_csrf_hash());
 
 		$this->direct = base_url('ts/sosek_kawasan');
+
+		$this->guard->is_access();
 	}
 	
 	public function index(){

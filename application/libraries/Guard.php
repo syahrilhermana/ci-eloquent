@@ -23,6 +23,21 @@ class Guard
         return (!$this->_guard) ? redirect(site_url('auth')) : true;
     }
 
+    public function get_user()
+    {
+        return $this->CI->session->userdata('guard')['user'];
+    }
+
+    public function get_role()
+    {
+        return $this->CI->session->userdata('guard')['akses'];
+    }
+
+    public function get_satker()
+    {
+        return $this->CI->session->userdata('guard')['satker'];
+    }
+
     public function token_valid($token)
     {
         try {

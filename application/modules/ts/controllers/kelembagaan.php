@@ -76,7 +76,7 @@ class kelembagaan extends CI_Controller {
                 redirect($this->direct, 'location', 303);
             }
 
-            TrsKkpd::delete($id);
+            TrsKelembagaan::delete($id);
 
             redirect($this->direct, 'location', 303);
         }

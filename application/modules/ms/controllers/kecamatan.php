@@ -24,6 +24,8 @@ class kecamatan extends CI_Controller {
 		$this->twiggy->set('_token', $this->security->get_csrf_hash());
 
 		$this->direct = base_url('ms/kecamatan');
+
+		$this->guard->is_access();
 	}
 	
 	public function index(){
