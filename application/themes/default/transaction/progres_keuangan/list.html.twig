@@ -62,38 +62,37 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Satker</th>
-            <th>Pendamping</th>
-            <th>Alamat Asal</th>
-            <th>Lokasi Tugas</th>
-            <th>Tanggal Mulai</th>
-            <th>Tanggal Selesai</th>
-            <th>Waktu Tempuh</th>
-            <th>Alat Transport</th>
-            <th>Verifikasi</th>
-            <th>Created Date</th>
-            <th>Created By</th>
-            <th>Updated Date</th>
-            <th>Updated By</th>
+            <th>Jenis</th>
+            <th>Judul Kegiatan</th>
+            <th>Lokasi</th>
+            <th>Penyerapan Kumulatif</th>
+            <th>Sumber Dana</th>
+            <th>Kategori Kegiatan</th>
+            <th>Pagu Anggaran</th>
+            <th>Jenis Pengadaan</th>
+            <th>Metode Pengadaan</th>
+            <th>Metode Pembayaran</th>
+            <th>HPS</th>
+            <th>Nilai Kontrak</th>
+            <th>Periode Kontrak</th>
         </tr>
         </thead>
         <tbody>
         {% for data in list %}
             <tr>
-                <td>{{ data.trs_pendamping_desa_satker }}</td>
-                <td>{{ data.trs_pendamping_desa_pendamping }}</td>
-                <td>{{ data.trs_pendamping_desa_alamat_asal }}</td>
-                <td>{{ data.trs_pendamping_desa_lokasi_tugas }}</td>
-                <td>{{ data.trs_pendamping_desa_tanggal_mulai}}</td>
-                <td>{{ data.trs_pendamping_desa_tanggal_selesai }}</td>
-                <td>{{ data.trs_pendamping_desa_waktu_tempuh }}</td>
-                <td>{{ data.trs_pendamping_desa_alat_transport }}</td>
-                <td>{{ data.trs_pendamping_desa_verifikasi }}</td>
-
-                <td>{{ data.trs_pendamping_desa_created_date }}</td>
-                <td>{{ data.trs_pendamping_desa_created_by}}</td>
-                <td>{{ data.trs_pendamping_desa_updated_date }}</td>
-                <td>{{ data.trs_pendamping_desa_updated_by }}</td>
+                <td>{{ data.trs_progres_keuangan_jenis }}</td>
+                <td>{{ data.trs_progres_keuangan_judul_kegiatan }}</td>
+                <td>{{ data.trs_progres_keuangan_lokasi }}</td>
+                <td>{{ data.trs_progres_keuangan_penyerapan_kumulatif}}</td>
+                <td>{{ data.trs_progres_keuangan_sumber_dana }}</td>
+                <td>{{ data.trs_progres_keuangan_kategori_kegiatan }}</td>
+                <td>{{ data.trs_progres_keuangan_pagu_anggaran}}</td>
+                <td>{{ data.trs_progres_keuangan_jenis_pengadaan }}</td>
+                <td>{{ data.trs_progres_keuangan_metode_pengadaan }}</td>
+                <td>{{ data.trs_progres_keuangan_metode_pembayaran }}</td>
+                <td>{{ data.trs_progres_keuangan_hps }}</td>
+                <td>{{ data.trs_progres_keuangan_nilai_kontrak}}</td>
+                <td>{{ data.trs_progres_keuangan_periode_kontrak }}</td>
             </tr>
         {% endfor %}
         </tbody>

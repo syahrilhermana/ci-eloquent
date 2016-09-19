@@ -12,7 +12,7 @@
         $(document).ready( function() {
             $('.card-form').hide();
             var thisPage = {{ this_page }};
-            load('{{ site_url('ts/pendamping_desa/list_data') }}?page='+thisPage, '#result');
+            load('{{ site_url('ts/pengembangan_ekonomi/list_data') }}?page='+thisPage, '#result');
         });
     </script>
 {% endblock %}
@@ -43,7 +43,7 @@
 
                     <!--form mode-->
                     <div class="card card-form">
-                        <form id="form-engine" action="{{ site_url('ts/pendamping_desa/submit') }}" class="form form-validate floating-label" method="post" enctype="multipart/form-data">
+                        <form id="form-engine" action="{{ site_url('ts/pengembangan_ekonomi/submit') }}" class="form form-validate floating-label" method="post" enctype="multipart/form-data">
                             <div class="card-body text-default-light">
                                 <input type="hidden" class="form-control" name="{{ _csrf }}" value="{{ _token }}" />
                                 <div class="row">
@@ -52,29 +52,31 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
                                         <div class="form-group">
-                                            <input type="text" class="form-control"  id="pendamping" name="pendamping" required />
-                                            <label for="pendamping">Pendamping</label>
+                                            <input type="text" class="form-control" id="tahun" name="tahun" onkeypress="return isNumber(event)" required />
+                                            <label for="tahun">Tahun</label>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="alamat_asal" onkeypress="return isNumber(event)" name="alamat_asal" required />
-                                            <label for="alamat_asal">Alamat Asal</label>
+                                            <input type="text" class="form-control" id="jenis_pencaharian_alternatif" name="jenis_pencaharian_alternatif" onkeypress="return isNumber(event)" required />
+                                            <label for="jenis_pencaharian_alternatif">Jenis Pencaharian Alternatif</label>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" onkeypress="return isNumber(event)" id="lokasi_tugas" name="lokasi_tugas" required />
-                                            <label for="lokasi_tugas">Lokasi Tugas</label>
+                                            <select name="desa" class="form-control select2-list" data-placeholder="Select an item" required >
+                                                {% for data in desa %}
+                                                    <option value="{{ data.mst_desa_id }}" {% if (data.mst_desa_id == object.trs_peng_ekonomi_desa) %} selected="selected" {% endif %}>{{ data.mst_desa_name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label for="desa">Desa</label>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-sm-3">
                                         <div class="form-group control-width-normal">
-                                            <div class="input-group date" id="iengine-date">
+                                            <div class="input-group date" id="iengine-date-second">
                                                 <div class="input-group-content">
                                                     <input type="text" name="tanggal_mulai" class="form-control">
                                                     <label>Tanggal Mulai</label>
@@ -83,38 +85,46 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group control-width-normal">
-                                            <div class="input-group date" id="iengine-date-second">
-                                                <div class="input-group-content">
-                                                    <input type="text" name="tanggal_selesai" class="form-control">
-                                                    <label>Tanggal Selesai</label>
-                                                </div>
-                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
                                         <div class="form-group">
-                                            <input type="text" class="form-control"  id="waktu_tempuh" name="waktu_tempuh" required />
-                                            <label for="waktu_tempuh">Waktu Tempuh</label>
+                                            <input type="text" class="form-control" id="alokasi" name="alokasi" onkeypress="return isNumber(event)" required />
+                                            <label for="alokasi">Alokasi</label>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="alat_transport" name="alat_transport" required />
-                                            <label for="alat_transport">Alat Transport</label>
+                                            <input type="text" class="form-control" id="realisasi" name="realisasi" onkeypress="return isNumber(event)" required />
+                                            <label for="realisasi">Realisasi</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="jumlah_kelompok" name="jumlah_kelompok" onkeypress="return isNumber(event)" required />
+                                            <label for="jumlah_kelompok">Jumlah Kelompok</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="jumlah_anggota" name="jumlah_anggota" onkeypress="return isNumber(event)" required />
+                                            <label for="jumlah_anggota">Jumlah Anggota</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id=perkembangan_usaha" name="perkembangan_usaha" required />
+                                            <label for="perkembangan_usaha">Perkembangan Usaha</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <select name="verifikasi" class="form-control select2-list" data-placeholder="Select an item" required >
                                                 {% for data in verifikasi %}
-                                                    <option value="{{ data.mst_sumber_verifikasi_id }}" {% if (data.mst_sumber_verifikasi_id == object.trs_pendamping_desa_verifikasi) %} selected="selected" {% endif %}>{{ data.mst_sumber_verifikasi_name }}</option>
+                                                    <option value="{{ data.mst_sumber_verifikasi_id }}" {% if (data.mst_sumber_verifikasi_id == object.trs_peng_ekonomi_verifikasi) %} selected="selected" {% endif %}>{{ data.mst_sumber_verifikasi_name }}</option>
                                                 {% endfor %}
                                             </select>
                                             <label for="verifikasi">Verifikasi</label>

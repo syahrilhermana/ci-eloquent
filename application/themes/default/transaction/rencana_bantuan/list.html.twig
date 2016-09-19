@@ -62,38 +62,29 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Satker</th>
-            <th>Pendamping</th>
-            <th>Alamat Asal</th>
-            <th>Lokasi Tugas</th>
-            <th>Tanggal Mulai</th>
-            <th>Tanggal Selesai</th>
-            <th>Waktu Tempuh</th>
-            <th>Alat Transport</th>
-            <th>Verifikasi</th>
-            <th>Created Date</th>
-            <th>Created By</th>
-            <th>Updated Date</th>
-            <th>Updated By</th>
+            <th>Provinsi</th>
+            <th>Kota</th>
+            <th>Kecamatan</th>
+            <th>Desa</th>
+            <th>Jenis Bantuan</th>
+            <th>Jumlah</th>
+            <th>Penerima</th>
+            <th>Unit</th>
+            <th>Satuan</th>
         </tr>
         </thead>
         <tbody>
         {% for data in list %}
             <tr>
-                <td>{{ data.trs_pendamping_desa_satker }}</td>
-                <td>{{ data.trs_pendamping_desa_pendamping }}</td>
-                <td>{{ data.trs_pendamping_desa_alamat_asal }}</td>
-                <td>{{ data.trs_pendamping_desa_lokasi_tugas }}</td>
-                <td>{{ data.trs_pendamping_desa_tanggal_mulai}}</td>
-                <td>{{ data.trs_pendamping_desa_tanggal_selesai }}</td>
-                <td>{{ data.trs_pendamping_desa_waktu_tempuh }}</td>
-                <td>{{ data.trs_pendamping_desa_alat_transport }}</td>
-                <td>{{ data.trs_pendamping_desa_verifikasi }}</td>
-
-                <td>{{ data.trs_pendamping_desa_created_date }}</td>
-                <td>{{ data.trs_pendamping_desa_created_by}}</td>
-                <td>{{ data.trs_pendamping_desa_updated_date }}</td>
-                <td>{{ data.trs_pendamping_desa_updated_by }}</td>
+                <td>{{ data.trs_rencana_bantuan_provinsi }}</td>
+                <td>{{ data.trs_rencana_bantuan_kota }}</td>
+                <td>{{ data.trs_rencana_bantuan_kecamatan }}</td>
+                <td>{{ data.trs_rencana_bantuan_desa }}</td>
+                <td>{{ data.trs_rencana_bantuan_jenis_bantuan }}</td>
+                <td>{{ data.trs_rencana_bantuan_jumlah }}</td>
+                <td>{{ data.trs_rencana_bantuan_penerima }}</td>
+                <td>{{ data.trs_rencana_bantuan_unit }}</td>
+                <td>{{ data.trs_rencana_bantuan_satuan }}</td>
             </tr>
         {% endfor %}
         </tbody>

@@ -12,7 +12,7 @@
         $(document).ready( function() {
             $('.card-form').hide();
             var thisPage = {{ this_page }};
-            load('{{ site_url('ts/spji/list_data') }}?page='+thisPage, '#result');
+            load('{{ site_url('ts/persediaan/list_data') }}?page='+thisPage, '#result');
         });
     </script>
 {% endblock %}
@@ -43,7 +43,7 @@
 
                     <!--form mode-->
                     <div class="card card-form">
-                        <form id="form-engine" action="{{ site_url('ts/spji/submit') }}" class="form form-validate floating-label" method="post" enctype="multipart/form-data">
+                        <form id="form-engine" action="{{ site_url('ts/persediaan/submit') }}" class="form form-validate floating-label" method="post" enctype="multipart/form-data">
                             <div class="card-body text-default-light">
                                 <input type="hidden" class="form-control" name="{{ _csrf }}" value="{{ _token }}" />
                                 <div class="row">
@@ -54,85 +54,61 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <select name="biofisik" class="form-control select2-list" data-placeholder="Select an item" required >
-                                                {% for data in biofisik %}
-                                                    <option value="{{ data.mst_biofisik_id }}" {% if (data.mst_biofisik_id == object.trs_status_pengelolaan_jenis_ikan_biofisik_id) %} selected="selected" {% endif %}>{{ data.mst_biofisik_name }}</option>
-                                                {% endfor %}
-                                            </select>
-                                            <label for="biofisik">Biofisik</label>
+                                            <input type="text" class="form-control" id="jenis_persediaan" name="jenis_persediaan" required />
+                                            <label for="jenis_persediaan">Jenis Persediaan</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="lokasi_perlindungan_status" name="lokasi_perlindungan_status" required />
-                                            <label for="lokasi_perlindungan_status">Lokasi Perlindungan Status</label>
+                                            <input type="text" class="form-control"  id="akun_belanja" name="akun_belanja" required />
+                                            <label for="akun_belanja">Akun Belanja</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <div class="form-group">
-                                            <select name="perlindungan_verifikasi" class="form-control select2-list" data-placeholder="Select an item" required >
-                                                {% for data in verifikasi %}
-                                                    <option value="{{ data.mst_sumber_verifikasi_id }}" {% if (data.mst_sumber_verifikasi_id == object.trs_status_pengelolaan_jenis_ikan_perlindungan_verifikasi) %} selected="selected" {% endif %}>{{ data.mst_sumber_verifikasi_name }}</option>
-                                                {% endfor %}
-                                            </select>
-                                            <label for="sumber_verifikasi">Perlindungan Verifikasi</label>
+                                            <input type="text" class="form-control" id="jenis_barang" name="jenis_barang" required />
+                                            <label for="jenis_barang">Jenis Barang</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="pengelolaan_status" name="pengelolaan_status" required />
-                                            <label for="pengelolaan_status">Pengelolaan Status</label>
+                                            <input type="text" class="form-control" id="kode_barang" name="kode_barang" required />
+                                            <label for="kode_barang">Kode Barang</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
-                                            <select name="pengelolaan_verifikasi" class="form-control select2-list" data-placeholder="Select an item" required >
-                                                {% for data in verifikasi %}
-                                                    <option value="{{ data.mst_sumber_verifikasi_id }}" {% if (data.mst_sumber_verifikasi_id == object.trs_status_pengelolaan_jenis_ikan_pengelolaan_verifikasi) %} selected="selected" {% endif %}>{{ data.mst_sumber_verifikasi_name }}</option>
-                                                {% endfor %}
-                                            </select>
-                                            <label for="pengelolaan_verifikasi">Pengelolaan Verifikasi</label>
+                                            <input type="text" class="form-control" id="nama_barang" name="nama_barang" required />
+                                            <label for="nama_barang">Nama Barang</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="harga_pasar" onkeypress="return isNumber(event)" name="harga_pasar" required />
+                                            <label for="harga_pasar">Harga Pasar</label>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-3">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id=aksi_status" name="aksi_status" required />
-                                            <label for="aksi_status">Aksi Status</label>
+                                            <input type="text" class="form-control" id="satuan" name="satuan" required />
+                                            <label for="satuan">Satuan</label>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-3">
                                         <div class="form-group">
-                                            <select name="aksi_verifikasi" class="form-control select2-list" data-placeholder="Select an item" required >
-                                                {% for data in verifikasi %}
-                                                    <option value="{{ data.mst_sumber_verifikasi_id }}" {% if (data.mst_sumber_verifikasi_id == object.trs_status_pengelolaan_jenis_ikan_aksi_verifikasi) %} selected="selected" {% endif %}>{{ data.mst_sumber_verifikasi_name }}</option>
-                                                {% endfor %}
-                                            </select>
-                                            <label for="aksi_verifikasi">Aksi Verifikasi</label>
+                                            <input type="text" class="form-control" id="register" name="register" required />
+                                            <label for="register">Register</label>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id=pilot_status" name="pilot_status" required />
-                                            <label for="pilot_status">Pilot Status</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="pilot_lokasi" name="pilot_lokasi" required />
-                                            <label for="pilot_lokasi">Pilot Lokasi</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="pilot_verifikasi" onkeypress="return isNumber(event)" name="pilot_verifikasi" required />
-                                            <label for="pilot_verifikasi">Pilot Verifikasi</label>
+                                            <input type="text" class="form-control" id="keterangan" name="keterangan" required />
+                                            <label for="keterangan">Keterangan</label>
                                         </div>
                                     </div>
                                 </div>

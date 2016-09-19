@@ -63,37 +63,43 @@
         <thead>
         <tr>
             <th>Satker</th>
-            <th>Pendamping</th>
-            <th>Alamat Asal</th>
-            <th>Lokasi Tugas</th>
+            <th>Tahun</th>
+            <th>Jenis Pencaharian Alternatif</th>
+            <th>Desa</th>
             <th>Tanggal Mulai</th>
-            <th>Tanggal Selesai</th>
-            <th>Waktu Tempuh</th>
-            <th>Alat Transport</th>
+            <th>Alokasi</th>
+            <th>Realisais</th>
+            <th>Jumlah Kelompok</th>
+            <th>Jumlah Anggota</th>
+            <th>Perkembangan Usaha</th>
             <th>Verifikasi</th>
-            <th>Created Date</th>
+            <th>Created At</th>
             <th>Created By</th>
-            <th>Updated Date</th>
+            <th>Updated At</th>
             <th>Updated By</th>
         </tr>
         </thead>
         <tbody>
         {% for data in list %}
             <tr>
-                <td>{{ data.trs_pendamping_desa_satker }}</td>
-                <td>{{ data.trs_pendamping_desa_pendamping }}</td>
-                <td>{{ data.trs_pendamping_desa_alamat_asal }}</td>
-                <td>{{ data.trs_pendamping_desa_lokasi_tugas }}</td>
-                <td>{{ data.trs_pendamping_desa_tanggal_mulai}}</td>
-                <td>{{ data.trs_pendamping_desa_tanggal_selesai }}</td>
-                <td>{{ data.trs_pendamping_desa_waktu_tempuh }}</td>
-                <td>{{ data.trs_pendamping_desa_alat_transport }}</td>
-                <td>{{ data.trs_pendamping_desa_verifikasi }}</td>
+                <td>{{ data.trs_peng_ekonomi_satker }}</td>
+                <td>{{ data.trs_peng_ekonomi_tahun }}</td>
+                <td>{{ data.trs_peng_ekonomi_jenis_pencaharian_alternatif }}</td>
+                <td>{{ data.trs_peng_ekonomi_desa }}</td>
+                <td>{{ data.trs_peng_ekonomi_tanggal_mulai }}</td>
+                <td>{{ data.trs_peng_ekonomi_alokasi }}</td>
+                <td>{{ data.trs_peng_ekonomi_realisasi }}</td>
+                <td>{{ data.trs_peng_ekonomi_jumlah_kelompok }}</td>
+                <td>{{ data.trs_peng_ekonomi_jumlah_angota }}</td>
+                <td>{{ data.trs_peng_ekonomi_jumlah_kelompok }}</td>
+                <td>{{ data.trs_peng_ekonomi_perkembangan_usaha }}</td>
+                <td>{{ data.trs_peng_ekonomi_verifikasi}}</td>
+                <td>{{ data.trs_peng_ekonomi_created_date }}</td>
+                <td>{{ data.trs_peng_ekonomi_created_by }}</td>
+                <td>{{ data.trs_peng_ekonomi_update_date }}</td>
+                <td>{{ data.trs_peng_ekonomi_update_by }}</td>
 
-                <td>{{ data.trs_pendamping_desa_created_date }}</td>
-                <td>{{ data.trs_pendamping_desa_created_by}}</td>
-                <td>{{ data.trs_pendamping_desa_updated_date }}</td>
-                <td>{{ data.trs_pendamping_desa_updated_by }}</td>
+
             </tr>
         {% endfor %}
         </tbody>

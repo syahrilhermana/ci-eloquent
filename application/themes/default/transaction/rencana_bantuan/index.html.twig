@@ -12,7 +12,7 @@
         $(document).ready( function() {
             $('.card-form').hide();
             var thisPage = {{ this_page }};
-            load('{{ site_url('ts/spji/list_data') }}?page='+thisPage, '#result');
+            load('{{ site_url('ts/rencana_bantuan/list_data') }}?page='+thisPage, '#result');
         });
     </script>
 {% endblock %}
@@ -43,57 +43,69 @@
 
                     <!--form mode-->
                     <div class="card card-form">
-                        <form id="form-engine" action="{{ site_url('ts/spji/submit') }}" class="form form-validate floating-label" method="post" enctype="multipart/form-data">
+                        <form id="form-engine" action="{{ site_url('ts/rencana_bantuan/submit') }}" class="form form-validate floating-label" method="post" enctype="multipart/form-data">
                             <div class="card-body text-default-light">
                                 <input type="hidden" class="form-control" name="{{ _csrf }}" value="{{ _token }}" />
                                 <div class="row">
-
-
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <select name="biofisik" class="form-control select2-list" data-placeholder="Select an item" required >
-                                                {% for data in biofisik %}
-                                                    <option value="{{ data.mst_biofisik_id }}" {% if (data.mst_biofisik_id == object.trs_status_pengelolaan_jenis_ikan_biofisik_id) %} selected="selected" {% endif %}>{{ data.mst_biofisik_name }}</option>
-                                                {% endfor %}
-                                            </select>
-                                            <label for="biofisik">Biofisik</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="lokasi_perlindungan_status" name="lokasi_perlindungan_status" required />
-                                            <label for="lokasi_perlindungan_status">Lokasi Perlindungan Status</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-sm-3">
                                         <div class="form-group">
-                                            <select name="perlindungan_verifikasi" class="form-control select2-list" data-placeholder="Select an item" required >
-                                                {% for data in verifikasi %}
-                                                    <option value="{{ data.mst_sumber_verifikasi_id }}" {% if (data.mst_sumber_verifikasi_id == object.trs_status_pengelolaan_jenis_ikan_perlindungan_verifikasi) %} selected="selected" {% endif %}>{{ data.mst_sumber_verifikasi_name }}</option>
+                                            <select name="provinsi" class="form-control select2-list" data-placeholder="Select an item" required >
+                                                {% for data in propinsi %}
+                                                    <option value="{{ data.mst_propinsi_id }}" {% if (data.mst_propinsi_id == object.trs_rencana_bantuan_provinsi) %} selected="selected" {% endif %}>{{ data.mst_propinsi_name }}</option>
                                                 {% endfor %}
                                             </select>
-                                            <label for="sumber_verifikasi">Perlindungan Verifikasi</label>
+                                            <label for="provinsi">Provinsi</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="pengelolaan_status" name="pengelolaan_status" required />
-                                            <label for="pengelolaan_status">Pengelolaan Status</label>
+                                            <select name="kota" class="form-control select2-list" data-placeholder="Select an item" required >
+                                                {% for data in kota %}
+                                                    <option value="{{ data.mst_kota_id }}" {% if (data.mst_kota_id == object.trs_rencana_bantuan_kota) %} selected="selected" {% endif %}>{{ data.mst_kota_name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label for="kota">Kota</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
-                                            <select name="pengelolaan_verifikasi" class="form-control select2-list" data-placeholder="Select an item" required >
-                                                {% for data in verifikasi %}
-                                                    <option value="{{ data.mst_sumber_verifikasi_id }}" {% if (data.mst_sumber_verifikasi_id == object.trs_status_pengelolaan_jenis_ikan_pengelolaan_verifikasi) %} selected="selected" {% endif %}>{{ data.mst_sumber_verifikasi_name }}</option>
+                                            <select name="kecamatan" class="form-control select2-list" data-placeholder="Select an item" required >
+                                                {% for data in kecamatan %}
+                                                    <option value="{{ data.mst_kecamatan_id }}" {% if (data.mst_kecamatan_id == object.trs_rencana_bantuan_kecamatan) %} selected="selected" {% endif %}>{{ data.mst_kecamatan_name }}</option>
                                                 {% endfor %}
                                             </select>
-                                            <label for="pengelolaan_verifikasi">Pengelolaan Verifikasi</label>
+                                            <label for="kecamatan">Kecamatan</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <select name="desa" class="form-control select2-list" data-placeholder="Select an item" required >
+                                                {% for data in desa %}
+                                                    <option value="{{ data.mst_desa_id }}" {% if (data.mst_desa_id == object.trs_rencana_bantuan_desa) %} selected="selected" {% endif %}>{{ data.mst_desa_name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label for="desa">Desa</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="jenis_bantuan" name="jenis_bantuan" required />
+                                            <label for="jenis_bantuan">Jenis Bantuan</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="jumlah"  onkeypress="return isNumber(event)" name="jumlah" required />
+                                            <label for="jumlah">Jumlah</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="penerima" name="penerima" required />
+                                            <label for="penerima">Penerima</label>
                                         </div>
                                     </div>
                                 </div>
@@ -101,38 +113,15 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id=aksi_status" name="aksi_status" required />
-                                            <label for="aksi_status">Aksi Status</label>
+                                            <input type="text" onkeypress="return isNumber(event)" name="unit" class="form-control">
+                                            <label for="unit">Unit</label>
                                         </div>
                                     </div>
+
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <select name="aksi_verifikasi" class="form-control select2-list" data-placeholder="Select an item" required >
-                                                {% for data in verifikasi %}
-                                                    <option value="{{ data.mst_sumber_verifikasi_id }}" {% if (data.mst_sumber_verifikasi_id == object.trs_status_pengelolaan_jenis_ikan_aksi_verifikasi) %} selected="selected" {% endif %}>{{ data.mst_sumber_verifikasi_name }}</option>
-                                                {% endfor %}
-                                            </select>
-                                            <label for="aksi_verifikasi">Aksi Verifikasi</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id=pilot_status" name="pilot_status" required />
-                                            <label for="pilot_status">Pilot Status</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="pilot_lokasi" name="pilot_lokasi" required />
-                                            <label for="pilot_lokasi">Pilot Lokasi</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="pilot_verifikasi" onkeypress="return isNumber(event)" name="pilot_verifikasi" required />
-                                            <label for="pilot_verifikasi">Pilot Verifikasi</label>
+                                            <input type="text"  name="satuan" class="form-control">
+                                            <label for="satuan">Satuan</label>
                                         </div>
                                     </div>
                                 </div>

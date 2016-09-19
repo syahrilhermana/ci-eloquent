@@ -5,7 +5,7 @@
  * @author	Syahril Hermana
  */
 
-class spji extends CI_Controller {
+class rencana_bantuan extends CI_Controller {
     protected $model;
     protected $direct;
 
@@ -23,21 +23,24 @@ class spji extends CI_Controller {
         $this->twiggy->set('_csrf', $this->security->get_csrf_token_name());
         $this->twiggy->set('_token', $this->security->get_csrf_hash());
 
-        $this->direct = base_url('ts/spji');
+        $this->direct = base_url('ts/rencana_bantuan');
     }
 
     public function index(){
         $page   = (!$this->input->get('page')) ? 1 : $this->input->get('page');
 
         $this->twiggy->set('this_page', $page);
+        $this->twiggy->set('propinsi', ProvinsiEntity::all());
+        $this->twiggy->set('kecamatan', KecamatanEntity::all());
         $this->twiggy->set('rpsp', TrsRpsp::all());
         $this->twiggy->set('kota', KotaEntity::all());
+        $this->twiggy->set('desa', DesaEntity::all());
         $this->twiggy->set('penataan_batas', TrsKkpd::all());
         $this->twiggy->set('lamun', BiofisikEntity::all());
         $this->twiggy->set('mangrove', BiofisikEntity::all());
         $this->twiggy->set('biofisik', BiofisikEntity::all());
         $this->twiggy->set('verifikasi', sumberVerifikasiEntity::all());
-        $this->twiggy->template('transaction/spji/index')->display();
+        $this->twiggy->template('transaction/rencana_bantuan/index')->display();
     }
 
     public function list_data()
@@ -48,25 +51,25 @@ class spji extends CI_Controller {
         $offset = (($page-1)*$limit);
         $search = "";
 
-        $this->model = new TrsStatusPengelolaanJenisIkan();
-        $list = $this->model->get_trs_status_pengelolaan_jenis_ikan($offset, $limit, $search, null, null);
-        $total = $this->model->get_trs_status_pengelolaan_jenis_ikan_count($search);
+        $this->model = new TrsRencanaBantuan();
+        $list = $this->model->get_trs_rencana_bantuan($offset, $limit, $search, null, null);
+        $total = $this->model->get_trs_rencana_bantuan_count($search);
 
         $this->twiggy->set('list', $list->result());
         $this->twiggy->set('total', $total);
         $this->twiggy->set('totalPage', ceil($total/$limit));
         $this->twiggy->set('size', $list->num_rows());
         $this->twiggy->set('page', $page);
-        $this->twiggy->template('transaction/spji/list')->display();
+        $this->twiggy->template('transaction/rencana_bantuan/list')->display();
     }
 
     public function form($id=null){
         if ($id != null) {
-            $this->model = TrsStatusPengelolaanJenisIkan::find($id);
+            $this->model = TrsRencanaBantuan::find($id);
             $this->twiggy->set('object', $this->model);
         }
 
-        $this->twiggy->template('transaction/spji/form')->display();
+        $this->twiggy->template('transaction/rencana_bantuan/form')->display();
     }
 
     public function delete($id){
@@ -76,7 +79,7 @@ class spji extends CI_Controller {
                 redirect($this->direct, 'location', 303);
             }
 
-            TrsStatusPengelolaanJenisIkan::delete($id);
+            TrsRencanaBantuan::delete($id);
 
             redirect($this->direct, 'location', 303);
         }
@@ -85,29 +88,31 @@ class spji extends CI_Controller {
     public function submit(){
         try {
             if ($this->input->post('id') == null) {
-                $this->model = new TrsStatusPengelolaanJenisIkan();
+                $this->model = new TrsRencanaBantuan();
 
-                $this->model->trs_status_pengelolaan_jenis_ikan_created_by = 'system';
-                $this->model->trs_status_pengelolaan_jenis_ikan_created_date = date('Y-m-d H:i:s');
+                $this->model->trs_rencana_bantuan_created_by = 'system';
+                $this->model->trs_rencana_bantuan_created_date = date('Y-m-d H:i:s');
             } else {
-                $this->model = TrsStatusPengelolaanJenisIkan::find($this->input->post('id'));
+                $this->model = TrsRencanaBantuan::find($this->input->post('id'));
 
-                $this->model->trs_status_pengelolaan_jenis_ikan_update_by = 'system';
-                $this->model->trs_status_pengelolaan_jenis_ikan_update_date = date('Y-m-d H:i:s');
+                $this->model->trs_rencana_bantuan_updated_by = 'system';
+                $this->model->trs_rencana_bantuan_updated_date = date('Y-m-d H:i:s');
             }
 
-            $this->model->trs_status_pengelolaan_jenis_ikan_akses =1;
-            $this->model->trs_status_pengelolaan_jenis_ikan_satker =1;
-            $this->model->trs_status_pengelolaan_jenis_ikan_biofisik_id =$this->input->post('biofisik');
-            $this->model->trs_status_pengelolaan_jenis_ikan_lokasi_perlindungan_status =$this->input->post('lokasi_perlindungan_status');
-            $this->model->trs_status_pengelolaan_jenis_ikan_perlindungan_verifikasi =$this->input->post('perlindungan_verifikasi');
-            $this->model->trs_status_pengelolaan_jenis_ikan_pengelolaan_verifikasi =$this->input->post('pengelolaan_verifikasi');
-            $this->model->trs_status_pengelolaan_jenis_ikan_pengelolaan_status =$this->input->post('pengelolaan_status');
-            $this->model->trs_status_pengelolaan_jenis_ikan_aksi_status =$this->input->post('aksi_status');
-            $this->model->trs_status_pengelolaan_jenis_ikan_aksi_verifikasi =$this->input->post('aksi_verifikasi');
-            $this->model->trs_status_pengelolaan_jenis_ikan_pilot_status =$this->input->post('pilot_status');
-            $this->model->trs_status_pengelolaan_jenis_ikan_pilot_lokasi =$this->input->post('pilot_lokasi');
-            $this->model->trs_status_pengelolaan_jenis_ikan_pilot_verifikasi =$this->input->post('pilot_verifikasi');
+            $this->model->trs_rencana_bantuan_provinsi =$this->input->post('provinsi');
+            $this->model->trs_rencana_bantuan_kota =$this->input->post('kota');
+            $this->model->trs_rencana_bantuan_kecamatan =$this->input->post('kecamatan');
+            $this->model->trs_rencana_bantuan_desa =$this->input->post('desa');
+            $this->model->trs_rencana_bantuan_jenis_bantuan =$this->input->post('jenis_bantuan');
+            $this->model->trs_rencana_bantuan_jumlah =$this->input->post('jumlah');
+            $this->model->trs_rencana_bantuan_penerima =$this->input->post('penerima');
+            $this->model->trs_rencana_bantuan_unit =$this->input->post('unit');
+            $this->model->trs_rencana_bantuan_satuan =$this->input->post('satuan');
+
+
+
+
+
 
             $this->model->save();
 

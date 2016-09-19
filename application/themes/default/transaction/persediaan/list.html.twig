@@ -63,14 +63,15 @@
         <thead>
         <tr>
             <th>Satker</th>
-            <th>Pendamping</th>
-            <th>Alamat Asal</th>
-            <th>Lokasi Tugas</th>
-            <th>Tanggal Mulai</th>
-            <th>Tanggal Selesai</th>
-            <th>Waktu Tempuh</th>
-            <th>Alat Transport</th>
-            <th>Verifikasi</th>
+            <th>Jenis Persediaan</th>
+            <th>Akun Belanja</th>
+            <th>Jenis Barang</th>
+            <th>Kode Barang</th>
+            <th>Nama Barang</th>
+            <th>Harga Pasar</th>
+            <th>Satuan</th>
+            <th>Register</th>
+            <th>Keterangan</th>
             <th>Created Date</th>
             <th>Created By</th>
             <th>Updated Date</th>
@@ -80,20 +81,20 @@
         <tbody>
         {% for data in list %}
             <tr>
-                <td>{{ data.trs_pendamping_desa_satker }}</td>
-                <td>{{ data.trs_pendamping_desa_pendamping }}</td>
-                <td>{{ data.trs_pendamping_desa_alamat_asal }}</td>
-                <td>{{ data.trs_pendamping_desa_lokasi_tugas }}</td>
-                <td>{{ data.trs_pendamping_desa_tanggal_mulai}}</td>
-                <td>{{ data.trs_pendamping_desa_tanggal_selesai }}</td>
-                <td>{{ data.trs_pendamping_desa_waktu_tempuh }}</td>
-                <td>{{ data.trs_pendamping_desa_alat_transport }}</td>
-                <td>{{ data.trs_pendamping_desa_verifikasi }}</td>
-
-                <td>{{ data.trs_pendamping_desa_created_date }}</td>
-                <td>{{ data.trs_pendamping_desa_created_by}}</td>
-                <td>{{ data.trs_pendamping_desa_updated_date }}</td>
-                <td>{{ data.trs_pendamping_desa_updated_by }}</td>
+                <td>{{ data.trs_persediaan_satker }}</td>
+                <td>{{ data.trs_persediaan_jenis_persediaan }}</td>
+                <td>{{ data.trs_persediaan_akun_belanja }}</td>
+                <td>{{ data.trs_persediaan_jenis_barang}}</td>
+                <td>{{ data.trs_persediaan_kode_barang}}</td>
+                <td>{{ data.trs_persediaan_nama_barang }}</td>
+                <td>{{ data.trs_persediaan_harga_pasar}}</td>
+                <td>{{ data.trs_persediaan_satuan}}</td>
+                <td>{{ data.trs_persediaan_register}}</td>
+                <td>{{ data.trs_persediaan_keterangan }}</td>
+                <td>{{ data.trs_persediaan_created_date }}</td>
+                <td>{{ data.trs_persediaan_created_by }}</td>
+                <td>{{ data.trs_persediaan_update_date }}</td>
+                <td>{{ data.trs_persediaan_update_by }}</td>
             </tr>
         {% endfor %}
         </tbody>
