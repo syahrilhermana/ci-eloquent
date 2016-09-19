@@ -17,6 +17,14 @@ class UserEntity extends Model {
         $this->CI =& get_instance();
     }
 
+    public function satker(){
+        return $this->belongsTo('satkerEntity', 'mst_satker_id', 'mst_satker_id');
+    }
+
+    public function akses(){
+        return $this->belongsTo('aksesEntity', 'mst_akses_id', 'mst_akses_id');
+    }
+
     public function get_user($offset, $limit, $search, $sortCol, $sortDir)
     {
         if($search != ""){

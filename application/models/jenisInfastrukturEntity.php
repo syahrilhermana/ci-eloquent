@@ -5,9 +5,9 @@
 
 use Eloquent\Model as Model;
 
-class SatkerEntity extends Model {
-    protected $table = "mst_satker";
-    protected $primary = "mst_satker_id";
+class JenisInfrastrukturEntity extends Model {
+    protected $table = "mst_jenis_infrastruktur";
+    protected $primary = "mst_jenis_infrastruktur_id";
     var $CI = NULL;
 
     public function __construct()
@@ -17,25 +17,21 @@ class SatkerEntity extends Model {
         $this->CI =& get_instance();
     }
 
-    public function user(){
-        return $this->belongsTo('userEntity', 'mst_satker_id', 'mst_satker_id');
-    }
-
-    public function get_satker($offset, $limit, $search, $sortCol, $sortDir)
+    public function get_jenis_infrastruktur($offset, $limit, $search, $sortCol, $sortDir)
     {
         if($search != ""){
-            $this->CI->db->like("mst_satker_name", $search);
+            $this->CI->db->like("mst_jenis_infrastruktur_name", $search);
         }
         if($sortCol != "") $this->CI->db->order_by($sortCol, $sortDir);
 
         return $this->CI->db->get($this->table, $limit, $offset);
     }
 
-    public function get_satker_count($search = "")
+    public function get_jenis_infrastruktur_count($search = "")
     {
         $this->CI->db->select($this->primary);
         if($search != "") {
-            $this->CI->db->like("mst_satker_name", $search);
+            $this->CI->db->like("mst_jenis_infrastruktur_name", $search);
         }
 
         return $this->CI->db->count_all_results($this->table);

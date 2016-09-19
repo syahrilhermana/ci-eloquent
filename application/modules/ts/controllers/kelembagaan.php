@@ -5,7 +5,7 @@
  * @author	Syahril Hermana
  */
 
-class kkpd extends CI_Controller {
+class kelembagaan extends CI_Controller {
     protected $model;
     protected $direct;
 
@@ -47,9 +47,9 @@ class kkpd extends CI_Controller {
         $offset = (($page-1)*$limit);
         $search = "";
 
-        $this->model = new TrsKkpd();
-        $list = $this->model->get_trs_kkpd($offset, $limit, $search, null, null);
-        $total = $this->model->get_trs_kkpd_count($search);
+        $this->model = new TrsKelembagaan();
+        $list = $this->model->get_trs_data_desa($offset, $limit, $search, null, null);
+        $total = $this->model->get_trs_data_desa_count($search);
 
         $this->twiggy->set('list', $list->result());
         $this->twiggy->set('total', $total);
@@ -61,7 +61,7 @@ class kkpd extends CI_Controller {
 
     public function form($id=null){
         if ($id != null) {
-            $this->model = TrsKkpd::find($id);
+            $this->model = TrsKelembagaan::find($id);
             $this->twiggy->set('object', $this->model);
         }
 
@@ -75,7 +75,7 @@ class kkpd extends CI_Controller {
                 redirect($this->direct, 'location', 303);
             }
 
-            TrsKkpd::delete($id);
+            TrsKelembagaan::delete($id);
 
             redirect($this->direct, 'location', 303);
         }
@@ -84,12 +84,12 @@ class kkpd extends CI_Controller {
     public function submit(){
         try {
             if ($this->input->post('id') == null) {
-                $this->model = new TrsKkpd();
+                $this->model = new TrsKelembagaan();
 
                 $this->model->trs_kkpd_created_by = 'system';
                 $this->model->trs_kkpd_created_date = date('Y-m-d H:i:s');
             } else {
-                $this->model = TrsKkpd::find($this->input->post('id'));
+                $this->model = TrsKelembagaan::find($this->input->post('id'));
 
                 $this->model->trs_kkpd_update_by = 'system';
                 $this->model->trs_kkpd_update_date = date('Y-m-d H:i:s');

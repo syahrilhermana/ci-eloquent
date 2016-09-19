@@ -48,11 +48,12 @@ class auth extends CI_Controller {
 				// generate guard session
 				$data = array
 				(
+					'user' => $user->mst_user_id,
 					'name' => $user->mst_user_name,
 					'username' => $user->mst_user_username,
 					'akses' => $user->mst_akses_id,
+					'role' => $user->akses->mst_akses_name,
 					'satker' => $user->mst_satker_id,
-//					'navigation' => $menu,
 					'logged_in' => TRUE
 				);
 

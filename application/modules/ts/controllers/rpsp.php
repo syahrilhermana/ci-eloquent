@@ -24,6 +24,8 @@ class rpsp extends CI_Controller {
 		$this->twiggy->set('_token', $this->security->get_csrf_hash());
 
 		$this->direct = base_url('ts/rpsp');
+
+		$this->guard->is_access();
 	}
 	
 	public function index(){

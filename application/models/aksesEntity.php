@@ -17,6 +17,10 @@ class AksesEntity extends Model {
         $this->CI =& get_instance();
     }
 
+    public function user(){
+        return $this->belongsTo('userEntity', 'mst_akses_id', 'mst_akses_id');
+    }
+
     public function get_akses($offset, $limit, $search, $sortCol, $sortDir)
     {
         if($search != ""){

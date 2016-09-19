@@ -24,6 +24,8 @@ class pencetakan extends CI_Controller {
 		$this->twiggy->set('_token', $this->security->get_csrf_hash());
 
 		$this->direct = base_url('ts/pencetakan');
+
+		$this->guard->is_access();
 	}
 	
 	public function index(){

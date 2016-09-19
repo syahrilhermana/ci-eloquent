@@ -24,6 +24,8 @@ class penerima_bantuan extends CI_Controller {
 		$this->twiggy->set('_token', $this->security->get_csrf_hash());
 
 		$this->direct = base_url('ts/penerima_bantuan');
+
+		$this->guard->is_access();
 	}
 	
 	public function index(){
