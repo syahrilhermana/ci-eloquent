@@ -5,7 +5,7 @@
  * @author	Syahril Hermana
  */
 
-class kkpd extends CI_Controller {
+class rencana_zonasi extends CI_Controller {
     protected $model;
     protected $direct;
 
@@ -23,7 +23,7 @@ class kkpd extends CI_Controller {
         $this->twiggy->set('_csrf', $this->security->get_csrf_token_name());
         $this->twiggy->set('_token', $this->security->get_csrf_hash());
 
-        $this->direct = base_url('ts/kkpd');
+        $this->direct = base_url('ts/rencana_zonasi');
     }
 
     public function index(){
@@ -36,7 +36,8 @@ class kkpd extends CI_Controller {
         $this->twiggy->set('lamun', BiofisikEntity::all());
         $this->twiggy->set('mangrove', BiofisikEntity::all());
         $this->twiggy->set('tk', BiofisikEntity::all());
-        $this->twiggy->template('transaction/kkpd/index')->display();
+        $this->twiggy->set('verifikasi', SumberVerifikasiEntity::all());
+        $this->twiggy->template('transaction/rencana_zonasi/index')->display();
     }
 
     public function list_data()
@@ -47,25 +48,25 @@ class kkpd extends CI_Controller {
         $offset = (($page-1)*$limit);
         $search = "";
 
-        $this->model = new TrsKkpd();
-        $list = $this->model->get_trs_kkpd($offset, $limit, $search, null, null);
-        $total = $this->model->get_trs_kkpd_count($search);
+        $this->model = new TrsRencanaZonasi();
+        $list = $this->model->get_trs_rencana_zonasi($offset, $limit, $search, null, null);
+        $total = $this->model->get_trs_rencana_zonasi_count($search);
 
         $this->twiggy->set('list', $list->result());
         $this->twiggy->set('total', $total);
         $this->twiggy->set('totalPage', ceil($total/$limit));
         $this->twiggy->set('size', $list->num_rows());
         $this->twiggy->set('page', $page);
-        $this->twiggy->template('transaction/kkpd/list')->display();
+        $this->twiggy->template('transaction/rencana_zonasi/list')->display();
     }
 
     public function form($id=null){
         if ($id != null) {
-            $this->model = TrsKkpd::find($id);
+            $this->model = TrsRencanaZonasi::find($id);
             $this->twiggy->set('object', $this->model);
         }
 
-        $this->twiggy->template('transaction/kkpd/form')->display();
+        $this->twiggy->template('transaction/rencana_zonasi/form')->display();
     }
 
     public function delete($id){
@@ -75,7 +76,7 @@ class kkpd extends CI_Controller {
                 redirect($this->direct, 'location', 303);
             }
 
-            TrsKkpd::delete($id);
+            TrsRencanaZonasi::delete($id);
 
             redirect($this->direct, 'location', 303);
         }
@@ -84,31 +85,24 @@ class kkpd extends CI_Controller {
     public function submit(){
         try {
             if ($this->input->post('id') == null) {
-                $this->model = new TrsKkpd();
+                $this->model = new TrsRencanaZonasi();
 
-                $this->model->trs_kkpd_created_by = 'system';
-                $this->model->trs_kkpd_created_date = date('Y-m-d H:i:s');
+                $this->model->trs_rencana_zonasi_created_by = 'system';
+                $this->model->trs_rencana_zonasi_created_date = date('Y-m-d H:i:s');
             } else {
                 $this->model = TrsKkpd::find($this->input->post('id'));
 
-                $this->model->trs_kkpd_update_by = 'system';
-                $this->model->trs_kkpd_update_date = date('Y-m-d H:i:s');
+                $this->model->trs_rencana_zonasi_update_by = 'system';
+                $this->model->trs_rencana_zonasi_update_date = date('Y-m-d H:i:s');
             }
 
-            $this->model->trs_kkpd_akses = $this->input->post('akses');
-            $this->model->trs_kkpd_kota = $this->input->post('kota');
-            $this->model->trs_kkpd_sk_walkot = $this->input->post('sk_walkot');
-            $this->model->trs_kkpd_sk_mkp = $this->input->post('sk_mkp');
-            $this->model->trs_kkpd_rencana_pengelolaan = $this->input->post('rencana_pengelolaan');
-            $this->model->trs_kkpd_penataan_batas = $this->input->post('penataan_batas');
-            $this->model->trs_kkpd_luas_kkpd = $this->input->post('luas_kkpd');
-            $this->model->trs_kkpd_lamun = $this->input->post('lamun');
-            $this->model->trs_kkpd_lamun_luas = $this->input->post('lamun_luas');
-            $this->model->trs_kkpd_mangrove = $this->input->post('mangrove');
-            $this->model->trs_kkpd_mangrove_luas = $this->input->post('mangrove_luas');
-            $this->model->trs_kkpd_tk = $this->input->post('tk');
-            $this->model->trs_kkpd_tk_luas = $this->input->post('tk_luas');
-            $this->model->trs_kkpd_keterangan = $this->input->post('keterangan');
+            $this->model->trs_rencana_zonasi_akses = 1;
+            $this->model->trs_rencana_zonasi_satker =1;
+            $this->model->trs_rencana_zonasi_kota = $this->input->post('kota');
+            $this->model->trs_rencana_zonasi_tahun_dok_awal = $this->input->post('tahun_dok_awal');
+            $this->model->trs_rencana_zonasi_dok_final = $this->input->post('dok_final');
+            $this->model->trs_rencana_zonasi_dok_ranperda= $this->input->post('dok_ranperda');
+            $this->model->trs_rencana_zonasi_sumber_id = $this->input->post('sumber');
 
             $this->model->save();
 

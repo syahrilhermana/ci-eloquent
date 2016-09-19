@@ -5,7 +5,7 @@
  * @author	Syahril Hermana
  */
 
-class kelembagaan extends CI_Controller {
+class tindak_lanjut extends CI_Controller {
     protected $model;
     protected $direct;
 
@@ -23,7 +23,7 @@ class kelembagaan extends CI_Controller {
         $this->twiggy->set('_csrf', $this->security->get_csrf_token_name());
         $this->twiggy->set('_token', $this->security->get_csrf_hash());
 
-        $this->direct = base_url('ts/kelembagaan');
+        $this->direct = base_url('ts/tindak_lanjut');
     }
 
     public function index(){
@@ -36,8 +36,8 @@ class kelembagaan extends CI_Controller {
         $this->twiggy->set('lamun', BiofisikEntity::all());
         $this->twiggy->set('mangrove', BiofisikEntity::all());
         $this->twiggy->set('tk', BiofisikEntity::all());
-        $this->twiggy->set('verifikasi', sumberVerifikasiEntity::all());
-        $this->twiggy->template('transaction/kelembagaan/index')->display();
+        $this->twiggy->set('verifikasi', SumberVerifikasiEntity::all());
+        $this->twiggy->template('transaction/tindak_lanjut/index')->display();
     }
 
     public function list_data()
@@ -48,25 +48,25 @@ class kelembagaan extends CI_Controller {
         $offset = (($page-1)*$limit);
         $search = "";
 
-        $this->model = new TrsKelembagaan();
-        $list = $this->model->get_trs_data_desa($offset, $limit, $search, null, null);
-        $total = $this->model->get_trs_data_desa_count($search);
+        $this->model = new TrsTindakLanjut();
+        $list = $this->model->get_trs_tindak_lanjut($offset, $limit, $search, null, null);
+        $total = $this->model->get_trs_tindak_lanjut_count($search);
 
         $this->twiggy->set('list', $list->result());
         $this->twiggy->set('total', $total);
         $this->twiggy->set('totalPage', ceil($total/$limit));
         $this->twiggy->set('size', $list->num_rows());
         $this->twiggy->set('page', $page);
-        $this->twiggy->template('transaction/kelembagaan/list')->display();
+        $this->twiggy->template('transaction/tindak_lanjut/list')->display();
     }
 
     public function form($id=null){
         if ($id != null) {
-            $this->model = TrsKelembagaan::find($id);
+            $this->model = TrsTindakLanjut::find($id);
             $this->twiggy->set('object', $this->model);
         }
 
-        $this->twiggy->template('transaction/kelembagaan/form')->display();
+        $this->twiggy->template('transaction/tindak_lanjut/form')->display();
     }
 
     public function delete($id){
@@ -76,7 +76,7 @@ class kelembagaan extends CI_Controller {
                 redirect($this->direct, 'location', 303);
             }
 
-            TrsKkpd::delete($id);
+            TrsTindakLanjut::delete($id);
 
             redirect($this->direct, 'location', 303);
         }
@@ -85,29 +85,28 @@ class kelembagaan extends CI_Controller {
     public function submit(){
         try {
             if ($this->input->post('id') == null) {
-                $this->model = new TrsKelembagaan();
+                $this->model = new TrsTindakLanjut();
 
-                $this->model->trs_kelembagaan_created_by = 'system';
-                $this->model->trs_kelembagaan_created_date = date('Y-m-d H:i:s');
+                $this->model->trs_tindak_lanjut_created_by = 'system';
+                $this->model->trs_tindak_lanjut_created_date = date('Y-m-d H:i:s');
             } else {
-                $this->model = TrsKelembagaan::find($this->input->post('id'));
+                $this->model = TrsTindakLanjut::find($this->input->post('id'));
 
-                $this->model->trs_kelembagaan_update_by = 'system';
-                $this->model->trs_kelembagaan_update_date = date('Y-m-d H:i:s');
+                $this->model->trs_tindak_lanjut_updated_by = 'system';
+                $this->model->trs_tindak_lanjut_updated_date = date('Y-m-d H:i:s');
             }
 
-            $this->model->trs_kelembagaan_satker = 1;
-            $this->model->trs_kelembagaan_akses = 1;
-            $this->model->trs_kelembagaan_name = $this->input->post('name');
-            $this->model->trs_kelembagaan_no_sk = $this->input->post('no_sk');
-            $this->model->trs_kelembagaan_tgl_dibentuk =  date('Y-m-d',strtotime($this->input->post('tgl_dibentuk')));
-            $this->model->trs_kelembagaan_nama_direktur= $this->input->post('nama_direktur');
-            $this->model->trs_kelembagaan_jml_staff_fulltime = $this->input->post('jml_staff_fulltime');
-            $this->model->trs_kelembagaan_jml_staff_parttime = $this->input->post('jml_staff_parttime');
-            $this->model->trs_kelembagaan_jml_staff_pria = $this->input->post('jml_staff_pria');
-            $this->model->trs_kelembagaan_jml_staff_wanita = $this->input->post('jml_staff_wanita');
-            $this->model->trs_kelembagaan_tahun = $this->input->post('tahun');
-            $this->model->trs_kelembagaan_sumber_id = $this->input->post('sumber');
+            $this->model->trs_tindak_lanjut_satker = 1;
+            $this->model->trs_tindak_lanjut_hp = $this->input->post('hp');
+            $this->model->trs_tindak_lanjut_temuan_saran = $this->input->post('temuan_saran');
+            $this->model->trs_tindak_lanjut_temuan_keuangan = $this->input->post('temuan_keuangan');
+            $this->model->trs_tindak_lanjut_tindak_lanjut = $this->input->post('tindak_lanjut');
+            $this->model->trs_tindak_lanjut_tindak_lanjut_keuangan = $this->input->post('tindak_lanjut_keuangan');
+            $this->model->trs_tindak_lanjut_sisa_temuan_saran = $this->input->post('sisa_temuan_saran');
+            $this->model->trs_tindak_lanjut_sisa_temuan_keuangan = $this->input->post('sisa_temuan_keuangan');
+            $this->model->trs_tindak_lanjut_keterangan = $this->input->post('keterangan');
+
+
             $this->model->save();
 
             redirect($this->direct, 'location', 303);
