@@ -1,0 +1,307 @@
+{% extends _layout %}
+
+{% block style %}
+    {{ css('libs/select2/select2.css', 'all', 'css') }}
+    {{ css('libs/bootstrap-datepicker/datepicker3.css', 'all', 'css') }}
+{% endblock %}
+
+{% block script %}
+    {{ js('libs/select2/select2.min.js', 'js') }}
+    {{ js('libs/bootstrap-datepicker/bootstrap-datepicker.js', 'js') }}
+    <script>
+        $(document).ready( function() {
+            $('.card-form').hide();
+            var thisPage = {{ this_page }};
+            load('{{ site_url('ts/progres_keuangan/list_data') }}?page='+thisPage, '#result');
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <section>
+        <div class="section-header">
+            <ol class="breadcrumb">
+                <li><a href="{{ site_url('dashboard') }}">dashboard</a></li>
+                <li><a href="{{ site_url('ts/penerima-bantuan') }}">penerima bantuan</a></li>
+                <li class="active">List Data</li>
+            </ol>
+        </div>
+        <div class="section-body contain-lg">
+
+            <div class="card card-underline">
+                <div class="card-head">
+                    <header>Penerima Bantuan</header>
+                    <div class="tools">
+                        <div class="btn-group">
+                            <a class="btn btn-icon-toggle btn-form"><i class="fa fa-plus"></i></a>
+                            <a class="btn btn-icon-toggle btn-collapse"><i class="fa fa-angle-down"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+
+                    <!--form mode-->
+                    <div class="card card-form">
+                        <form id="form-engine" action="{{ site_url('ts/progres_keuangan/submit') }}" class="form form-validate floating-label" method="post" enctype="multipart/form-data">
+                            <div class="card-body text-default-light">
+                                <input type="hidden" class="form-control" name="{{ _csrf }}" value="{{ _token }}" />
+                                <div class="row">
+
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <select name="jenis" class="form-control select2-list" data-placeholder="Select an item" required >
+                                                <option value="pinjaman">Pinjaman</option>
+                                                <option value="hibah">Hibah</option>
+                                                <option value="penunjang">Penunjang</option>
+                                            </select>
+                                            <label for="jenis">Jenis</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="judul_kegiatan" name="judul_kegiatan" required />
+                                            <label for="judul_kegiatan">Judul Kegiatan</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"  id="lokasi" name="lokasi" onkeypress="return isNumber(event)"  required />
+                                            <label for="lokasi">Lokasi</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" onkeypress="return isNumber(event)"  id="penyerapan_kumulatif" name="penyerapan_kumulatif" required />
+                                            <label for="penyerapan_kumulatif">Penyerapan Kumulatif</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <select name="sumber_dana" class="form-control select2-list" data-placeholder="Select an item" required >
+                                                <option value="ADB">ADB</option>
+                                                <option value="WB">WB</option>
+                                            </select>
+                                            <label for="sumber_dana">Sumber Dana</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <select name="jenis_sumber_dana" class="form-control select2-list" data-placeholder="Select an item" required >
+                                                <option value="loan">loan</option>
+                                                <option value="grant">grant</option>
+                                            </select>
+                                            <label for="jenis_sumber_dana">Jenis Sumber Dana</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"  id="kategori_kegiatan" name="kategori_kegiatan" required />
+                                            <label for="kategori_kegiatan">Kategori Kegiatan</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" onkeypress="return isNumber(event)" id="pagu_anggaran" name="pagu_anggaran" required />
+                                            <label for="pagu_anggaran">Pagu Anggaran</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <select name="jenis_pengadaan" class="form-control select2-list" data-placeholder="Select an item" required >
+                                                <option value="swakelola">Swakelola</option>
+                                                <option value="kontraktual">Kontraktual</option>
+                                            </select>
+                                            <label for="jenis_pengadaan">Jenis Pengadaan</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <select name="metode_pengadaan" class="form-control select2-list" data-placeholder="Select an item" required >
+                                                <option value="CQS">CQS</option>
+                                                <option value="NS">NS</option>
+                                                <option value="NCB">NCB</option>
+                                            </select>
+                                            <label for="metode_pengadaan">Metode Pengadaan</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <select name="metode_pembayaran" class="form-control select2-list" data-placeholder="Select an item" required >
+                                                <option value="Time Base">Time Base</option>
+                                                <option value="Lumpsum">Lumpsum</option>
+                                                <option value="Unit Price">Unit Price</option>
+                                            </select>
+                                            <label for="metode_pembayaran">Metode Pembayaran</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" onkeypress="return isNumber(event)"  id="hps" name="hps" required />
+                                                <label for="hps">HPS</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" onkeypress="return isNumber(event)" id="nilai_kontrak" name="nilai_kontrak" required />
+                                                <label for="nilai_kontrak">Nilai Kontrak</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" onkeypress="return isNumber(event)" id="periode_kontrak" name="periode_kontrak" required />
+                                                <label for="periode_kontrak">Periode Kontrak</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" onkeypress="return isNumber(event)"  id="b1" name="b1" required />
+                                            <label for="b1">B1</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" onkeypress="return isNumber(event)" id="b2" name="b2" required />
+                                            <label for="b2">B2</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" onkeypress="return isNumber(event)" id="b3" name="b3" required />
+                                            <label for="b3">B3</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" onkeypress="return isNumber(event)" id="b4" name="b4" required />
+                                            <label for="b4">B4</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" onkeypress="return isNumber(event)"  id="b5" name="b5" required />
+                                            <label for="b1">B5</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" onkeypress="return isNumber(event)" id="b6" name="b6" required />
+                                            <label for="b6">B6</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" onkeypress="return isNumber(event)"  id="b7" name="b7" required />
+                                            <label for="b7">B7</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" onkeypress="return isNumber(event)" id="b8" name="b8" required />
+                                            <label for="b8">B8</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" onkeypress="return isNumber(event)" id="b9" name="b9" required />
+                                            <label for="b9">B9</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" onkeypress="return isNumber(event)" id="b10" name="b10" required />
+                                            <label for="b10">B10</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" onkeypress="return isNumber(event)"  id="b11" name="b11" required />
+                                            <label for="b11">B11</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" onkeypress="return isNumber(event)" id="b12" name="b12" required />
+                                            <label for="b12">B12</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" onkeypress="return isNumber(event)"  id="total_penyerapan" name="total_penyerapan" required />
+                                            <label for="total_penyerapan">Total Penyerapan</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" onkeypress="return isNumber(event)" id="sisa_anggaran" name="sisa_anggaran" required />
+                                            <label for="sisa_anggaran">Sisa Anggaran</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="ket" name="ket" required />
+                                            <label for="ket">Keterangan</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" onkeypress="return isNumber(event)" id="realisasi" name="realisasi" required />
+                                            <label for="realisasi">Realisasi</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-actionbar">
+                                <div class="card-actionbar-row">
+                                    <a href="javascript:void(0);" onclick="$('.card-form').hide(500);" class="btn btn-flat btn-default ink-reaction cancel">Batal</a>
+                                    <button type="submit" class="btn btn-flat btn-accent ink-reaction">Simpan</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!--end form-->
+
+                    <div id="result"></div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="cd-popup" role="alert">
+        <div class="cd-popup-container">
+            <p>Are you sure you want to delete this element?</p>
+            <div class="btn-group btn-group-justified" role="group" aria-label="engine group">
+                <a class="btn btn-danger" onclick="delete_item('{{ site_url('ts/penerima_bantuan') }}');" role="button">Hapus</a>
+                <a class="btn btn-default cd-popup-cancel" role="button">Batal</a>
+            </div>
+            <a href="javascript:void(0);" class="cd-popup-close img-replace">Close</a>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js_core %}
+    {{ js('core/iengine/iengine.js', 'js') }}
+    {{ js('core/iengine/iengine.form.js', 'js') }}
+{% endblock %}

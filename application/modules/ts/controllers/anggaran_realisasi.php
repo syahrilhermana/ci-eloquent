@@ -5,7 +5,7 @@
  * @author	Syahril Hermana
  */
 
-class kelembagaan extends CI_Controller {
+class anggaran_realisasi extends CI_Controller {
     protected $model;
     protected $direct;
 
@@ -23,7 +23,7 @@ class kelembagaan extends CI_Controller {
         $this->twiggy->set('_csrf', $this->security->get_csrf_token_name());
         $this->twiggy->set('_token', $this->security->get_csrf_hash());
 
-        $this->direct = base_url('ts/kelembagaan');
+        $this->direct = base_url('ts/anggaran_realisasi');
     }
 
     public function index(){
@@ -36,8 +36,8 @@ class kelembagaan extends CI_Controller {
         $this->twiggy->set('lamun', BiofisikEntity::all());
         $this->twiggy->set('mangrove', BiofisikEntity::all());
         $this->twiggy->set('tk', BiofisikEntity::all());
-        $this->twiggy->set('verifikasi', sumberVerifikasiEntity::all());
-        $this->twiggy->template('transaction/kelembagaan/index')->display();
+        $this->twiggy->set('verifikasi', SumberVerifikasiEntity::all());
+        $this->twiggy->template('transaction/anggaran_realisasi/index')->display();
     }
 
     public function list_data()
@@ -48,25 +48,25 @@ class kelembagaan extends CI_Controller {
         $offset = (($page-1)*$limit);
         $search = "";
 
-        $this->model = new TrsKelembagaan();
-        $list = $this->model->get_trs_data_desa($offset, $limit, $search, null, null);
-        $total = $this->model->get_trs_data_desa_count($search);
+        $this->model = new TrsAnggaranRealisasi();
+        $list = $this->model->get_trs_anggaran_realisasi($offset, $limit, $search, null, null);
+        $total = $this->model->get_trs_anggaran_realisasi_count($search);
 
         $this->twiggy->set('list', $list->result());
         $this->twiggy->set('total', $total);
         $this->twiggy->set('totalPage', ceil($total/$limit));
         $this->twiggy->set('size', $list->num_rows());
         $this->twiggy->set('page', $page);
-        $this->twiggy->template('transaction/kelembagaan/list')->display();
+        $this->twiggy->template('transaction/anggaran_realisasi/list')->display();
     }
 
     public function form($id=null){
         if ($id != null) {
-            $this->model = TrsKelembagaan::find($id);
+            $this->model = TrsAnggaranRealisasi::find($id);
             $this->twiggy->set('object', $this->model);
         }
 
-        $this->twiggy->template('transaction/kelembagaan/form')->display();
+        $this->twiggy->template('transaction/anggaran_realisasi/form')->display();
     }
 
     public function delete($id){
@@ -76,7 +76,7 @@ class kelembagaan extends CI_Controller {
                 redirect($this->direct, 'location', 303);
             }
 
-            TrsKelembagaan::delete($id);
+            TrsAnggaranRealisasi::delete($id);
 
             redirect($this->direct, 'location', 303);
         }
@@ -85,29 +85,27 @@ class kelembagaan extends CI_Controller {
     public function submit(){
         try {
             if ($this->input->post('id') == null) {
-                $this->model = new TrsKelembagaan();
+                $this->model = new TrsAnggaranRealisasi();
 
-                $this->model->trs_kelembagaan_created_by = 'system';
-                $this->model->trs_kelembagaan_created_date = date('Y-m-d H:i:s');
+                $this->model->trs_anggaran_created_by = 'system';
+                $this->model->trs_anggaran_created_date = date('Y-m-d H:i:s');
             } else {
-                $this->model = TrsKelembagaan::find($this->input->post('id'));
+                $this->model = TrsAnggaranRealisasi::find($this->input->post('id'));
 
-                $this->model->trs_kelembagaan_update_by = 'system';
-                $this->model->trs_kelembagaan_update_date = date('Y-m-d H:i:s');
+                $this->model->trs_anggaran_updated_by = 'system';
+                $this->model->trs_anggaran_updated_date = date('Y-m-d H:i:s');
             }
 
-            $this->model->trs_kelembagaan_satker = 1;
-            $this->model->trs_kelembagaan_akses = 1;
-            $this->model->trs_kelembagaan_name = $this->input->post('name');
-            $this->model->trs_kelembagaan_no_sk = $this->input->post('no_sk');
-            $this->model->trs_kelembagaan_tgl_dibentuk =  date('Y-m-d',strtotime($this->input->post('tgl_dibentuk')));
-            $this->model->trs_kelembagaan_nama_direktur= $this->input->post('nama_direktur');
-            $this->model->trs_kelembagaan_jml_staff_fulltime = $this->input->post('jml_staff_fulltime');
-            $this->model->trs_kelembagaan_jml_staff_parttime = $this->input->post('jml_staff_parttime');
-            $this->model->trs_kelembagaan_jml_staff_pria = $this->input->post('jml_staff_pria');
-            $this->model->trs_kelembagaan_jml_staff_wanita = $this->input->post('jml_staff_wanita');
-            $this->model->trs_kelembagaan_tahun = $this->input->post('tahun');
-            $this->model->trs_kelembagaan_sumber_id = $this->input->post('sumber');
+            $this->model->trs_anggaran_satker_id = 1;
+            $this->model->trs_anggaran_tahun = $this->input->post('tahun');
+            $this->model->trs_anggaran_alokasi_loan = $this->input->post('alokasi_loan');
+            $this->model->trs_anggaran_realisasi_loan = $this->input->post('realisasi_loan');
+            $this->model->trs_anggaran_alokasi_grand = $this->input->post('alokasi_grand');
+            $this->model->trs_anggaran_realisasi_grand = $this->input->post('realisasi_grand');
+            $this->model->trs_anggaran_alokasi_dana_penunjang = $this->input->post('alokasi_dana_penunjang');
+            $this->model->trs_anggaran_realisasi_dana_penunjang = $this->input->post('realisasi_dana_penunjang');
+
+
             $this->model->save();
 
             redirect($this->direct, 'location', 303);

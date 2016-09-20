@@ -5,7 +5,7 @@
  * @author	Syahril Hermana
  */
 
-class spji extends CI_Controller {
+class persediaan extends CI_Controller {
     protected $model;
     protected $direct;
 
@@ -23,7 +23,7 @@ class spji extends CI_Controller {
         $this->twiggy->set('_csrf', $this->security->get_csrf_token_name());
         $this->twiggy->set('_token', $this->security->get_csrf_hash());
 
-        $this->direct = base_url('ts/spji');
+        $this->direct = base_url('ts/persediaan');
     }
 
     public function index(){
@@ -37,7 +37,7 @@ class spji extends CI_Controller {
         $this->twiggy->set('mangrove', BiofisikEntity::all());
         $this->twiggy->set('biofisik', BiofisikEntity::all());
         $this->twiggy->set('verifikasi', sumberVerifikasiEntity::all());
-        $this->twiggy->template('transaction/spji/index')->display();
+        $this->twiggy->template('transaction/persediaan/index')->display();
     }
 
     public function list_data()
@@ -48,25 +48,25 @@ class spji extends CI_Controller {
         $offset = (($page-1)*$limit);
         $search = "";
 
-        $this->model = new TrsStatusPengelolaanJenisIkan();
-        $list = $this->model->get_trs_status_pengelolaan_jenis_ikan($offset, $limit, $search, null, null);
-        $total = $this->model->get_trs_status_pengelolaan_jenis_ikan_count($search);
+        $this->model = new TrsPersediaan();
+        $list = $this->model->get_trs_persediaan($offset, $limit, $search, null, null);
+        $total = $this->model->get_trs_persediaan_count($search);
 
         $this->twiggy->set('list', $list->result());
         $this->twiggy->set('total', $total);
         $this->twiggy->set('totalPage', ceil($total/$limit));
         $this->twiggy->set('size', $list->num_rows());
         $this->twiggy->set('page', $page);
-        $this->twiggy->template('transaction/spji/list')->display();
+        $this->twiggy->template('transaction/persediaan/list')->display();
     }
 
     public function form($id=null){
         if ($id != null) {
-            $this->model = TrsStatusPengelolaanJenisIkan::find($id);
+            $this->model = TrsProgresKeuangan::find($id);
             $this->twiggy->set('object', $this->model);
         }
 
-        $this->twiggy->template('transaction/spji/form')->display();
+        $this->twiggy->template('transaction/persediaan/form')->display();
     }
 
     public function delete($id){
@@ -76,7 +76,7 @@ class spji extends CI_Controller {
                 redirect($this->direct, 'location', 303);
             }
 
-            TrsStatusPengelolaanJenisIkan::delete($id);
+            TrsPersediaan::delete($id);
 
             redirect($this->direct, 'location', 303);
         }
@@ -85,29 +85,27 @@ class spji extends CI_Controller {
     public function submit(){
         try {
             if ($this->input->post('id') == null) {
-                $this->model = new TrsStatusPengelolaanJenisIkan();
+                $this->model = new TrsPersediaan();
 
-                $this->model->trs_status_pengelolaan_jenis_ikan_created_by = 'system';
-                $this->model->trs_status_pengelolaan_jenis_ikan_created_date = date('Y-m-d H:i:s');
+                $this->model->trs_persediaan_created_by = 'system';
+                $this->model->trs_persediaan_created_date = date('Y-m-d H:i:s');
             } else {
-                $this->model = TrsStatusPengelolaanJenisIkan::find($this->input->post('id'));
+                $this->model = TrsPersediaan::find($this->input->post('id'));
 
-                $this->model->trs_status_pengelolaan_jenis_ikan_update_by = 'system';
-                $this->model->trs_status_pengelolaan_jenis_ikan_update_date = date('Y-m-d H:i:s');
+                $this->model->trs_persediaan_updated_by = 'system';
+                $this->model->trs_persediaan_updated_date = date('Y-m-d H:i:s');
             }
 
-            $this->model->trs_status_pengelolaan_jenis_ikan_akses =1;
-            $this->model->trs_status_pengelolaan_jenis_ikan_satker =1;
-            $this->model->trs_status_pengelolaan_jenis_ikan_biofisik_id =$this->input->post('biofisik');
-            $this->model->trs_status_pengelolaan_jenis_ikan_lokasi_perlindungan_status =$this->input->post('lokasi_perlindungan_status');
-            $this->model->trs_status_pengelolaan_jenis_ikan_perlindungan_verifikasi =$this->input->post('perlindungan_verifikasi');
-            $this->model->trs_status_pengelolaan_jenis_ikan_pengelolaan_verifikasi =$this->input->post('pengelolaan_verifikasi');
-            $this->model->trs_status_pengelolaan_jenis_ikan_pengelolaan_status =$this->input->post('pengelolaan_status');
-            $this->model->trs_status_pengelolaan_jenis_ikan_aksi_status =$this->input->post('aksi_status');
-            $this->model->trs_status_pengelolaan_jenis_ikan_aksi_verifikasi =$this->input->post('aksi_verifikasi');
-            $this->model->trs_status_pengelolaan_jenis_ikan_pilot_status =$this->input->post('pilot_status');
-            $this->model->trs_status_pengelolaan_jenis_ikan_pilot_lokasi =$this->input->post('pilot_lokasi');
-            $this->model->trs_status_pengelolaan_jenis_ikan_pilot_verifikasi =$this->input->post('pilot_verifikasi');
+            $this->model->trs_persediaan_jenis_persediaan =$this->input->post('jenis_persediaan');
+            $this->model->trs_persediaan_akun_belanja =$this->input->post('akun_belanja');
+            $this->model->trs_persediaan_satker =1;
+            $this->model->trs_persediaan_jenis_barang =$this->input->post('jenis_barang');
+            $this->model->trs_persediaan_kode_barang =$this->input->post('kode_barang');
+            $this->model->trs_persediaan_nama_barang =$this->input->post('nama_barang');
+            $this->model->trs_persediaan_harga_pasar =$this->input->post('harga_pasar');
+            $this->model->trs_persediaan_satuan =$this->input->post('satuan');
+            $this->model->trs_persediaan_register =$this->input->post('register');
+            $this->model->trs_persediaan_keterangan =$this->input->post('keterangan');
 
             $this->model->save();
 

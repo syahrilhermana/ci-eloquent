@@ -1,0 +1,186 @@
+{% extends _layout %}
+
+{% block style %}
+    {{ css('libs/select2/select2.css', 'all', 'css') }}
+    {{ css('libs/bootstrap-datepicker/datepicker3.css', 'all', 'css') }}
+{% endblock %}
+
+{% block script %}
+    {{ js('libs/select2/select2.min.js', 'js') }}
+    {{ js('libs/bootstrap-datepicker/bootstrap-datepicker.js', 'js') }}
+    <script>
+        $(document).ready( function() {
+            $('.card-form').hide();
+            var thisPage = {{ this_page }};
+            load('{{ site_url('ts/kelembagaan/list_data') }}?page='+thisPage, '#result');
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <section>
+        <div class="section-header">
+            <ol class="breadcrumb">
+                <li><a href="{{ site_url('dashboard') }}">dashboard</a></li>
+                <li><a href="{{ site_url('ts/penerima-bantuan') }}">penerima bantuan</a></li>
+                <li class="active">List Data</li>
+            </ol>
+        </div>
+        <div class="section-body contain-lg">
+
+            <div class="card card-underline">
+                <div class="card-head">
+                    <header>Penerima Bantuan</header>
+                    <div class="tools">
+                        <div class="btn-group">
+                            <a class="btn btn-icon-toggle btn-form"><i class="fa fa-plus"></i></a>
+                            <a class="btn btn-icon-toggle btn-collapse"><i class="fa fa-angle-down"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+
+                    <!--form mode-->
+                    <div class="card card-form">
+                        <form id="form-engine" action="{{ site_url('ts/kelembagaan/submit') }}" class="form form-validate floating-label" method="post" enctype="multipart/form-data">
+                            <div class="card-body text-default-light">
+                                <input type="hidden" class="form-control" name="{{ _csrf }}" value="{{ _token }}" />
+                                <div class="row">
+
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <select name="kota" class="form-control select2-list" data-placeholder="Select an item" required >
+                                                {% for data in kota %}
+                                                    <option value="{{ data.mst_kota_id }}" {% if (data.mst_kota_id == object.trs_sosek_kawasan_kota) %} selected="selected" {% endif %}>{{ data.mst_kota_name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label for="kota">Kota</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="sk_walkot" name="sk_walkot" required />
+                                            <label for="sk_walkot">SK Walkot</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="name" name="name" required />
+                                            <label for="name">KELEMBAGAAN</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="no_sk" name="no_sk" required />
+                                            <label for="no_sk">NO SK</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group control-width-normal">
+                                            <div class="input-group date" id="iengine-date-second">
+                                                <div class="input-group-content">
+                                                    <input type="text" name="tgl_dibentuk" class="form-control">
+                                                    <label>Tanggal Dibentuk</label>
+                                                </div>
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="nama_direktur" name="nama_direktur" required />
+                                            <label for="nama_direktur">Nama Direktur</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="jml_staff_fulltime"  onkeypress="return isNumber(event)" name="jml_staff_fulltime" required />
+                                            <label for="jml_staff_full_time">Jumlah Staff Full Time</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="jml_staff_parttime"  onkeypress="return isNumber(event)" name="jml_staff_parttime" required />
+                                            <label for="jml_staff_part_time">Jumlah Staff Part Time</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="jml_staff_pria" onkeypress="return isNumber(event)" name="jml_staff_pria" required />
+                                            <label for="jml_staff_pria">Jumlah Staff Pria</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="jml_staff_wanita"  onkeypress="return isNumber(event)" name="jml_staff_wanita" required />
+                                            <label for="jml_staff_wanita">Jumlah Staff Full Time</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="tahun"  onkeypress="return isNumber(event)" name="tahun" required />
+                                            <label for="tahun">Tahun</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <select name="sumber" class="form-control select2-list" data-placeholder="Select an item" required >
+                                                {% for data in verifikasi %}
+                                                    <option value="{{ data.mst_sumber_verifikasi_id }}" {% if (data.mst_sumber_verifikasi_id == object.trs_kelembagaan_sumber_verifikasi_id) %} selected="selected" {% endif %}>{{ data.mst_sumber_verifikasi_name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label for="sumber_verifikasi">Sumber Verifikasi</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-actionbar">
+                                <div class="card-actionbar-row">
+                                    <a href="javascript:void(0);" onclick="$('.card-form').hide(500);" class="btn btn-flat btn-default ink-reaction cancel">Batal</a>
+                                    <button type="submit" class="btn btn-flat btn-accent ink-reaction">Simpan</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!--end form-->
+
+                    <div id="result"></div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="cd-popup" role="alert">
+        <div class="cd-popup-container">
+            <p>Are you sure you want to delete this element?</p>
+            <div class="btn-group btn-group-justified" role="group" aria-label="engine group">
+                <a class="btn btn-danger" onclick="delete_item('{{ site_url('ts/penerima_bantuan') }}');" role="button">Hapus</a>
+                <a class="btn btn-default cd-popup-cancel" role="button">Batal</a>
+            </div>
+            <a href="javascript:void(0);" class="cd-popup-close img-replace">Close</a>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js_core %}
+    {{ js('core/iengine/iengine.js', 'js') }}
+    {{ js('core/iengine/iengine.form.js', 'js') }}
+{% endblock %}

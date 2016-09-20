@@ -1,0 +1,144 @@
+{% extends _layout %}
+
+{% block style %}
+    {{ css('libs/select2/select2.css', 'all', 'css') }}
+    {{ css('libs/bootstrap-datepicker/datepicker3.css', 'all', 'css') }}
+{% endblock %}
+
+{% block script %}
+    {{ js('libs/select2/select2.min.js', 'js') }}
+    {{ js('libs/bootstrap-datepicker/bootstrap-datepicker.js', 'js') }}
+    <script>
+        $(document).ready( function() {
+            $('.card-form').hide();
+            var thisPage = {{ this_page }};
+            load('{{ site_url('ts/tindak_lanjut/list_data') }}?page='+thisPage, '#result');
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <section>
+        <div class="section-header">
+            <ol class="breadcrumb">
+                <li><a href="{{ site_url('dashboard') }}">dashboard</a></li>
+                <li><a href="{{ site_url('ts/penerima-bantuan') }}">penerima bantuan</a></li>
+                <li class="active">List Data</li>
+            </ol>
+        </div>
+        <div class="section-body contain-lg">
+
+            <div class="card card-underline">
+                <div class="card-head">
+                    <header>Penerima Bantuan</header>
+                    <div class="tools">
+                        <div class="btn-group">
+                            <a class="btn btn-icon-toggle btn-form"><i class="fa fa-plus"></i></a>
+                            <a class="btn btn-icon-toggle btn-collapse"><i class="fa fa-angle-down"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+
+                    <!--form mode-->
+                    <div class="card card-form">
+                        <form id="form-engine" action="{{ site_url('ts/tindak_lanjut/submit') }}" class="form form-validate floating-label" method="post" enctype="multipart/form-data">
+                            <div class="card-body text-default-light">
+                                <input type="hidden" class="form-control" name="{{ _csrf }}" value="{{ _token }}" />
+                                <div class="row">
+
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"  id="hp" name="hp" required />
+                                            <label for="hp">HP</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="temuan_saran" name="temuan_saran" required />
+                                            <label for="temuan_saran">Temuan Saran</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"  id="temuan_keuangan" name="temuan_keuangan" required />
+                                            <label for="temuan_keuangan">Temuan Keuangan</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="tindak_lanjut" name="tindak_lanjut" required />
+                                            <label for="tindak_lanjut">Tindak Lanjut</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="tindak_lanjut_keuangan" name="tindak_lanjut_keuangan" required />
+                                            <label for="tindak_lanjut_keuangan">Tindak Lanjut Keuangan</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="sisa_temuan_saran" name="sisa_temuan_saran" required />
+                                            <label for="sisa_temuan_saran">Sisa Temuan Saran</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"  id="sisa_temuan_keuangan" name="sisa_temuan_keuangan" required />
+                                            <label for="sisa_temuan_keuangan">Sisa Temuan Keuangan</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="keterangan" name="keterangan" required />
+                                            <label for="keterangan">Keterangan</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-actionbar">
+                                <div class="card-actionbar-row">
+                                    <a href="javascript:void(0);" onclick="$('.card-form').hide(500);" class="btn btn-flat btn-default ink-reaction cancel">Batal</a>
+                                    <button type="submit" class="btn btn-flat btn-accent ink-reaction">Simpan</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!--end form-->
+
+                    <div id="result"></div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="cd-popup" role="alert">
+        <div class="cd-popup-container">
+            <p>Are you sure you want to delete this element?</p>
+            <div class="btn-group btn-group-justified" role="group" aria-label="engine group">
+                <a class="btn btn-danger" onclick="delete_item('{{ site_url('ts/penerima_bantuan') }}');" role="button">Hapus</a>
+                <a class="btn btn-default cd-popup-cancel" role="button">Batal</a>
+            </div>
+            <a href="javascript:void(0);" class="cd-popup-close img-replace">Close</a>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js_core %}
+    {{ js('core/iengine/iengine.js', 'js') }}
+    {{ js('core/iengine/iengine.form.js', 'js') }}
+{% endblock %}

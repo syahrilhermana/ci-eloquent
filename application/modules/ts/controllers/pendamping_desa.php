@@ -5,7 +5,7 @@
  * @author	Syahril Hermana
  */
 
-class kelembagaan extends CI_Controller {
+class pendamping_desa extends CI_Controller {
     protected $model;
     protected $direct;
 
@@ -23,7 +23,7 @@ class kelembagaan extends CI_Controller {
         $this->twiggy->set('_csrf', $this->security->get_csrf_token_name());
         $this->twiggy->set('_token', $this->security->get_csrf_hash());
 
-        $this->direct = base_url('ts/kelembagaan');
+        $this->direct = base_url('ts/pendamping_desa');
     }
 
     public function index(){
@@ -36,8 +36,8 @@ class kelembagaan extends CI_Controller {
         $this->twiggy->set('lamun', BiofisikEntity::all());
         $this->twiggy->set('mangrove', BiofisikEntity::all());
         $this->twiggy->set('tk', BiofisikEntity::all());
-        $this->twiggy->set('verifikasi', sumberVerifikasiEntity::all());
-        $this->twiggy->template('transaction/kelembagaan/index')->display();
+        $this->twiggy->set('verifikasi', SumberVerifikasiEntity::all());
+        $this->twiggy->template('transaction/pendamping_desa/index')->display();
     }
 
     public function list_data()
@@ -48,25 +48,25 @@ class kelembagaan extends CI_Controller {
         $offset = (($page-1)*$limit);
         $search = "";
 
-        $this->model = new TrsKelembagaan();
-        $list = $this->model->get_trs_data_desa($offset, $limit, $search, null, null);
-        $total = $this->model->get_trs_data_desa_count($search);
+        $this->model = new TrsPendampingDesa();
+        $list = $this->model->get_trs_pendamping_desa($offset, $limit, $search, null, null);
+        $total = $this->model->get_trs_pendamping_desa_count($search);
 
         $this->twiggy->set('list', $list->result());
         $this->twiggy->set('total', $total);
         $this->twiggy->set('totalPage', ceil($total/$limit));
         $this->twiggy->set('size', $list->num_rows());
         $this->twiggy->set('page', $page);
-        $this->twiggy->template('transaction/kelembagaan/list')->display();
+        $this->twiggy->template('transaction/pendamping_desa/list')->display();
     }
 
     public function form($id=null){
         if ($id != null) {
-            $this->model = TrsKelembagaan::find($id);
+            $this->model = TrsPendampingDesa::find($id);
             $this->twiggy->set('object', $this->model);
         }
 
-        $this->twiggy->template('transaction/kelembagaan/form')->display();
+        $this->twiggy->template('transaction/pendamping_desa/form')->display();
     }
 
     public function delete($id){
@@ -76,7 +76,7 @@ class kelembagaan extends CI_Controller {
                 redirect($this->direct, 'location', 303);
             }
 
-            TrsKelembagaan::delete($id);
+            TrsPendampingDesa::delete($id);
 
             redirect($this->direct, 'location', 303);
         }
@@ -85,29 +85,27 @@ class kelembagaan extends CI_Controller {
     public function submit(){
         try {
             if ($this->input->post('id') == null) {
-                $this->model = new TrsKelembagaan();
+                $this->model = new TrsPendampingDesa();
 
-                $this->model->trs_kelembagaan_created_by = 'system';
-                $this->model->trs_kelembagaan_created_date = date('Y-m-d H:i:s');
+                $this->model->trs_pendamping_desa_created_by = 'system';
+                $this->model->trs_pendamping_desa_created_date = date('Y-m-d H:i:s');
             } else {
-                $this->model = TrsKelembagaan::find($this->input->post('id'));
+                $this->model = TrsPendampingDesa::find($this->input->post('id'));
 
-                $this->model->trs_kelembagaan_update_by = 'system';
-                $this->model->trs_kelembagaan_update_date = date('Y-m-d H:i:s');
+                $this->model->trs_pendamping_desa_updated_by = 'system';
+                $this->model->trs_pendamping_desa_updated_date = date('Y-m-d H:i:s');
             }
 
-            $this->model->trs_kelembagaan_satker = 1;
-            $this->model->trs_kelembagaan_akses = 1;
-            $this->model->trs_kelembagaan_name = $this->input->post('name');
-            $this->model->trs_kelembagaan_no_sk = $this->input->post('no_sk');
-            $this->model->trs_kelembagaan_tgl_dibentuk =  date('Y-m-d',strtotime($this->input->post('tgl_dibentuk')));
-            $this->model->trs_kelembagaan_nama_direktur= $this->input->post('nama_direktur');
-            $this->model->trs_kelembagaan_jml_staff_fulltime = $this->input->post('jml_staff_fulltime');
-            $this->model->trs_kelembagaan_jml_staff_parttime = $this->input->post('jml_staff_parttime');
-            $this->model->trs_kelembagaan_jml_staff_pria = $this->input->post('jml_staff_pria');
-            $this->model->trs_kelembagaan_jml_staff_wanita = $this->input->post('jml_staff_wanita');
-            $this->model->trs_kelembagaan_tahun = $this->input->post('tahun');
-            $this->model->trs_kelembagaan_sumber_id = $this->input->post('sumber');
+            $this->model->trs_pendamping_desa_satker = 1;
+            $this->model->trs_pendamping_desa_pendamping = $this->input->post('pendamping');
+            $this->model->trs_pendamping_desa_alamat_asal = $this->input->post('alamat_asal');
+            $this->model->trs_pendamping_desa_lokasi_tugas = $this->input->post('lokasi_tugas');
+            $this->model->trs_pendamping_desa_tanggal_mulai = date('Y-m-d',strtotime($this->input->post('tanggal_mulai')));
+            $this->model->trs_pendamping_desa_tanggal_selesai= date('Y-m-d',strtotime($this->input->post('tanggal_selesai')));
+            $this->model->trs_pendamping_desa_waktu_tempuh = $this->input->post('waktu_tempuh');
+            $this->model->trs_pendamping_desa_alat_transport = $this->input->post('alat_transport');
+            $this->model->trs_pendamping_desa_verifikasi = $this->input->post('verifikasi');
+
             $this->model->save();
 
             redirect($this->direct, 'location', 303);
