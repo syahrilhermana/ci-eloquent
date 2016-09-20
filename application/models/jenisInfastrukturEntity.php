@@ -4,6 +4,7 @@
  */
 
 use Eloquent\Model as Model;
+use Guard as Security;
 
 class JenisInfrastrukturEntity extends Model {
     protected $table = "mst_jenis_infrastruktur";
@@ -19,6 +20,12 @@ class JenisInfrastrukturEntity extends Model {
 
     public function get_jenis_infrastruktur($offset, $limit, $search, $sortCol, $sortDir)
     {
+        $this->CI->db->select($this->table.'.*');
+
+        if(Security::get_role() != 'all'){
+            $this->CI->db->where('mst_user.mst_role', Security::get_role());
+        }
+
         if($search != ""){
             $this->CI->db->like("mst_jenis_infrastruktur_name", $search);
         }

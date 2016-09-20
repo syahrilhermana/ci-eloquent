@@ -4,6 +4,7 @@
  */
 
 use Eloquent\Model as Model;
+use Guard as Security;
 
 class ProvinsiEntity extends Model {
     protected $table = "mst_propinsi";
@@ -19,6 +20,12 @@ class ProvinsiEntity extends Model {
 
     public function get_provinsi($offset, $limit, $search, $sortCol, $sortDir)
     {
+        $this->CI->db->select($this->table.'.*');
+
+        if(Security::get_role() != 'all'){
+            $this->CI->db->where('mst_user.mst_role', Security::get_role());
+        }
+
         if($search != ""){
             $this->CI->db->like("mst_propinsi_name", $search);
         }

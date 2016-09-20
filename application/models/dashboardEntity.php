@@ -4,6 +4,7 @@
  */
 
 use Eloquent\Model as Model;
+use Guard as Security;
 
 class DashboardEntity extends Model {
     protected $table = "mst_akses";

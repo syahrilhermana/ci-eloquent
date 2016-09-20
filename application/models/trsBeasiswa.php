@@ -22,7 +22,7 @@ class TrsBeasiswa extends Model {
     {
         $this->CI->db->select($this->table.'.*');
         $this->CI->db->join('mst_user', 'mst_user.mst_user_id = '.$this->table.'.trs_beasiswa_created_by', 'left');
-        $this->CI->db->where($this->table.'.trs_beasiswa_asal_mhs', Security::get_satker());
+
 
         if(Security::get_role() != 'all'){
             $this->CI->db->where('mst_user.mst_role', Security::get_role());

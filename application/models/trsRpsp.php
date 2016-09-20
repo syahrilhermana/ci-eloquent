@@ -4,6 +4,7 @@
  */
 
 use Eloquent\Model as Model;
+use Guard as Security;
 
 class TrsRpsp extends Model {
     protected $table = "trs_rpsp-form5";
@@ -19,6 +20,14 @@ class TrsRpsp extends Model {
 
     public function get_trs_rpsp($offset, $limit, $search, $sortCol, $sortDir)
     {
+        $this->CI->db->select($this->table.'.*');
+        $this->CI->db->join('mst_user', 'mst_user.mst_user_id = '.$this->table.'.trs_rpsp_created_by', 'left');
+        $this->CI->db->where($this->table.'.trs_rpsp_satker_id', Security::get_satker());
+
+        if(Security::get_role() != 'all'){
+            $this->CI->db->where('mst_user.mst_role', Security::get_role());
+        }
+
         if($search != ""){
             $this->CI->db->like("trs_rpsp_name", $search);
         }

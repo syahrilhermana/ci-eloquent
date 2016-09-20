@@ -5,6 +5,7 @@
 
 use Eloquent\Model as Model;
 
+
 class UserEntity extends Model {
     protected $table = "mst_user";
     protected $primary = "mst_user_id";

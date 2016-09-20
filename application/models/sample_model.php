@@ -4,6 +4,7 @@
  */
 
 use Eloquent\Model as Model;
+use Guard as Security;
 
 class Sample_model extends Model {
     protected $table = "sample";
@@ -19,6 +20,7 @@ class Sample_model extends Model {
 
     public function get_items($offset, $limit, $search, $sortCol, $sortDir)
     {
+
         if($search != ""){
             $this->CI->db->like("key", $search);
         }

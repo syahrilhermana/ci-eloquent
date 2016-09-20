@@ -4,6 +4,7 @@
  */
 
 use Eloquent\Model as Model;
+use Guard as Security;
 
 class SumberVerifikasiEntity extends Model {
     protected $table = "mst_sumber_verifikasi";
@@ -29,6 +30,13 @@ class SumberVerifikasiEntity extends Model {
 
     public function get_sumber_verifikasi_count($search = "")
     {
+        $this->CI->db->select($this->table.'.*');
+
+
+        if(Security::get_role() != 'all'){
+            $this->CI->db->where('mst_user.mst_role', Security::get_role());
+        }
+
         $this->CI->db->select($this->primary);
         if($search != "") {
             $this->CI->db->like("mst_sumber_verifikasi_name", $search);
