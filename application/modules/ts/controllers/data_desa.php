@@ -83,17 +83,17 @@ class data_desa extends CI_Controller {
 			if ($this->input->post('id') == null) {
 				$this->model = new TrsDataDesa();
 
-				$this->model->trs_data_desa_created_by = 'system';
+				$this->model->trs_data_desa_created_by = $this->guard->get_user();
 				$this->model->trs_data_desa_created_date = date('Y-m-d H:i:s');
 			} else {
 				$this->model = TrsDataDesa::find($this->input->post('id'));
 
-				$this->model->trs_data_desa_update_by = 'system';
+				$this->model->trs_data_desa_update_by = $this->guard->get_user();
 				$this->model->trs_data_desa_update_date = date('Y-m-d H:i:s');
 			}
 
-			$this->model->trs_data_desa_akses = $this->input->post('akses');
-			$this->model->trs_data_desa_satker = $this->input->post('satker');
+			$this->model->trs_data_desa_akses = $this->guard->get_akses();
+			$this->model->trs_data_desa_satker = $this->guard->get_satker();
 			$this->model->trs_data_desa_desa = $this->input->post('desa');
 			$this->model->trs_data_desa_tahun_coremap = $this->input->post('tahun_coremap');
 			$this->model->trs_data_desa_luas = $this->input->post('luas');

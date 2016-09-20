@@ -5,7 +5,7 @@
  * @author	Syahril Hermana
  */
 
-class lpstk extends CI_Controller {
+class users extends CI_Controller {
 	protected $model;
 	protected $direct;
 
@@ -23,18 +23,16 @@ class lpstk extends CI_Controller {
 		$this->twiggy->set('_csrf', $this->security->get_csrf_token_name());
 		$this->twiggy->set('_token', $this->security->get_csrf_hash());
 
-		$this->direct = base_url('ts/lpstk');
-
-		$this->guard->is_access();
+		$this->direct = base_url('ms/users');
 	}
 	
 	public function index(){
 		$page   = (!$this->input->get('page')) ? 1 : $this->input->get('page');
 
 		$this->twiggy->set('this_page', $page);
-		$this->twiggy->set('desa', DesaEntity::all());
-		$this->twiggy->set('verifikasi', SumberVerifikasiEntity::all());
-		$this->twiggy->template('transaction/lpstk/index')->display();
+		$this->twiggy->set('satker', SatkerEntity::all());
+		$this->twiggy->set('akses', AksesEntity::all());
+		$this->twiggy->template('master/users/index')->display();
 	}
 
 	public function list_data()
@@ -45,25 +43,26 @@ class lpstk extends CI_Controller {
 		$offset = (($page-1)*$limit);
 		$search = "";
 
-		$this->model = new TrsLpstk();
-		$list = $this->model->get_trs_lpstk($offset, $limit, $search, null, null);
-		$total = $this->model->get_trs_lpstk_count($search);
+		$this->model = new UserEntity();
+		$list = $this->model->get_user($offset, $limit, $search, null, null);
+		$total = $this->model->get_user_count($search);
+
 
 		$this->twiggy->set('list', $list->result());
 		$this->twiggy->set('total', $total);
 		$this->twiggy->set('totalPage', ceil($total/$limit));
 		$this->twiggy->set('size', $list->num_rows());
 		$this->twiggy->set('page', $page);
-		$this->twiggy->template('transaction/lpstk/list')->display();
+		$this->twiggy->template('master/users/list')->display();
 	}
 
 	public function form($id=null){
 		if ($id != null) {
-			$this->model = TrsLpstk::find($id);
+			$this->model = UserEntity::find($id);
 			$this->twiggy->set('object', $this->model);
 		}
 
-		$this->twiggy->template('transaction/lpstk/form')->display();
+		$this->twiggy->template('master/users/form')->display();
 	}
 
 	public function delete($id){
@@ -73,7 +72,7 @@ class lpstk extends CI_Controller {
 				redirect($this->direct, 'location', 303);
 			}
 
-			TrsLpstk::delete($id);
+			UserEntity::delete($id);
 
 			redirect($this->direct, 'location', 303);
 		}
@@ -82,29 +81,29 @@ class lpstk extends CI_Controller {
 	public function submit(){
 		try {
 			if ($this->input->post('id') == null) {
-				$this->model = new TrsLpstk();
-
-				$this->model->trs_lpstk_created_by = $this->guard->get_user();
-				$this->model->trs_lpstk_created_date = date('Y-m-d H:i:s');
+				$this->model = new UserEntity();
 			} else {
-				$this->model = TrsLpstk::find($this->input->post('id'));
-
-				$this->model->trs_lpstk_update_by = $this->guard->get_user();
-				$this->model->trs_lpstk_update_date = date('Y-m-d H:i:s');
+				$this->model = UserEntity::find($this->input->post('id'));
 			}
 
-			$this->model->trs_lpstk_akses = $this->guard->get_akses();
-			$this->model->trs_lpstk_satker_id = $this->guard->get_satker();
-			$this->model->trs_lpstk_name = $this->input->post('name');
-			$this->model->trs_lpstk_desa = $this->input->post('desa');
-            $this->model->trs_lpstk_tgl = date('Y-m-d H:i:s', strtotime($this->input->post('tgl')));
-			$this->model->trs_lpstk_kegiatan = $this->input->post('kegiatan');
-			$this->model->trs_lpstk_ketua = $this->input->post('ketua');
-			$this->model->trs_lpstk_pria = $this->input->post('pria');
-            $this->model->trs_lpstk_wanita = $this->input->post('wanita');
-            $this->model->trs_lpstk_sumber_id = $this->input->post('sumber');
+			$username = $this->input->post('username');
+			$user = UserEntity::where('mst_user_username', $username)->first();
 
-			$this->model->save();
+			if (empty($user))
+			{
+				$this->model->mst_user_password = $this->bcrypt->hash_password('123456');
+				$this->model->mst_user_is_access = 1;
+
+				$this->model->mst_user_name = $this->input->post('name');
+				$this->model->mst_user_username = $username;
+				$this->model->mst_akses_id = $this->input->post('akses');
+				$this->model->mst_satker_id = $this->input->post('satker');
+				$this->model->mst_role = $this->input->post('role');
+
+				$this->model->save();
+			} else {
+				$this->session->set_flashdata('error', 'username sudah dipakai.');
+			}
 
 			redirect($this->direct, 'location', 303);
 		} catch(Exception $e) {

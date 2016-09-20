@@ -4,8 +4,9 @@
  */
 
 use Eloquent\Model as Model;
+use Guard as Security;
 
-class TrsAnggaranRealisasi extends Model {
+class TrsAnggaranRealisasi extends Model{
     protected $table = "trs_anggaran_realisasi-form15";
     protected $primary = "trs_anggaran_id";
     var $CI = NULL;
@@ -19,6 +20,14 @@ class TrsAnggaranRealisasi extends Model {
 
     public function get_trs_anggaran_realisasi($offset, $limit, $search, $sortCol, $sortDir)
     {
+        $this->CI->db->select($this->table.'.*');
+        $this->CI->db->join('mst_user', 'mst_user.mst_user_id = '.$this->table.'.trs_anggaran_created_by', 'left');
+        $this->CI->db->where($this->table.'.trs_anggaran_satker_id', Security::get_satker());
+
+        if(Security::get_role() != 'all'){
+            $this->CI->db->where('mst_user.mst_role', Security::get_role());
+        }
+
         if($search != ""){
             $this->CI->db->like("trs_anggaran_realisasi", $search);
         }

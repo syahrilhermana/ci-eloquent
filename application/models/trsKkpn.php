@@ -4,6 +4,7 @@
  */
 
 use Eloquent\Model as Model;
+use Guard as Security;
 
 class TrsKkpn extends Model {
     protected $table = "trs_kkpn-form7-B";
@@ -19,6 +20,13 @@ class TrsKkpn extends Model {
 
     public function get_trs_kkpn($offset, $limit, $search, $sortCol, $sortDir)
     {
+        $this->CI->db->select($this->table.'.*');
+        $this->CI->db->join('mst_user', 'mst_user.mst_user_id = '.$this->table.'.trs_kkpn_created_by', 'left');
+
+        if(Security::get_role() != 'all'){
+            $this->CI->db->where('mst_user.mst_role', Security::get_role());
+        }
+
         if($search != ""){
             $this->CI->db->like("trs_kkpn_name", $search);
         }

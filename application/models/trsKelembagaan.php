@@ -4,6 +4,7 @@
  */
 
 use Eloquent\Model as Model;
+use Guard as Security;
 
 class TrsKelembagaan extends Model {
     protected $table = "trs_kelembagaan-form11";
@@ -19,6 +20,14 @@ class TrsKelembagaan extends Model {
 
     public function get_trs_data_desa($offset, $limit, $search, $sortCol, $sortDir)
     {
+        $this->CI->db->select($this->table.'.*');
+        $this->CI->db->join('mst_user', 'mst_user.mst_user_id = '.$this->table.'.trs_kelembagaan_created_by', 'left');
+        $this->CI->db->where($this->table.'.trs_kelembagaan_satker', Security::get_satker());
+
+        if(Security::get_role() != 'all'){
+            $this->CI->db->where('mst_user.mst_role', Security::get_role());
+        }
+
         if($search != ""){
             $this->CI->db->like("trs_kelembagaan_desa", $search);
         }

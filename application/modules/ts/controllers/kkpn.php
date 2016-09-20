@@ -87,16 +87,16 @@ class kkpn extends CI_Controller {
 			if ($this->input->post('id') == null) {
 				$this->model = new TrsKkpn();
 
-				$this->model->trs_kkpn_created_by = 'system';
+				$this->model->trs_kkpn_created_by = $this->guard->get_user();
 				$this->model->trs_kkpn_created_date = date('Y-m-d H:i:s');
 			} else {
 				$this->model = TrsKkpn::find($this->input->post('id'));
 
-				$this->model->trs_kkpn_update_by = 'system';
+				$this->model->trs_kkpn_update_by = $this->guard->get_user();
 				$this->model->trs_kkpn_update_date = date('Y-m-d H:i:s');
 			}
 
-			$this->model->trs_kkpn_akses = $this->input->post('akses');
+			$this->model->trs_kkpn_akses = $this->guard->get_akses();
 			$this->model->trs_kkpn_name = $this->input->post('name');
 			$this->model->trs_kkpn_sk_mkp = $this->input->post('sk_mkp');
 			$this->model->trs_kkpn_rencana_pengelolaan = $this->input->post('rencana_pengelolaan');

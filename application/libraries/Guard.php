@@ -28,9 +28,14 @@ class Guard
         return $this->CI->session->userdata('guard')['user'];
     }
 
-    public function get_role()
+    public function get_akses()
     {
         return $this->CI->session->userdata('guard')['akses'];
+    }
+
+    public function get_role()
+    {
+        return $this->CI->session->userdata('guard')['role'];
     }
 
     public function get_satker()

@@ -86,17 +86,17 @@ class penerima_bantuan extends CI_Controller {
 			if ($this->input->post('id') == null) {
 				$this->model = new TrsPenerimaBantuan();
 
-				$this->model->trs_penerima_bantuan_created_by = 'system';
+				$this->model->trs_penerima_bantuan_created_by = $this->guard->get_user();
 				$this->model->trs_penerima_bantuan_created_date = date('Y-m-d H:i:s');
 			} else {
 				$this->model = TrsPenerimaBantuan::find($this->input->post('id'));
 
-				$this->model->trs_penerima_bantuan_update_by = 'system';
+				$this->model->trs_penerima_bantuan_update_by = $this->guard->get_user();
 				$this->model->trs_penerima_bantuan_update_date = date('Y-m-d H:i:s');
 			}
 
-			$this->model->trs_penerima_bantuan_akses = $this->input->post('akses');
-			$this->model->trs_penerima_bantuan_satker_id = $this->input->post('satker');
+			$this->model->trs_penerima_bantuan_akses = $this->guard->get_akses();
+			$this->model->trs_penerima_bantuan_satker_id = $this->guard->get_satker();
 			$this->model->trs_penerima_bantuan_kota = $this->input->post('kota');
 			$this->model->trs_penerima_bantuan_desa = $this->input->post('desa');
 			$this->model->trs_penerima_bantuan_laki = $this->input->post('laki');

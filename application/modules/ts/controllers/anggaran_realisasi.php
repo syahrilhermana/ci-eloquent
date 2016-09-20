@@ -87,16 +87,16 @@ class anggaran_realisasi extends CI_Controller {
             if ($this->input->post('id') == null) {
                 $this->model = new TrsAnggaranRealisasi();
 
-                $this->model->trs_anggaran_created_by = 'system';
+                $this->model->trs_anggaran_created_by = $this->guard->get_user();
                 $this->model->trs_anggaran_created_date = date('Y-m-d H:i:s');
             } else {
                 $this->model = TrsAnggaranRealisasi::find($this->input->post('id'));
 
-                $this->model->trs_anggaran_updated_by = 'system';
+                $this->model->trs_anggaran_updated_by = $this->guard->get_user();
                 $this->model->trs_anggaran_updated_date = date('Y-m-d H:i:s');
             }
 
-            $this->model->trs_anggaran_satker_id = 1;
+            $this->model->trs_anggaran_satker_id = $this->guard->get_satker();
             $this->model->trs_anggaran_tahun = $this->input->post('tahun');
             $this->model->trs_anggaran_alokasi_loan = $this->input->post('alokasi_loan');
             $this->model->trs_anggaran_realisasi_loan = $this->input->post('realisasi_loan');

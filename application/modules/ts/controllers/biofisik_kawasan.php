@@ -86,17 +86,17 @@ class biofisik_kawasan extends CI_Controller {
 			if ($this->input->post('id') == null) {
 				$this->model = new TrsBiofisikKawasan();
 
-				$this->model->trs_biofisik_kawasan_created_by = 'system';
+				$this->model->trs_biofisik_kawasan_created_by = $this->guard->get_user();
 				$this->model->trs_biofisik_kawasan_created_date = date('Y-m-d H:i:s');
 			} else {
 				$this->model = TrsBiofisikKawasan::find($this->input->post('id'));
 
-				$this->model->trs_biofisik_kawasan_update_by = 'system';
+				$this->model->trs_biofisik_kawasan_update_by = $this->guard->get_user();
 				$this->model->trs_biofisik_kawasan_update_date = date('Y-m-d H:i:s');
 			}
 
-			$this->model->trs_biofisik_kawasan_akses = $this->input->post('akses');
-			$this->model->trs_biofisik_kawasan_satker_id = $this->input->post('satker');
+			$this->model->trs_biofisik_kawasan_akses = $this->guard->get_akses();
+			$this->model->trs_biofisik_kawasan_satker_id = $this->guard->get_satker();
 			$this->model->trs_biofisik_kawasan_desa = $this->input->post('desa');
 			$this->model->trs_biofisik_kawasan_biofisik_id = $this->input->post('biofisik');
 			$this->model->trs_biofisik_kawasan_name = $this->input->post('nama_kawasan');

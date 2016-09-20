@@ -82,16 +82,16 @@ class pelatihan_sdm extends CI_Controller {
 			if ($this->input->post('id') == null) {
 				$this->model = new TrsPelatihanSdm();
 
-				$this->model->trs_pelatihan_sdm_created_by = 'system';
+				$this->model->trs_pelatihan_sdm_created_by = $this->guard->get_user();
 				$this->model->trs_pelatihan_sdm_created_date = date('Y-m-d H:i:s');
 			} else {
 				$this->model = TrsPelatihanSdm::find($this->input->post('id'));
 
-				$this->model->trs_pelatihan_sdm_update_by = 'system';
+				$this->model->trs_pelatihan_sdm_update_by = $this->guard->get_user();
 				$this->model->trs_pelatihan_sdm_update_date = date('Y-m-d H:i:s');
 			}
 
-			$this->model->trs_pelatihan_sdm_akses = $this->input->post('akses');
+			$this->model->trs_pelatihan_sdm_akses = $this->guard->get_akses();
 			$this->model->trs_pelatihan_sdm_kota = $this->input->post('kota');
 			$this->model->trs_pelatihan_sdm_nama_pelatihan = $this->input->post('pelatih');
 			$this->model->trs_pelatihan_sdm_tujuan = $this->input->post('tujuan');

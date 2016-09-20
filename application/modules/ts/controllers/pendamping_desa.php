@@ -87,16 +87,16 @@ class pendamping_desa extends CI_Controller {
             if ($this->input->post('id') == null) {
                 $this->model = new TrsPendampingDesa();
 
-                $this->model->trs_pendamping_desa_created_by = 'system';
+                $this->model->trs_pendamping_desa_created_by = $this->guard->get_user();
                 $this->model->trs_pendamping_desa_created_date = date('Y-m-d H:i:s');
             } else {
                 $this->model = TrsPendampingDesa::find($this->input->post('id'));
 
-                $this->model->trs_pendamping_desa_updated_by = 'system';
+                $this->model->trs_pendamping_desa_updated_by = $this->guard->get_user();
                 $this->model->trs_pendamping_desa_updated_date = date('Y-m-d H:i:s');
             }
 
-            $this->model->trs_pendamping_desa_satker = 1;
+            $this->model->trs_pendamping_desa_satker = $this->guard->get_satker();
             $this->model->trs_pendamping_desa_pendamping = $this->input->post('pendamping');
             $this->model->trs_pendamping_desa_alamat_asal = $this->input->post('alamat_asal');
             $this->model->trs_pendamping_desa_lokasi_tugas = $this->input->post('lokasi_tugas');

@@ -87,17 +87,17 @@ class kelembagaan extends CI_Controller {
             if ($this->input->post('id') == null) {
                 $this->model = new TrsKelembagaan();
 
-                $this->model->trs_kelembagaan_created_by = 'system';
+                $this->model->trs_kelembagaan_created_by = $this->guard->get_user();
                 $this->model->trs_kelembagaan_created_date = date('Y-m-d H:i:s');
             } else {
                 $this->model = TrsKelembagaan::find($this->input->post('id'));
 
-                $this->model->trs_kelembagaan_update_by = 'system';
+                $this->model->trs_kelembagaan_update_by = $this->guard->get_user();
                 $this->model->trs_kelembagaan_update_date = date('Y-m-d H:i:s');
             }
 
-            $this->model->trs_kelembagaan_satker = 1;
-            $this->model->trs_kelembagaan_akses = 1;
+            $this->model->trs_kelembagaan_satker = $this->guard->get_satker();
+            $this->model->trs_kelembagaan_akses = $this->guard->get_akses();
             $this->model->trs_kelembagaan_name = $this->input->post('name');
             $this->model->trs_kelembagaan_no_sk = $this->input->post('no_sk');
             $this->model->trs_kelembagaan_tgl_dibentuk =  date('Y-m-d',strtotime($this->input->post('tgl_dibentuk')));

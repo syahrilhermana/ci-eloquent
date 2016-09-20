@@ -85,17 +85,17 @@ class info_desa extends CI_Controller {
 			if ($this->input->post('id') == null) {
 				$this->model = new TrsInfoDesa();
 
-				$this->model->trs_info_desa_created_by = 'system';
+				$this->model->trs_info_desa_created_by = $this->guard->get_user();
 				$this->model->trs_info_desa_created_date = date('Y-m-d H:i:s');
 			} else {
 				$this->model = TrsInfoDesa::find($this->input->post('id'));
 
-				$this->model->trs_info_desa_update_by = 'system';
+				$this->model->trs_info_desa_update_by = $this->guard->get_user();
 				$this->model->trs_info_desa_update_date = date('Y-m-d H:i:s');
 			}
 
-			$this->model->trs_info_desa_akses = $this->input->post('akses');
-            $this->model->trs_info_desa_satker = $this->input->post('satker');
+			$this->model->trs_info_desa_akses = $this->guard->get_akses();
+            $this->model->trs_info_desa_satker = $this->guard->get_satker();
 			$this->model->trs_info_desa_kota = $this->input->post('desa');
 			$this->model->trs_info_desa_tahun = $this->input->post('luas');
 			$this->model->trs_info_desa_mhs = $this->input->post('lahan');

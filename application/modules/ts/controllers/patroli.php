@@ -86,17 +86,17 @@ class patroli extends CI_Controller {
 			if ($this->input->post('id') == null) {
 				$this->model = new TrsPatroli();
 
-				$this->model->trs_patroli_created_by = 'system';
+				$this->model->trs_patroli_created_by = $this->guard->get_user();
 				$this->model->trs_patroli_created_date = date('Y-m-d H:i:s');
 			} else {
 				$this->model = TrsPatroli::find($this->input->post('id'));
 
-				$this->model->trs_patroli_update_by = 'system';
+				$this->model->trs_patroli_update_by = $this->guard->get_user();
 				$this->model->trs_patroli_update_date = date('Y-m-d H:i:s');
 			}
 
-			$this->model->trs_potroli_akses = $this->input->post('akses');
-			$this->model->trs_potroli_satker = $this->input->post('satker');
+			$this->model->trs_potroli_akses = $this->guard->get_akses();
+			$this->model->trs_potroli_satker = $this->guard->get_satker();
             $this->model->trs_potroli_start_date = date('Y-m-d H:i:s', strtotime($this->input->post('start_date')));
             $this->model->trs_potroli_end_date = date('Y-m-d H:i:s', strtotime($this->input->post('end_date')));
 			$this->model->trs_potroli_lokasi = $this->input->post('lokasi');

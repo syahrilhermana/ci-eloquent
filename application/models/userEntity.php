@@ -27,8 +27,12 @@ class UserEntity extends Model {
 
     public function get_user($offset, $limit, $search, $sortCol, $sortDir)
     {
+        $this->CI->db->select($this->table.'.*, mst_satker.mst_satket_name as \'satker\', mst_akses.mst_akses_name as \'akses\'');
+        $this->CI->db->join('mst_akses', 'mst_akses.mst_akses_id = '.$this->table.'.mst_akses_id', 'left');
+        $this->CI->db->join('mst_satker', 'mst_satker.mst_satker_id = '.$this->table.'.mst_satker_id', 'left');
+
         if($search != ""){
-            $this->CI->db->like("mst_satker_name", $search);
+            $this->CI->db->like("mst_user_username", $search);
         }
         if($sortCol != "") $this->CI->db->order_by($sortCol, $sortDir);
 

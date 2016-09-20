@@ -84,16 +84,16 @@ class beasiswa extends CI_Controller {
 			if ($this->input->post('id') == null) {
 				$this->model = new TrsBeasiswa();
 
-				$this->model->trs_beasiswa_created_by = 'system';
+				$this->model->trs_beasiswa_created_by = $this->guard->get_user();
 				$this->model->trs_beasiswa_created_date = date('Y-m-d H:i:s');
 			} else {
 				$this->model = TrsBeasiswa::find($this->input->post('id'));
 
-				$this->model->trs_beasiswa_update_by = 'system';
+				$this->model->trs_beasiswa_update_by = $this->guard->get_user();
 				$this->model->trs_beasiswa_update_date = date('Y-m-d H:i:s');
 			}
 
-			$this->model->trs_beasiswa_akses = $this->input->post('akses');
+			$this->model->trs_beasiswa_akses = $this->guard->get_akses();
 			$this->model->trs_beasiswa_kota = $this->input->post('kota');
 			$this->model->trs_beasiswa_tahun = $this->input->post('tahun');
 			$this->model->trs_beasiswa_mhs = $this->input->post('mahasiswa');

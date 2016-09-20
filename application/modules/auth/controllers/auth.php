@@ -52,7 +52,8 @@ class auth extends CI_Controller {
 					'name' => $user->mst_user_name,
 					'username' => $user->mst_user_username,
 					'akses' => $user->mst_akses_id,
-					'role' => $user->akses->mst_akses_name,
+					'akses_name' => $user->akses->mst_akses_name,
+					'role' => $user->mst_role,
 					'satker' => $user->mst_satker_id,
 					'logged_in' => TRUE
 				);

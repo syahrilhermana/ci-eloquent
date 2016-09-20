@@ -87,11 +87,11 @@ class fasilitas_infrastruktur extends CI_Controller {
             } else {
                 $this->model = TrsFasilitasInfrastruktur::find($this->input->post('id'));
 
-                $this->model->trs_fasilitas_infrastruktur_update_by = $this->guard->get_role();
+                $this->model->trs_fasilitas_infrastruktur_update_by = $this->guard->get_user();
                 $this->model->trs_fasilitas_infrastruktur_update_date = date('Y-m-d H:i:s');
             }
 
-            $this->model->trs_fasilitas_infrastruktur_akses = $this->guard->get_role();
+            $this->model->trs_fasilitas_infrastruktur_akses = $this->guard->get_akses();
             $this->model->trs_fasilitas_infrastruktur_satker = $this->guard->get_satker();
 
             $this->model->trs_fasilitas_infrastruktur_jenis_infrastruktur = $this->input->post('jenis_infrastruktur');
