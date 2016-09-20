@@ -31,6 +31,9 @@ class beasiswa extends CI_Controller {
 
 		$this->twiggy->set('this_page', $page);
 		$this->twiggy->set('list', PerguruanTinggiEntity::all());
+		$this->twiggy->set('satker', SatkerEntity::all());
+		$this->twiggy->set('verifikasi', SumberVerifikasiEntity::all());
+		$this->twiggy->set('kota', KotaEntity::all());
 		$this->twiggy->template('transaction/beasiswa/index')->display();
 	}
 
@@ -43,8 +46,8 @@ class beasiswa extends CI_Controller {
 		$search = "";
 
 		$this->model = new TrsBeasiswa();
-		$list = $this->model->get_trs_percetakan($offset, $limit, $search, null, null);
-		$total = $this->model->get_trs_percetakan_count($search);
+		$list = $this->model->get_trs_beasiswa($offset, $limit, $search, null, null);
+		$total = $this->model->get_trs_beasiswa_count($search);
 
 		$this->twiggy->set('list', $list->result());
 		$this->twiggy->set('total', $total);
@@ -100,11 +103,11 @@ class beasiswa extends CI_Controller {
 			$this->model->trs_beasiswa_penelitian = $this->input->post('penelitian');
 			$this->model->trs_beasiswa_lokasi_penelitian = $this->input->post('lokasi_penelitian');
 			$this->model->trs_beasiswa_penerima_laki = $this->input->post('penerima_l');
-			$this->model->trs_beasiswa_penerima_wanita = $this->input->post('penerima_w');
-			$this->model->trs_beasiswa_strart_date = date('Y-m-d H:i:s', strtotime($this->input->post('tgl_produksi')));
-			$this->model->trs_beasiswa_end_date = date('Y-m-d H:i:s', strtotime($this->input->post('tgl_distribusi')));
+			$this->model->trs_beasiswa_penerima_wanita = $this->input->post('penerima_p');
+			$this->model->trs_beasiswa_strart_date = date('Y-m-d H:i:s', strtotime($this->input->post('start_date')));
+			$this->model->trs_beasiswa_end_date = date('Y-m-d H:i:s', strtotime($this->input->post('end_date')));
 			$this->model->trs_beasiswa_masa = $this->input->post('masa');
-			$this->model->trs_beasiswa_sumber_id = $this->input->post('sumber');
+			$this->model->trs_beasiswa_sumber_id = $this->input->post('sumber_verifikasi');
 			$this->model->trs_beasiswa_keterangan = $this->input->post('keterengan');
 
 			$this->model->save();

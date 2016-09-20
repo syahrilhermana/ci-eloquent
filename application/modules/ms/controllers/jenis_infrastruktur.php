@@ -5,15 +5,14 @@
  * @author	Syahril Hermana
  */
 
-class menu extends CI_Controller {
+class jenis_infrastruktur extends CI_Controller {
 	protected $model;
-	protected $direct;
 
 	public function __construct() {
 		parent::__construct();
 
 		// init twiggy
-		$this->twiggy->title($this->config->item('application'));
+		$this->twiggy->title('CodeIgniter Plus');
 
 		$this->twiggy->meta('keywords', 'codeigniter-plus');
 		$this->twiggy->meta('description', 'CodeIgniter Plus');
@@ -23,21 +22,14 @@ class menu extends CI_Controller {
 		$this->twiggy->set('_csrf', $this->security->get_csrf_token_name());
 		$this->twiggy->set('_token', $this->security->get_csrf_hash());
 
-		$this->direct = base_url('ms/menu');
-		$this->load->library('icons');
-
-		$this->guard->is_access();
+		$this->direct = base_url('ms/jenis_infrastruktur');
 	}
 	
 	public function index(){
 		$page   = (!$this->input->get('page')) ? 1 : $this->input->get('page');
 
 		$this->twiggy->set('this_page', $page);
-		$this->twiggy->set('list', FormEntity::all());
-		$this->twiggy->set('menu', MenuEntity::all());
-		$this->twiggy->set('icons', $this->icons->glyphicons());
-
-		$this->twiggy->template('master/menu/index')->display();
+		$this->twiggy->template('master/jenis-infrastruktur/index')->display();
 	}
 
 	public function list_data()
@@ -48,25 +40,25 @@ class menu extends CI_Controller {
 		$offset = (($page-1)*$limit);
 		$search = "";
 
-		$this->model = new MenuEntity();
-		$list = $this->model->get_menu($offset, $limit, $search, null, null);
-		$total = $this->model->get_menu_count($search);
+		$this->model = new JenisInfrastrukturEntity();
+		$list = $this->model->get_jenis_infrastruktur($offset, $limit, $search, null, null);
+		$total = $this->model->get_jenis_infrastruktur_count($search);
 
 		$this->twiggy->set('list', $list->result());
 		$this->twiggy->set('total', $total);
 		$this->twiggy->set('totalPage', ceil($total/$limit));
 		$this->twiggy->set('size', $list->num_rows());
 		$this->twiggy->set('page', $page);
-		$this->twiggy->template('master/menu/list')->display();
+		$this->twiggy->template('master/jenis-infrastruktur/list')->display();
 	}
 
 	public function form($id=null){
 		if ($id != null) {
-			$this->model = MenuEntity::find($id);
+			$this->model = JenisInfrastrukturEntity::find($id);
 			$this->twiggy->set('object', $this->model);
 		}
 
-		$this->twiggy->template('master/menu/form')->display();
+		$this->twiggy->template('master/jenis-infrastruktur/form')->display();
 	}
 
 	public function delete($id){
@@ -76,7 +68,7 @@ class menu extends CI_Controller {
 				redirect($this->direct, 'location', 303);
 			}
 
-			MenuEntity::delete($id);
+			JenisInfrastrukturEntity::delete($id);
 
 			redirect($this->direct, 'location', 303);
 		}
@@ -85,16 +77,12 @@ class menu extends CI_Controller {
 	public function submit(){
 		try {
 			if ($this->input->post('id') == null) {
-				$this->model = new MenuEntity();
+				$this->model = new JenisInfrastrukturEntity();
 			} else {
-				$this->model = MenuEntity::find($this->input->post('id'));
+				$this->model = JenisInfrastrukturEntity::find($this->input->post('id'));
 			}
 
-			$this->model->mst_menu_name = $this->input->post('name');
-			$this->model->mst_menu_icon = $this->input->post('icon');
-			$this->model->mst_menu_parent = $this->input->post('parent');
-			$this->model->mst_menu_order = $this->input->post('order');
-			$this->model->mst_menu_form_id = $this->input->post('form');
+			$this->model->mst_jenis_infrastruktur_name	= $this->input->post('name');
 
 			$this->model->save();
 

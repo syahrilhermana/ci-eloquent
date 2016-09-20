@@ -81,8 +81,12 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="name" name="name" value="{{ object.mst_menu_name }}" required />
-                                            <label for="name">Parent</label>
+                                            <select name="parent" class="form-control select2-list" data-placeholder="Select an item" required >
+                                                {% for data in menu %}
+                                                    <option value="{{ data.mst_menu_id }}" >{{ data.mst_menu_name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label for="form">Parent</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
